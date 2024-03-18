@@ -1,31 +1,26 @@
 import './App.css';
-
-import { useGetMoviesQuery } from './features/apiSlice';
+import Header from './components/Header';
+import Sidebar from './components/Sidebar';
+import { Outlet } from 'react-router';
+import Footer from './components/Footer';
+import { useState } from 'react';
 
 function App() {
-  const {
-    data: movieData,
-    isError,
-    isLoading,
-    isSuccess,
-  } = useGetMoviesQuery();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  console.log(movieData);
+  return (
+    <div className='App'>
+      <Header
+        isSidebarOpen={isSidebarOpen}
+        setIsSidebarOpen={setIsSidebarOpen}
+      />
 
-  let content;
-
-  if (isSuccess) {
-    content = movieData.results.map((movie) => (
-      <div className='' key={movie.id}>
-        <img
-          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-          alt=''
-        />
-        <p>{movie.title}</p>
-      </div>
-    ));
-  }
-  return <div>{content}</div>;
+      <Sidebar isSidebarOpen={isSidebarOpen} />
+      <Outlet />
+      <main></main>
+      <Footer />
+    </div>
+  );
 }
 
 export default App;
