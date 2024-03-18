@@ -3,9 +3,9 @@ import { useGetTrendingMoviesQuery } from '../features/apiSlice';
 
 import MovieHeader from './MovieHeader';
 
+// Get the first movie in trending movies array and display it
 const Trending = () => {
-  const { data, isLoading, isSuccess, isError, error } =
-    useGetTrendingMoviesQuery();
+  const { data, isSuccess } = useGetTrendingMoviesQuery();
 
   let headerContent;
 
