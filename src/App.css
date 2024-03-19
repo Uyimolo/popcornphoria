@@ -30,7 +30,7 @@ h3 {
 }
 
 h1 {
-  font-size: 2.7em;
+  font-size: 2.8em;
 }
 
 h2 {
@@ -38,11 +38,11 @@ h2 {
 }
 
 h3 {
-  font-size: 1.3em;
+  font-size: 1.2em;
 }
 
 p {
-  color: var(--white-text-color);
+  color: var(--gray);
   line-height: 1.6;
 }
 
@@ -80,8 +80,11 @@ header {
 }
 
 .logo p {
+  line-height: 1.2;
+  font-size: 1.3em;
   color: var(--primary-color);
   font-weight: 800;
+  text-decoration: none;
 }
 
 .content-options {
@@ -274,21 +277,86 @@ header {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 7;
   -webkit-box-orient: vertical;
+}
+
+.homepage-carousels {
+  padding: 1rem;
 }
 
 .carousel-container {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding: 1rem;
+  /* padding: 1rem; */
   position: relative;
+  z-index: 0;
 }
 
 .carousel-tile img {
   width: 100%;
   /* height: 8rem; */
+}
+
+.movie {
+  margin-top: 5rem;
+  /* padding: 1rem; */
+}
+
+.movie .trailer-video {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  border: none;
+}
+
+.trailer-video-container img {
+  aspect-ratio: 16 / 9;
+
+  width: 100%;
+}
+
+.movie-details {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 2rem;
+}
+
+.title-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.title-details h2 {
+  color: var(--primary-color);
+}
+
+.movie-details .genres {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  column-gap: 1rem;
+  row-gap: 1rem;
+}
+
+.genre,
+.movie-details .year {
+  position: relative;
+  color: var(--gray);
+  font-size: 0.8em;
+}
+
+.genre {
+  border: 1px solid var(--gray);
+  padding: 0 0.5rem;
+}
+
+.story-line {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 @media (min-width: 768px) {

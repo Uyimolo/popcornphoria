@@ -14,7 +14,8 @@ const Home = () => {
   let trendingContent;
 
   if (isTrendingSuccess) {
-    const trending = trendingData.results;
+    // remove the first movie (already using the first movie in trending array as the Header movie for the page)
+    const trending = trendingData.results.slice(1);
     trendingContent = (
       <MovieCarousels movieData={trending} carouselTitle='Trending now' />
     );
@@ -68,10 +69,13 @@ const Home = () => {
   return (
     <div>
       <Trending />
-      <>{trendingContent}</>
-      <> {upcomingContent}</>
-      <>{popularMoviesContent}</>
-      <>{popularTvsContent}</>
+
+      <div className='homepage-carousels'>
+        <div>{trendingContent}</div>
+        <div> {upcomingContent}</div>
+        <div>{popularMoviesContent}</div>
+        <div>{popularTvsContent}</div>
+      </div>
     </div>
   );
 };
