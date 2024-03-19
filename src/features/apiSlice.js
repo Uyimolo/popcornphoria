@@ -21,9 +21,24 @@ export const apiSlice = createApi({
         options: tmdbOptions,
       }),
     }),
+
+    getPopularMovies: builder.query({
+      query: () => ({
+        url: `movie/popular?language=en-US&page=1&api_key=${tmdbApiKey}`,
+        options: tmdbOptions,
+      }),
+    }),
+
     getMovieDetail: builder.query({
       query: (id) => ({
         url: `movie/${id}?language=en-US&api_key=${tmdbApiKey}`,
+        options: tmdbOptions,
+      }),
+    }),
+
+    getMovieVideos: builder.query({
+      query: () => ({
+        url: `movie/movie_id/videos?language=en-US&api_key=${tmdbApiKey}`,
         options: tmdbOptions,
       }),
     }),
@@ -34,6 +49,14 @@ export const apiSlice = createApi({
         options: tmdbOptions,
       }),
     }),
+
+    getPopularTvShows: builder.query({
+      query: () => ({
+        url: `tv/popular?language=en-US&page=1&api_key=${tmdbApiKey}`,
+        options: tmdbOptions,
+      }),
+    }),
+
     getTvShowDetail: builder.query({
       query: (id) => ({
         url: `tv/${id}?language=en-US&api_key=${tmdbApiKey}`,
@@ -47,6 +70,7 @@ export const apiSlice = createApi({
         options: tmdbOptions,
       }),
     }),
+
     getUpcomingMovies: builder.query({
       query: () => ({
         url: `movie/upcoming?language=en-US&page=1&api_key=${tmdbApiKey}`,
@@ -59,8 +83,11 @@ export const apiSlice = createApi({
 export const {
   useGetMoviesQuery,
   useGetMovieDetailQuery,
+  useGetPopularMoviesQuery,
+  useGetMovieVideosQuery,
   useGetTvShowsQuery,
   useGetTvShowDetailQuery,
+  useGetPopularTvShowsQuery,
   useGetAllTrendingQuery,
   useGetUpcomingMoviesQuery,
 } = apiSlice;

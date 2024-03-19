@@ -4,6 +4,7 @@ import App from './App.jsx';
 import './index.css';
 import store from './app/store.js';
 import Home from './routes/Home.jsx';
+import MovieDetails from './routes/MovieDetails';
 import { Provider } from 'react-redux';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
@@ -13,7 +14,7 @@ const router = createBrowserRouter([
     element: <App />, //Layout component
     children: [
       { path: '/', element: <Home /> },
-      // { path: '/about', element: <About /> },
+      { path: '/movie/:id', element: <MovieDetails /> },
       // { path: '/contact', element: <Contact /> },
     ],
   },
