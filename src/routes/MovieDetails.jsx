@@ -75,10 +75,11 @@ const MovieDetails = () => {
   const { movieId } = useParams();
 
   const { data: movieData, isSuccess } = useGetMovieDetailQuery(movieId);
-
+  console.log(movieData);
   let movie;
   if (isSuccess) {
     movie = movieData;
+    console.log(movie);
   }
 
   const { data: videoData, isSuccess: videoSuccess } =
@@ -86,18 +87,23 @@ const MovieDetails = () => {
 
   let videoSrc;
   if (videoSuccess) {
+    console.log(videoData);
     // check if an official trailer video exists
     const trailerVideo = videoData.results.filter((video) =>
       video.name.toLowerCase().includes('official trailer')
     )[0];
     // if it exists show the trailer video
-    if (trailerVideo) {
-      videoSrc = `https://www.youtube.com/embed/${trailerVideo.key}`;
+    if (videoData.results.length < 1) {
+      videoSrc = false;
+    } else {
+      if (trailerVideo) {
+        videoSrc = `https://www.youtube.com/embed/${trailerVideo.key}`;
+      } else {
+        videoSrc = `https://www.youtube.com/embed/${videoData.results[0].key}`;
+      }
     }
+
     // if no trailer video exists show the first video in array
-    else {
-      videoSrc = `https://www.youtube.com/embed/${videoData.results[0].key}`;
-    }
   }
 
   const { data: similarMoviesData, isSuccess: similarMovieSuccess } =
@@ -111,13 +117,29 @@ const MovieDetails = () => {
   return (
     <div className='movie'>
       <div className='trailer-video-container'>
-        <iframe
-          className='trailer-video'
-          src={videoSrc}
-          allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-          allowFullScreen
-          title='Embedded youtube'
-        />
+        {/* if theres a trailer video or any video at all show it */}
+        {videoSrc ? (
+          <iframe
+            className='trailer-video'
+            src={videoSrc}
+            allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+            allowFullScreen
+            title='Embedded youtube'
+          />
+          //if no video show the poster image 
+        ) : movie && movie.poster_path ? (
+          <img
+            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+            alt=''
+          />
+        ) : (
+          <div>
+            <h1>wahala</h1>
+            <h1>wahala</h1>
+            <h1>wahala</h1>
+            <h1>wahala</h1>
+          </div>
+        )}
       </div>
 
       {movie && (
