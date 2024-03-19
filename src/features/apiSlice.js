@@ -27,12 +27,7 @@ export const apiSlice = createApi({
         options: tmdbOptions,
       }),
     }),
-    getTrendingMovies: builder.query({
-      query: () => ({
-        url: `trending/movie/day?language=en-US&api_key=${tmdbApiKey}`,
-        options: tmdbOptions,
-      }),
-    }),
+
     getTvShows: builder.query({
       query: () => ({
         url: `genre/tv/list?include_adult=true&include_video=true&language=en-US&page=1&sort_by=primary_release_date.desc&api_key=${tmdbApiKey}`,
@@ -45,9 +40,16 @@ export const apiSlice = createApi({
         options: tmdbOptions,
       }),
     }),
-    getTrendingTvShows: builder.query({
+
+    getAllTrending: builder.query({
       query: () => ({
-        url: `trending/tv/day?language=en-US&api_key=${tmdbApiKey}`,
+        url: `trending/all/day?language=en-US&api_key=${tmdbApiKey}`,
+        options: tmdbOptions,
+      }),
+    }),
+    getUpcomingMovies: builder.query({
+      query: () => ({
+        url: `movie/upcoming?language=en-US&page=1&api_key=${tmdbApiKey}`,
         options: tmdbOptions,
       }),
     }),
@@ -57,10 +59,10 @@ export const apiSlice = createApi({
 export const {
   useGetMoviesQuery,
   useGetMovieDetailQuery,
-  useGetTrendingMoviesQuery,
   useGetTvShowsQuery,
   useGetTvShowDetailQuery,
-  useGetTrendingTvShowsQuery,
+  useGetAllTrendingQuery,
+  useGetUpcomingMoviesQuery,
 } = apiSlice;
 
 export default apiSlice;
