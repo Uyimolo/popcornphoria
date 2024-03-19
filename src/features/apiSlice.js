@@ -37,8 +37,15 @@ export const apiSlice = createApi({
     }),
 
     getMovieVideos: builder.query({
-      query: () => ({
-        url: `movie/movie_id/videos?language=en-US&api_key=${tmdbApiKey}`,
+      query: (id) => ({
+        url: `movie/${id}/videos?language=en-US&api_key=${tmdbApiKey}`,
+        options: tmdbOptions,
+      }),
+    }),
+
+    getSimilarMovies: builder.query({
+      query: (id) => ({
+        url: `movie/${id}/similar?language=en-US&page=1&api_key=${tmdbApiKey}`,
         options: tmdbOptions,
       }),
     }),
@@ -90,6 +97,7 @@ export const {
   useGetPopularTvShowsQuery,
   useGetAllTrendingQuery,
   useGetUpcomingMoviesQuery,
+  useGetSimilarMoviesQuery,
 } = apiSlice;
 
 export default apiSlice;

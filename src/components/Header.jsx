@@ -3,14 +3,17 @@ import searchIcon from '../assets/images/search.svg';
 import hamburgerIcon from '../assets/images/hamburger-menu.svg'
 
 import closeIcon from '../assets/images/close-menu.svg'
+import { Link } from 'react-router-dom';
 
 const Header = ({isSidebarOpen, setIsSidebarOpen}) => {
   return (
     <header>
-      <div className='logo'>
-        <p>PopCorn</p>
-        <p>Phoria</p>
-      </div>
+      <Link>
+        <div className='logo'>
+          <p>PopCorn</p>
+          <p>Phoria</p>
+        </div>
+      </Link>
 
       <div className='search'>
         <input
