@@ -329,10 +329,6 @@ header {
   gap: 0.5rem;
 }
 
-.title-details h2 {
-  color: var(--primary-color);
-}
-
 .movie-details .genres {
   display: flex;
   flex-wrap: wrap;

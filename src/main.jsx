@@ -7,6 +7,7 @@ import Home from './routes/Home.jsx';
 import MovieDetails from './routes/MovieDetails';
 import { Provider } from 'react-redux';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import TvDetails from './routes/TvDetails.jsx';
 
 const router = createBrowserRouter([
   {
@@ -15,7 +16,7 @@ const router = createBrowserRouter([
     children: [
       { path: '/', element: <Home /> },
       { path: '/movie/:movieId', element: <MovieDetails /> },
-      // { path: '/contact', element: <Contact /> },
+      { path: '/tv/:tvId', element: <TvDetails /> },
     ],
   },
 ]);
