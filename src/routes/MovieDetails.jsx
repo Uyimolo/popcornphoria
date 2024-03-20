@@ -2,6 +2,7 @@ import { useParams } from 'react-router';
 import {
   useGetMovieDetailQuery,
   useGetMovieVideosQuery,
+  useGetMovieCreditsQuery,
   useGetSimilarMoviesQuery,
 } from '../features/apiSlice';
 import MovieCarousels from '../components/MovieCarousels';
@@ -47,6 +48,15 @@ const MovieDetails = () => {
     similarMovies = similarMoviesData.results;
   }
 
+  const { data: creditsData, isSuccess: creditsSuccess } =
+    useGetMovieCreditsQuery(movieId);
+
+  let credits;
+  if (creditsSuccess) {
+    console.log(creditsData.cast);
+    credits = creditsData.cast.slice(0, 5).map((credit) => credit.name);
+  }
+
   return (
     <div className='movie'>
       <div className='trailer-video-container'>
@@ -89,6 +99,8 @@ const MovieDetails = () => {
                 </p>
               ))}
             </div>
+
+            {credits && <p>{`Starring: ${credits.join(' | ')}`}</p>}
           </div>
 
           <div className='story-line'>
