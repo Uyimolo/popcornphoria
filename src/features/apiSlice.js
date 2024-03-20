@@ -50,6 +50,13 @@ export const apiSlice = createApi({
       }),
     }),
 
+    getMovieCredits: builder.query({
+      query: (id) => ({
+        url: `movie/${id}/credits?language=en-US&api_key=${tmdbApiKey}`,
+        options: tmdbOptions,
+      }),
+    }),
+
     getTvShows: builder.query({
       query: () => ({
         url: `genre/tv/list?include_adult=true&include_video=true&language=en-US&page=1&sort_by=primary_release_date.desc&api_key=${tmdbApiKey}`,
@@ -67,6 +74,27 @@ export const apiSlice = createApi({
     getTvShowDetail: builder.query({
       query: (id) => ({
         url: `tv/${id}?language=en-US&api_key=${tmdbApiKey}`,
+        options: tmdbOptions,
+      }),
+    }),
+
+    getTvShowVideos: builder.query({
+      query: (id) => ({
+        url: `tv/${id}/videos?language=en-US&api_key=${tmdbApiKey}`,
+        options: tmdbOptions,
+      }),
+    }),
+
+    getTvShowCredits: builder.query({
+      query: (id) => ({
+        url: `tv/${id}/credits?language=en-US&api_key=${tmdbApiKey}`,
+        options: tmdbOptions,
+      }),
+    }),
+
+    getSimilarTvShows: builder.query({
+      query: (id) => ({
+        url: `tv/${id}/similar?language=en-US&page=1&api_key=${tmdbApiKey}`,
         options: tmdbOptions,
       }),
     }),
@@ -92,9 +120,13 @@ export const {
   useGetMovieDetailQuery,
   useGetPopularMoviesQuery,
   useGetMovieVideosQuery,
+  useGetMovieCreditsQuery,
   useGetTvShowsQuery,
   useGetTvShowDetailQuery,
   useGetPopularTvShowsQuery,
+  useGetTvShowVideosQuery,
+  useGetTvShowCreditsQuery,
+  useGetSimilarTvShowsQuery,
   useGetAllTrendingQuery,
   useGetUpcomingMoviesQuery,
   useGetSimilarMoviesQuery,

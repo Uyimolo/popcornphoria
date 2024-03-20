@@ -1,24 +1,29 @@
 import { useParams } from 'react-router';
 import {
-  useGetMovieDetailQuery,
-  useGetMovieVideosQuery,
-  useGetSimilarMoviesQuery,
+  useGetSimilarTvShowsQuery,
+  useGetTvShowDetailQuery,
+  useGetTvShowVideosQuery,
+  useGetTvShowCreditsQuery,
 } from '../features/apiSlice';
 import MovieCarousels from '../components/MovieCarousels';
+const TvDetails = () => {
+  const { tvId } = useParams();
 
-const MovieDetails = () => {
-  const { movieId } = useParams();
+  const { data: tvShowDetails, isSuccess: tvSuccess } =
+    useGetTvShowDetailQuery(tvId);
 
-  const { data: movieData, isSuccess } = useGetMovieDetailQuery(movieId);
-  let movie;
-  if (isSuccess) {
-    movie = movieData;
+  let tvShow;
+  if (tvSuccess) {
+    tvShow = tvShowDetails;
+    console.log(tvShow);
   }
 
+  console.log(tvShowDetails);
   const { data: videoData, isSuccess: videoSuccess } =
-    useGetMovieVideosQuery(movieId);
+    useGetTvShowVideosQuery(tvId);
 
   let videoSrc;
+
   if (videoSuccess) {
     console.log(videoData);
     // check if an official trailer video exists
@@ -35,20 +40,27 @@ const MovieDetails = () => {
         videoSrc = `https://www.youtube.com/embed/${videoData.results[0].key}`;
       }
     }
-
-    // if no trailer video exists show the first video in array
   }
 
-  const { data: similarMoviesData, isSuccess: similarMovieSuccess } =
-    useGetSimilarMoviesQuery(movieId);
+  const { data: similarTvShowData, isSuccess: similarTvShowSuccess } =
+    useGetSimilarTvShowsQuery(tvId);
 
-  let similarMovies;
-  if (similarMovieSuccess) {
-    similarMovies = similarMoviesData.results;
+  let similarTvshows;
+  if (similarTvShowSuccess) {
+    similarTvshows = similarTvShowData.results;
+  }
+
+  const { data: creditsData, isSuccess: creditsSuccess } =
+    useGetTvShowCreditsQuery(tvId);
+
+  let credits;
+  if (creditsSuccess) {
+    console.log(creditsData.cast);
+    credits = creditsData.cast.slice(0, 5).map((credit) => credit.name);
   }
 
   return (
-    <div className='movie'>
+    <div className='tv-show movie'>
       <div className='trailer-video-container'>
         {/* if theres a trailer video or any video at all show it */}
         {videoSrc ? (
@@ -60,9 +72,9 @@ const MovieDetails = () => {
             title='Embedded youtube'
           />
         ) : //if no video show the poster image
-        movie && movie.poster_path ? (
+        tvShow && tvShow.poster_path ? (
           <img
-            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+            src={`https://image.tmdb.org/t/p/w500${tvShow.poster_path}`}
             alt=''
           />
         ) : (
@@ -75,33 +87,37 @@ const MovieDetails = () => {
         )}
       </div>
 
-      {movie && (
+      {tvShow && (
         <div className='movie-details'>
           <div className='title-details'>
-            <h2>{movie.title}</h2>
+            <h2>{tvShow.name}</h2>
 
-            <p className='year'>{movie.release_date.split('-')[0]}</p>
+            <p className='year'>{`${tvShow.first_air_date.split('-')[0]} | ${
+              tvShow.number_of_seasons
+            } ${tvShow.number_of_seasons < 2 ? 'season' : 'seasons'} `}</p>
 
             <div className='genres'>
-              {movie.genres.map((genre) => (
+              {tvShow.genres.map((genre) => (
                 <p className='genre' key={genre.id}>
                   {genre.name}
                 </p>
               ))}
             </div>
+
+            {credits && <p>{`Starring: ${credits.join(' | ')}`}</p>}
           </div>
 
           <div className='story-line'>
             <h3>Story Line</h3>
-            <p className='overview'>{movie.overview}</p>
+            <p className='overview'>{tvShow.overview}</p>
           </div>
 
-          {similarMovies && (
-            <div className='similar-movies'>
+          {similarTvshows && (
+            <div className='similar-tv-'>
               <MovieCarousels
-                movieData={similarMovies}
-                carouselTitle='Similar movies'
-                type='movie'
+                movieData={similarTvshows}
+                carouselTitle='Similar tv shows'
+                type='tv'
               />
             </div>
           )}
@@ -111,4 +127,4 @@ const MovieDetails = () => {
   );
 };
 
-export default MovieDetails;
+export default TvDetails;
