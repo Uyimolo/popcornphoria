@@ -67,7 +67,7 @@ const Home = () => {
   }
 
   return (
-    <div>
+    <div className='homepage'>
       <Trending />
 
       <div className='homepage-carousels'>

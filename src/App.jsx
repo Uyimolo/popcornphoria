@@ -19,13 +19,10 @@ function App() {
         isSidebarOpen={isSidebarOpen}
         setIsSidebarOpen={setIsSidebarOpen}
       />
-      {/* show side bar (absolutely positioned) */}
       <Sidebar isSidebarOpen={isSidebarOpen} />
-      {/* outlet shows main page content */}
       <main>
         <Outlet />
       </main>
-
       <Footer />
     </div>
   );

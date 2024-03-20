@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-regular-svg-icons';
+import { Link } from 'react-router-dom';
 
 const MovieHeader = ({ movieData }) => {
   return (
@@ -27,7 +28,9 @@ const MovieHeader = ({ movieData }) => {
         <p className='overview'>{movieData.overview}</p>
 
         <div className='cta'>
-          <button className='watch-trailer primary-btn'>Watch trailer</button>
+          <Link to={`/${movieData.media_type}/${movieData.id}`}>
+            <button className='watch-trailer primary-btn'>Watch trailer</button>
+          </Link>
 
           <button className='add-to-watchlist secondary-btn'>
             Add to watchlist

@@ -13,6 +13,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
 
 const Sidebar = ({ isSidebarOpen }) => {
   const menuContent = [
@@ -37,10 +38,10 @@ const Sidebar = ({ isSidebarOpen }) => {
   ];
   return (
     <aside className={`sidebar ${isSidebarOpen ? 'active' : ''}`}>
-      <div className='logo'>
+      <Link to='/' className='logo'>
         <p>PopCorn</p>
         <p>Phoria</p>
-      </div>
+      </Link>
 
       <div className='sidebar-section'>
         <p className='sidebar-section-heading'>Menu</p>

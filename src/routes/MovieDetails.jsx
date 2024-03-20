@@ -13,6 +13,7 @@ const MovieDetails = () => {
   const { data: movieData, isSuccess } = useGetMovieDetailQuery(movieId);
   let movie;
   if (isSuccess) {
+    console.log(movieData);
     movie = movieData;
   }
 
@@ -21,7 +22,6 @@ const MovieDetails = () => {
 
   let videoSrc;
   if (videoSuccess) {
-    console.log(videoData);
     // check if an official trailer video exists
     const trailerVideo = videoData.results.filter((video) =>
       video.name.toLowerCase().includes('official trailer')
@@ -53,12 +53,11 @@ const MovieDetails = () => {
 
   let credits;
   if (creditsSuccess) {
-    console.log(creditsData.cast);
     credits = creditsData.cast.slice(0, 5).map((credit) => credit.name);
   }
 
   return (
-    <div className='movie'>
+    <div className='movie page'>
       <div className='trailer-video-container'>
         {/* if theres a trailer video or any video at all show it */}
         {videoSrc ? (
@@ -76,12 +75,7 @@ const MovieDetails = () => {
             alt=''
           />
         ) : (
-          <div>
-            <h1>wahala</h1>
-            <h1>wahala</h1>
-            <h1>wahala</h1>
-            <h1>wahala</h1>
-          </div>
+          <div></div>
         )}
       </div>
 
@@ -90,7 +84,9 @@ const MovieDetails = () => {
           <div className='title-details'>
             <h2>{movie.title}</h2>
 
-            <p className='year'>{movie.release_date.split('-')[0]}</p>
+            <p className='year'>{`${
+              movie.release_date.split('-')[0]
+            } | ${movie.vote_average.toFixed(1)} stars`}</p>
 
             <div className='genres'>
               {movie.genres.map((genre) => (

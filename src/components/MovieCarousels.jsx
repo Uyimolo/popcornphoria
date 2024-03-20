@@ -6,10 +6,18 @@ const MovieCarousels = ({ movieData, carouselTitle, type }) => {
   return (
     <div className='carousel-container'>
       <h3>{carouselTitle}</h3>
-      <swiper-container
-        className='carousel'
-        space-between='10'
-        slides-per-view='3.4'>
+      <swiper-container 
+        breakpoints={JSON.stringify({
+          0: {
+            slidesPerView: 3.4,
+            spaceBetween: 10,
+          },
+
+          768: {
+            slidesPerView: 4.4,
+            spaceBetween: 10,
+          },
+        })}>
         {
           //show only movies with poster images becaue in details page if theres no trailer available i'll need to show the movie poster
           movieData
@@ -18,13 +26,11 @@ const MovieCarousels = ({ movieData, carouselTitle, type }) => {
               <swiper-slide key={movie.id} lazy='true'>
                 {/* conditionally set media type */}
                 <Link to={`/${type ? type : movie.media_type}/${movie.id}`}>
-                  <div className='carousel-tile'>
                     <img
                       loading='lazy'
                       src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                      alt=''
+                      alt={`${movie.title}`}
                     />
-                  </div>
                 </Link>
               </swiper-slide>
             ))

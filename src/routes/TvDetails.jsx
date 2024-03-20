@@ -15,10 +15,8 @@ const TvDetails = () => {
   let tvShow;
   if (tvSuccess) {
     tvShow = tvShowDetails;
-    console.log(tvShow);
   }
 
-  console.log(tvShowDetails);
   const { data: videoData, isSuccess: videoSuccess } =
     useGetTvShowVideosQuery(tvId);
 
@@ -60,7 +58,7 @@ const TvDetails = () => {
   }
 
   return (
-    <div className='tv-show movie'>
+    <div className='tv-show page'>
       <div className='trailer-video-container'>
         {/* if theres a trailer video or any video at all show it */}
         {videoSrc ? (
@@ -78,12 +76,7 @@ const TvDetails = () => {
             alt=''
           />
         ) : (
-          <div>
-            <h1>wahala</h1>
-            <h1>wahala</h1>
-            <h1>wahala</h1>
-            <h1>wahala</h1>
-          </div>
+          <div></div>
         )}
       </div>
 
@@ -94,7 +87,9 @@ const TvDetails = () => {
 
             <p className='year'>{`${tvShow.first_air_date.split('-')[0]} | ${
               tvShow.number_of_seasons
-            } ${tvShow.number_of_seasons < 2 ? 'season' : 'seasons'} `}</p>
+            } ${
+              tvShow.number_of_seasons < 2 ? 'season' : 'seasons'
+            } | ${tvShow.vote_average.toFixed(1)} stars`}</p>
 
             <div className='genres'>
               {tvShow.genres.map((genre) => (
