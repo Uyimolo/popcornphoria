@@ -16,8 +16,8 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'https://api.themoviedb.org/3/' }),
   endpoints: (builder) => ({
     getMovies: builder.query({
-      query: () => ({
-        url: `discover/movie?include_adult=true&include_video=true&language=en-US&page=1&sort_by=primary_release_date.desc&api_key=${tmdbApiKey}`,
+      query: (pageNumber) => ({
+        url: `discover/movie?include_adult=true&include_video=true&language=en-US&${pageNumber}&sort_by=primary_release_date.desc&api_key=${tmdbApiKey}`,
         options: tmdbOptions,
       }),
     }),
@@ -25,6 +25,13 @@ export const apiSlice = createApi({
     getPopularMovies: builder.query({
       query: () => ({
         url: `movie/popular?language=en-US&page=1&api_key=${tmdbApiKey}`,
+        options: tmdbOptions,
+      }),
+    }),
+
+    getTopRatedMovies: builder.query({
+      query: () => ({
+        url: `movie/top_rated?language=en-US&page=1&api_key=${tmdbApiKey}`,
         options: tmdbOptions,
       }),
     }),
@@ -119,6 +126,7 @@ export const {
   useGetMoviesQuery,
   useGetMovieDetailQuery,
   useGetPopularMoviesQuery,
+  useGetTopRatedMoviesQuery,
   useGetMovieVideosQuery,
   useGetMovieCreditsQuery,
   useGetTvShowsQuery,

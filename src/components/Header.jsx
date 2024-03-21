@@ -32,7 +32,7 @@ const Header = ({isSidebarOpen, setIsSidebarOpen}) => {
           <img src={hamburgerIcon} alt='menu' className='menu-icon' />
         )}
         {isSidebarOpen && (
-          <img src={closeIcon} alt='menu' className='menu-icon' />
+          <img src={closeIcon} alt='menu' className='menu-icon close-icon' />
         )}
       </div>
     </header>

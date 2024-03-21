@@ -2,33 +2,54 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-regular-svg-icons';
 import { Link } from 'react-router-dom';
 
-const MovieHeader = ({ movieData }) => {
+const MovieHeader = ({ movieData, type }) => {
+  // destructuring movieData
+  const {
+    poster_path,
+    vote_average,
+    vote_count,
+    overview,
+    media_type,
+    id,
+    release_date,
+    first_air_date,
+    name,
+    title,
+  } = movieData;
+
+  let date, film_title;
+
+  if (media_type) {
+    date = media_type === 'movie' ? release_date : first_air_date;
+
+    film_title = media_type === 'movie' ? title : name;
+  } else {
+    date = release_date;
+    film_title = title;
+  }
+
   return (
     <div className='movie-header'>
       <img
-        src={`https://image.tmdb.org/t/p/w500${movieData.poster_path}`}
-        alt={`${movieData.title}`}
+        src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+        alt={`${movieData}`}
       />
 
       <div className='movie-info'>
-        <h1>{movieData.title}</h1>
+        <h1>{film_title}</h1>
 
         <div className='miscellenous'>
           <FontAwesomeIcon icon={faStar} className='awesome' />
-
-          <p className='rating'>{movieData.vote_average}</p>
-
-          <p className='rating-count'>({movieData.vote_count})</p>
-
+          <p className='rating'>{vote_average}</p>
+          <p className='rating-count'>({vote_count})</p>
           <div className='seperation'></div>
-
-          <p className='year'>{movieData.release_date.split('-')[0]}</p>
+          <p className='year'>{date.split('-')[0]}</p>
         </div>
 
-        <p className='overview'>{movieData.overview}</p>
+        <p className='overview'>{overview}</p>
 
         <div className='cta'>
-          <Link to={`/${movieData.media_type}/${movieData.id}`}>
+          <Link to={`/${media_type ? media_type : type}/${id}`}>
             <button className='watch-trailer primary-btn'>Watch trailer</button>
           </Link>
 

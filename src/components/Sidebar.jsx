@@ -17,22 +17,22 @@ import { Link } from 'react-router-dom';
 
 const Sidebar = ({ isSidebarOpen }) => {
   const menuContent = [
-    { name: 'Home', icon: faHome },
-    { name: 'Movies', icon: faCamera },
-    { name: 'TV Shows', icon: faTelevision },
+    { name: 'Home', icon: faHome, to: '/' },
+    { name: 'Movies', icon: faCamera, to: '/movie' },
+    { name: 'TV Shows', icon: faTelevision, to: '/tv' },
   ];
 
   const libraryContent = [
-    { name: 'Recent', icon: faClock },
-    { name: 'Top Rated', icon: faStar },
-    { name: 'WatchList', icon: faBookmark },
+    { name: 'Recent', icon: faClock, to: '' },
+    { name: 'Top Rated', icon: faStar, to: '' },
+    { name: 'WatchList', icon: faBookmark, to: '' },
   ];
 
   const generalContent = [
-    { name: 'Sign In', icon: faSignIn },
-    { name: 'About', icon: faInfoCircle },
-    { name: 'Contact', icon: faContactBook },
-    { name: 'Settings', icon: faCogs },
+    { name: 'Sign In', icon: faSignIn, to: '' },
+    { name: 'About', icon: faInfoCircle, to: '' },
+    { name: 'Contact', icon: faContactBook, to: '' },
+    { name: 'Settings', icon: faCogs, to: '' },
     ,
     ,
   ];
@@ -47,10 +47,10 @@ const Sidebar = ({ isSidebarOpen }) => {
         <p className='sidebar-section-heading'>Menu</p>
         <div className='sidebar-section-contents'>
           {menuContent.map((item) => (
-            <div key={item.name} className='section-content'>
+            <Link key={item.name} to={item.to} className='section-content'>
               <FontAwesomeIcon className='awesome' icon={item.icon} />
               <p>{item.name}</p>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
@@ -59,10 +59,10 @@ const Sidebar = ({ isSidebarOpen }) => {
         <p className='sidebar-section-heading'>Library</p>
         <div className='sidebar-section-contents'>
           {libraryContent.map((item) => (
-            <div key={item.name} className='section-content'>
+            <Link key={item.name} to={item.to} className='section-content'>
               <FontAwesomeIcon className='awesome' icon={item.icon} />
               <p className='sidebar-content-name'>{item.name}</p>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
@@ -71,10 +71,10 @@ const Sidebar = ({ isSidebarOpen }) => {
         <p className='sidebar-section-heading'>General</p>
         <div className='sidebar-section-contents'>
           {generalContent.map((item) => (
-            <div key={item.name} className='section-content'>
+            <Link key={item.name} to={item.to} className='section-content'>
               <FontAwesomeIcon className='awesome' icon={item.icon} />
               <p>{item.name}</p>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
