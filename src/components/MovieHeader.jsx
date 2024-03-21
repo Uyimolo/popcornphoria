@@ -24,8 +24,10 @@ const MovieHeader = ({ movieData, type }) => {
     date = media_type === 'movie' ? release_date : first_air_date;
 
     film_title = media_type === 'movie' ? title : name;
-  }
-  else {
+  } else if (type) {
+    date = type === 'movie' ? release_date : first_air_date;
+    film_title = type === 'movie' ? title : name;
+  } else {
     date = release_date;
     film_title = title;
   }

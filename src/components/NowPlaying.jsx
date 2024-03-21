@@ -1,7 +1,7 @@
 import { register } from 'swiper/element/bundle';
 import MovieHeader from './MovieHeader';
 register();
-const TopRatedMovies = ({ topRatedMovies }) => {
+const NowPlaying = ({ nowPlaying, type }) => {
   return (
     <div>
       <swiper-container
@@ -18,11 +18,11 @@ const TopRatedMovies = ({ topRatedMovies }) => {
             spaceBetween: 20,
           },
         })}>
-        {topRatedMovies &&
-          topRatedMovies.map((movie) => (
+        {nowPlaying &&
+          nowPlaying.map((movie) => (
             <swiper-slide key={movie.id}>
               <div className='top-rated-slide'>
-                <MovieHeader movieData={movie} type='movie' />
+                <MovieHeader movieData={movie} type={type} />
               </div>
             </swiper-slide>
           ))}
@@ -31,4 +31,4 @@ const TopRatedMovies = ({ topRatedMovies }) => {
   );
 };
 
-export default TopRatedMovies;
+export default NowPlaying;

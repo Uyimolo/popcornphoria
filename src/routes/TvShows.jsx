@@ -1,18 +1,18 @@
 import { useState } from 'react';
-import NowPlaying from '../components/NowPlaying';
 import {
-  useGetCurrentlyPlayingMoviesQuery,
-  useGetMoviesQuery,
+  useGetTvShowsQuery,
+  useGetCurrentlyPlayingTvShowsQuery,
 } from '../features/apiSlice';
 import MovieListPagination from '../components/MovieListPagination';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import NowPlaying from '../components/NowPlaying';
 
-const Movies = () => {
+const TvShows = () => {
   const [pageNumber, setPageNumber] = useState(1);
 
   const { data: nowPlaying, isSuccess: nowPlayingSuccess } =
-    useGetCurrentlyPlayingMoviesQuery();
+    useGetCurrentlyPlayingTvShowsQuery();
 
   let nowPlayingList;
   if (nowPlayingSuccess) {
@@ -21,7 +21,8 @@ const Movies = () => {
   }
 
   const { data: movies, isSuccess: moviesSuccess } =
-    useGetMoviesQuery(pageNumber);
+    useGetTvShowsQuery(pageNumber);
+  console.log(movies);
 
   let movieList;
   if (moviesSuccess) {
@@ -41,10 +42,10 @@ const Movies = () => {
   return (
     <div className='movie'>
       <div className='topRated-movies'>
-        <NowPlaying nowPlaying={nowPlayingList} type='movie' />
+        <NowPlaying nowPlaying={nowPlayingList} type='tv' />
       </div>
 
-      <h3 className='padded-heading'>Movies</h3>
+      <h3 className='padded-heading'>Tv shows</h3>
 
       {movieList && <MovieListPagination movieList={movieList} />}
       <div className='pagination-scroll'></div>
@@ -81,4 +82,4 @@ const Movies = () => {
   );
 };
 
-export default Movies;
+export default TvShows;

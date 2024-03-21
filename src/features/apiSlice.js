@@ -17,7 +17,7 @@ export const apiSlice = createApi({
   endpoints: (builder) => ({
     getMovies: builder.query({
       query: (pageNumber) => ({
-        url: `discover/movie?&include_video=true&language=en-US&page=${pageNumber}&api_key=${tmdbApiKey}`,
+        url: `discover/movie?include_adult=false&include_video=false&language=en-US&page=${pageNumber}&sort_by=popularity.desc&api_key=${tmdbApiKey}`,
         options: tmdbOptions,
       }),
     }),
@@ -29,9 +29,9 @@ export const apiSlice = createApi({
       }),
     }),
 
-    getTopRatedMovies: builder.query({
+    getCurrentlyPlayingMovies: builder.query({
       query: () => ({
-        url: `movie/top_rated?language=en-US&page=1&api_key=${tmdbApiKey}`,
+        url: `movie/now_playing?language=en-US&page=1&api_key=${tmdbApiKey}`,
         options: tmdbOptions,
       }),
     }),
@@ -65,8 +65,15 @@ export const apiSlice = createApi({
     }),
 
     getTvShows: builder.query({
+      query: (pageNumber) => ({
+        url: `discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=${pageNumber}&sort_by=popularity.desc&api_key=${tmdbApiKey}`,
+        options: tmdbOptions,
+      }),
+    }),
+
+    getCurrentlyPlayingTvShows: builder.query({
       query: () => ({
-        url: `genre/tv/list?include_adult=true&include_video=true&language=en-US&page=1&sort_by=primary_release_date.desc&api_key=${tmdbApiKey}`,
+        url: `tv/airing_today?language=en-US&page=1&api_key=${tmdbApiKey}`,
         options: tmdbOptions,
       }),
     }),
@@ -126,10 +133,11 @@ export const {
   useGetMoviesQuery,
   useGetMovieDetailQuery,
   useGetPopularMoviesQuery,
-  useGetTopRatedMoviesQuery,
+  useGetCurrentlyPlayingMoviesQuery,
   useGetMovieVideosQuery,
   useGetMovieCreditsQuery,
   useGetTvShowsQuery,
+  useGetCurrentlyPlayingTvShowsQuery,
   useGetTvShowDetailQuery,
   useGetPopularTvShowsQuery,
   useGetTvShowVideosQuery,

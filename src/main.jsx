@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import TvDetails from './routes/TvDetails.jsx';
 import Movies from './routes/Movies.jsx';
+import TvShows from './routes/TvShows.jsx';
 
 const router = createBrowserRouter([
   {
@@ -16,7 +17,9 @@ const router = createBrowserRouter([
     element: <App />, //Layout component
     children: [
       { path: '/', element: <Home /> },
-      { path: 'movie', element: <Movies /> },      { path: '/movie/:movieId', element: <MovieDetails /> },
+      { path: '/movie', element: <Movies /> },
+      {path:'/tv', element : <TvShows />},
+      { path: '/movie/:movieId', element: <MovieDetails /> },
       { path: '/tv/:tvId', element: <TvDetails /> },
     ],
   },
