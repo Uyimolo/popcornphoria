@@ -19,7 +19,7 @@ const Movies = () => {
     useGetTopRatedMoviesQuery(pageNumber);
 
   let movieList;
-  if (topRatedSuccess) {
+  if (moviesSuccess) {
     // console.log(topRatedMovies)
     movieList = movies.results;
   }
