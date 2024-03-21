@@ -17,7 +17,7 @@ export const apiSlice = createApi({
   endpoints: (builder) => ({
     getMovies: builder.query({
       query: (pageNumber) => ({
-        url: `discover/movie?include_adult=true&include_video=true&language=en-US&${pageNumber}&sort_by=primary_release_date.desc&api_key=${tmdbApiKey}`,
+        url: `discover/movie?&include_video=true&language=en-US&page=${pageNumber}&api_key=${tmdbApiKey}`,
         options: tmdbOptions,
       }),
     }),

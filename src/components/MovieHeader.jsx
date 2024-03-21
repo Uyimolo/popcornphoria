@@ -19,11 +19,13 @@ const MovieHeader = ({ movieData, type }) => {
 
   let date, film_title;
 
+  // tmdb does not add media type to specific collections, if you request for movies they expect you to know its movies they only add a media type when you access a non specific endpoint like all trending
   if (media_type) {
     date = media_type === 'movie' ? release_date : first_air_date;
 
     film_title = media_type === 'movie' ? title : name;
-  } else {
+  }
+  else {
     date = release_date;
     film_title = title;
   }
