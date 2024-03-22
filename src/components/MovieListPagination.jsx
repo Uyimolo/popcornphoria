@@ -1,10 +1,10 @@
 import MovieCard from './MovieCard';
 
-const MovieListPagination = ({ movieList }) => {
+const MovieListPagination = ({ movieList, type }) => {
   return (
     <div className='movies-container'>
       {movieList.map((movie) => (
-        <MovieCard movie={movie} />
+        <MovieCard key={movie.id} movie={movie} type={type} />
       ))}
     </div>
   );

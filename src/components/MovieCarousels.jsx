@@ -24,7 +24,7 @@ const MovieCarousels = ({ movieData, carouselTitle, type }) => {
           },
         })}>
         {
-          //show only movies with poster images becaue in details page if theres no trailer available i'll need to show the movie poster
+          //show only movies with poster images because in details page if theres no trailer available i'll need to show the movie poster
           movieData
             .filter((movie) => movie.poster_path)
             .map((movie) => (

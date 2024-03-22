@@ -1,32 +1,41 @@
 import { useState } from 'react';
-import NowPlaying from '../components/NowPlaying';
+
 import {
   useGetCurrentlyPlayingMoviesQuery,
   useGetMoviesQuery,
 } from '../features/apiSlice';
-import MovieListPagination from '../components/MovieListPagination';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faArrowRight, faTimes } from '@fortawesome/free-solid-svg-icons';
+import NowPlaying from '../components/NowPlaying';
+import MovieListPagination from '../components/MovieListPagination';
+import { movieGenres } from '../assets/arraysAndObjects/movieGenres';
 
 const Movies = () => {
   const [pageNumber, setPageNumber] = useState(1);
+  const [showGenres, setShowGenres] = useState(false);
+  const [genre, setGenre] = useState('');
 
   const { data: nowPlaying, isSuccess: nowPlayingSuccess } =
     useGetCurrentlyPlayingMoviesQuery();
 
-  let nowPlayingList;
-  if (nowPlayingSuccess) {
-    // console.log(topRatedMovies);
-    nowPlayingList = nowPlaying.results;
-  }
+  let nowPlayingList = nowPlayingSuccess ? nowPlaying.results : '';
 
-  const { data: movies, isSuccess: moviesSuccess } =
-    useGetMoviesQuery(pageNumber);
+  // add genres filter if genres is defined in state else fetch data without genres filter
+  let movieGenre = genre ? `&with_genres=${genre}` : '';
 
-  let movieList;
-  if (moviesSuccess) {
-    movieList = movies.results;
-  }
+  const { data: movies, isSuccess: moviesSuccess } = useGetMoviesQuery({
+    page: pageNumber,
+    ext: movieGenre,
+  });
+
+  let movieList = moviesSuccess ? movies.results : '';
+
+  const handleFilterByGenre = (id) => {
+    setGenre(id);
+    setShowGenres((prevState) => !prevState);
+    window.scrollTo({ top: '10rem', behavior: 'smooth' });
+  };
 
   const handleNavigationPagination = (mode, value) => {
     mode === 'next'
@@ -44,9 +53,37 @@ const Movies = () => {
         <NowPlaying nowPlaying={nowPlayingList} type='movie' />
       </div>
 
-      <h3 className='padded-heading'>Movies</h3>
+      <div className='title_with_genres'>
+        <h3 className=''>Movies </h3>
+        <p onClick={() => setShowGenres((prevState) => !prevState)}>
+          Filter by genre
+        </p>
+      </div>
 
-      {movieList && <MovieListPagination movieList={movieList} />}
+      {showGenres && (
+        <div className='filter-genres'>
+            {genre && (
+              <p className='reset-filter' onClick={() => setGenre('')}>
+                Reset filter
+              </p>
+            )}
+
+            <FontAwesomeIcon icon={faTimes} onClick={() => setShowGenres(false)} className='awesome' />
+
+          {movieGenres.map((genreOption) => (
+            <p
+              className={`filter-genre ${
+                genre === genreOption.id ? 'active' : ''
+              }`}
+              key={genreOption.id}
+              onClick={() => handleFilterByGenre(genreOption.id)}>
+              {genreOption.name}
+            </p>
+          ))}
+        </div>
+      )}
+
+      {movieList && <MovieListPagination movieList={movieList} type='movie' />}
       <div className='pagination-scroll'></div>
       <div className='pagination-navigation'>
         {pageNumber > 1 && (
@@ -60,6 +97,7 @@ const Movies = () => {
 
         {[1, 2, 3, 4, 5, 6].map((num) => (
           <p
+            key={num}
             className={`pagination-number ${
               pageNumber === num ? 'active' : ''
             }`}

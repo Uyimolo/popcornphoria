@@ -16,8 +16,8 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'https://api.themoviedb.org/3/' }),
   endpoints: (builder) => ({
     getMovies: builder.query({
-      query: (pageNumber) => ({
-        url: `discover/movie?include_adult=false&include_video=false&language=en-US&page=${pageNumber}&sort_by=popularity.desc&api_key=${tmdbApiKey}`,
+      query: ({ page, ext }) => ({
+        url: `discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}${ext}&sort_by=popularity.desc&api_key=${tmdbApiKey}`,
         options: tmdbOptions,
       }),
     }),
@@ -65,8 +65,8 @@ export const apiSlice = createApi({
     }),
 
     getTvShows: builder.query({
-      query: (pageNumber) => ({
-        url: `discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=${pageNumber}&sort_by=popularity.desc&api_key=${tmdbApiKey}`,
+      query: ({ page, ext }) => ({
+        url: `discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=${page}${ext}&sort_by=popularity.desc&api_key=${tmdbApiKey}`,
         options: tmdbOptions,
       }),
     }),

@@ -23,9 +23,9 @@ const MovieDetails = () => {
   let videoSrc;
   if (videoSuccess) {
     // check if an official trailer video exists
-    const trailerVideo = videoData.results.filter((video) =>
+    const trailerVideo = videoData.results.find((video) =>
       video.name.toLowerCase().includes('official trailer')
-    )[0];
+    );
     // if it exists show the trailer video
     if (videoData.results.length < 1) {
       videoSrc = '';
