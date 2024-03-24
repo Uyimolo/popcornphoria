@@ -13,13 +13,12 @@ const LazyCarouselImage = ({ poster_path, title }) => {
     image.onload = () => {
       setIsLoading(false);
     };
-    image.src = `https://image.tmdb.org/t/p/w200${poster_path}`;
+    image.src = `https://image.tmdb.org/t/p/w92${poster_path}`;
   }, [poster_path]);
   return (
     <div>
       {
         <img
-          // onLoad={() => setIsLoading(false)}
           loading='lazy'
           src={`https://image.tmdb.org/t/p/w200${poster_path}`}
           alt={`${title}`}

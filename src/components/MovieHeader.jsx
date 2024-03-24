@@ -1,11 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-regular-svg-icons';
 import { Link } from 'react-router-dom';
-import { Suspense, lazy } from 'react';
-// import LazyLoadedHeaderImage from './LazyLoadedHeaderImage';
-// const LazyImage = lazy(() => import('./LazyImage'));
-
-const LazyLoadedHeaderImage = lazy(() => import('./LazyLoadedHeaderImage'));
 
 const MovieHeader = ({ movieData, type }) => {
   // destructuring movieData
@@ -35,16 +30,10 @@ const MovieHeader = ({ movieData, type }) => {
   }
 
   return (
-    <Suspense
-      fallback={
-        <div className='lazy-header-image'>
-          
-        </div>
-      }>
       <div className='movie-header'>
-        <LazyLoadedHeaderImage
-          poster_path={poster_path}
-          film_title={film_title}
+        <img
+          src={`https://image.tmdb.org/t/p/w300${poster_path}`}
+          alt={`${film_title}`}
         />
 
         <div className='movie-info'>
@@ -73,7 +62,6 @@ const MovieHeader = ({ movieData, type }) => {
           </div>
         </div>
       </div>
-    </Suspense>
   );
 };
 

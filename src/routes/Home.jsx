@@ -43,7 +43,7 @@ const Home = () => {
     useGetPopularMoviesQuery();
   let popularMoviesContent;
 
-  if (popularMoviesData) {
+  if (isPopularMoviesSuccess) {
     const popularMovies = popularMoviesData.results;
     popularMoviesContent = (
       <MovieCarousels
@@ -72,7 +72,7 @@ const Home = () => {
   return (
     <div className='homepage'>
       {isTrendingLoading ? (
-        <div className='lazy-header-image'></div>
+        <div className='header-placeholder'></div>
       ) : (
         <Trending />
       )}

@@ -59,7 +59,7 @@ const Movies = () => {
   return (
     <div className='movie'>
       <div className='topRated-movies'>
-        {isNowPlayingLoading ? <div className='lazy-header-image'></div> :<NowPlaying nowPlaying={nowPlayingList} type='movie' />}
+        {isNowPlayingLoading ? <div className='header-placeholder'></div> :<NowPlaying nowPlaying={nowPlayingList} type='movie' />}
       </div>
 
       <div className='title_with_genres'>

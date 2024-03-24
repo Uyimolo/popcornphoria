@@ -6,9 +6,7 @@ const NowPlaying = ({ nowPlaying, type }) => {
     <div>
       <swiper-container
         space-between='20'
-        pagination='true'
         navigation='true'
-        scroll-bar='true'
         speed='400'
         slides-per-view='1'
         per-slide-offset='0'
