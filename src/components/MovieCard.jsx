@@ -1,10 +1,28 @@
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 const MovieCard = ({ movie, type }) => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  const { poster_path, title } = movie;
+
+  useEffect(() => {
+    const image = new Image();
+    image.onload = () => {
+      setIsLoading(false);
+    };
+    image.src = `https://image.tmdb.org/t/p/w200${poster_path}`;
+  }, [poster_path]);
   return (
     <Link to={`/${type}/${movie.id}`} className='movie-card'>
-      <img src={`https://image.tmdb.org/t/p/w92${movie.poster_path}`} alt='' />
-      <p>{movie.title}</p>
+      {isLoading ? (
+        <div className='lazy-carousel-image'></div>
+      ) : (
+        <img
+          src={`https://image.tmdb.org/t/p/w200${poster_path}`}
+          alt={`${title}`}
+        />
+      )}
     </Link>
   );
 };

@@ -25,7 +25,6 @@ const MovieHeader = ({ movieData, type }) => {
       <img
         src={`https://image.tmdb.org/t/p/w400${poster_path}`}
         alt={`${film_title}`}
-        loading='lazy'
       />
 
       <div className='movie-info'>

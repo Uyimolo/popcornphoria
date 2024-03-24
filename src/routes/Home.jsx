@@ -14,8 +14,8 @@ const Home = () => {
     isLoading: isTrendingLoading,
   } = useGetAllTrendingQuery();
 
-  const { data: upcomingMoviesData, isSuccess: isUpcomingSuccess } =
-    useGetUpcomingMoviesQuery();
+  // const { data: upcomingMoviesData, isSuccess: isUpcomingSuccess } =
+  //   useGetUpcomingMoviesQuery();
 
   return (
     <div className='homepage'>
@@ -32,13 +32,7 @@ const Home = () => {
             carouselTitle='Trending now'
           />
         )}
-        {isUpcomingSuccess && (
-          <MovieCarousels
-            movieData={upcomingMoviesData.results}
-            carouselTitle='Upcoming movies'
-            type='movie'
-          />
-        )}
+       
       </div>
     </div>
   );

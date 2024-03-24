@@ -87,7 +87,7 @@ const TvShows = () => {
 
       {tvShowsList && <MovieListPagination movieList={tvShowsList} type='tv' />}
       <div className='pagination-scroll'></div>
-      <div className='pagination-navigation'>
+      {tvShowsList && <div className='pagination-navigation'>
         {pageNumber > 1 && (
           <FontAwesomeIcon
             icon={faArrowLeft}
@@ -116,7 +116,7 @@ const TvShows = () => {
             onClick={() => handleNavigationPagination('next')}
           />
         )}
-      </div>
+      </div>}
     </div>
   );
 };

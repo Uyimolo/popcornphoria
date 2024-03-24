@@ -353,6 +353,9 @@ swiper-slide img {
 
 .lazy-carousel-image {
   aspect-ratio: 2/3;
+  width: 100%;
+  height: 100%;
+  background-color: white;
 }
 
 .page {
