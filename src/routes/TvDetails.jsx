@@ -23,7 +23,6 @@ const TvDetails = () => {
   let videoSrc;
 
   if (videoSuccess) {
-    console.log(videoData);
     // check if an official trailer video exists
     const trailerVideo = videoData.results.filter((video) =>
       video.name.toLowerCase().includes('official trailer')
@@ -53,7 +52,6 @@ const TvDetails = () => {
 
   let credits;
   if (creditsSuccess) {
-    console.log(creditsData.cast);
     credits = creditsData.cast.slice(0, 5).map((credit) => credit.name);
   }
 

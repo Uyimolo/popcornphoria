@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import './index.css';
-import store from './app/store.js';
+import { store } from './app/store.js';
 import Home from './routes/Home.jsx';
 import MovieDetails from './routes/MovieDetails';
 import { Provider } from 'react-redux';
@@ -18,7 +18,7 @@ const router = createBrowserRouter([
     children: [
       { path: '/', element: <Home /> },
       { path: '/movie', element: <Movies /> },
-      {path:'/tv', element : <TvShows />},
+      { path: '/tv', element: <TvShows /> },
       { path: '/movie/:movieId', element: <MovieDetails /> },
       { path: '/tv/:tvId', element: <TvDetails /> },
     ],

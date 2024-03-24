@@ -1,10 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { apiSlice } from '../features/apiSlice';
+import filterReducer from '../features/filterSlice';
 
-export default configureStore({
-  reducer: {
-    [apiSlice.reducerPath]: apiSlice.reducer,
-  },
+export const store = configureStore({
+  reducer: { filter: filterReducer, [apiSlice.reducerPath]: apiSlice.reducer },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),
 });

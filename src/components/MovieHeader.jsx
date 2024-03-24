@@ -1,6 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-regular-svg-icons';
 import { Link } from 'react-router-dom';
+import { Suspense, lazy } from 'react';
+// import LazyLoadedHeaderImage from './LazyLoadedHeaderImage';
+// const LazyImage = lazy(() => import('./LazyImage'));
+
+const LazyLoadedHeaderImage = lazy(() => import('./LazyLoadedHeaderImage'));
 
 const MovieHeader = ({ movieData, type }) => {
   // destructuring movieData
@@ -27,39 +32,48 @@ const MovieHeader = ({ movieData, type }) => {
   } else if (type) {
     date = type === 'movie' ? release_date : first_air_date;
     film_title = type === 'movie' ? title : name;
-  } 
+  }
 
   return (
-    <div className='movie-header'>
-      <img
-        src={`https://image.tmdb.org/t/p/w500${poster_path}`}
-        alt={`${movieData}`}
-      />
-
-      <div className='movie-info'>
-        <h1>{film_title}</h1>
-
-        <div className='miscellenous'>
-          <FontAwesomeIcon icon={faStar} className='awesome' />
-          <p className='rating'>{vote_average}</p>
-          <p className='rating-count'>({vote_count})</p>
-          <div className='seperation'></div>
-          <p className='year'>{date.split('-')[0]}</p>
+    <Suspense
+      fallback={
+        <div className='lazy-header-image'>
+          
         </div>
+      }>
+      <div className='movie-header'>
+        <LazyLoadedHeaderImage
+          poster_path={poster_path}
+          film_title={film_title}
+        />
 
-        <p className='overview'>{overview}</p>
+        <div className='movie-info'>
+          <h1>{film_title}</h1>
 
-        <div className='cta'>
-          <Link to={`/${media_type ? media_type : type}/${id}`}>
-            <button className='watch-trailer primary-btn'>Watch trailer</button>
-          </Link>
+          <div className='miscellenous'>
+            <FontAwesomeIcon icon={faStar} className='awesome' />
+            <p className='rating'>{vote_average}</p>
+            <p className='rating-count'>({vote_count})</p>
+            <div className='seperation'></div>
+            <p className='year'>{date.split('-')[0]}</p>
+          </div>
 
-          <button className='add-to-watchlist secondary-btn'>
-            Add to watchlist
-          </button>
+          <p className='overview'>{overview}</p>
+
+          <div className='cta'>
+            <Link to={`/${media_type ? media_type : type}/${id}`}>
+              <button className='watch-trailer primary-btn'>
+                Watch trailer
+              </button>
+            </Link>
+
+            <button className='add-to-watchlist secondary-btn'>
+              Add to watchlist
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </Suspense>
   );
 };
 

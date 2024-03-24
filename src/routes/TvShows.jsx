@@ -13,12 +13,17 @@ import {
 import NowPlaying from '../components/NowPlaying';
 
 import { tvShowGenres } from '../assets/arraysAndObjects/tvShowGenres';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateGenre } from '../features/filterSlice';
 
 const TvShows = () => {
   const [pageNumber, setPageNumber] = useState(1);
-  const [genre, setGenre] = useState();
   const [showGenres, setShowGenres] = useState(false);
-  const { data: nowPlaying, isSuccess: nowPlayingSuccess } =
+
+  const dispatch = useDispatch();
+  const genre = useSelector((state) => state.filter.tvShows.genre);
+
+  const { data: nowPlaying, isSuccess: nowPlayingSuccess, isLoading: isNowPlayingLoading } =
     useGetCurrentlyPlayingTvShowsQuery();
 
   const nowPlayingList = nowPlayingSuccess ? nowPlaying.results : '';
@@ -33,9 +38,9 @@ const TvShows = () => {
   const tvShowsList = tvShowsSuccess ? tvShows.results : '';
 
   const handleFilterByGenre = (id) => {
-    setGenre(id);
-    // setShowGenres((prevState) => !prevState);
-    // window.scrollTo({ top: '10rem', behavior: 'smooth' });
+    dispatch(updateGenre({ category: 'tvShows', genre: id }));
+    setShowGenres((prevState) => !prevState);
+    window.scrollTo({ top: '10rem', behavior: 'smooth' });
   };
 
   const handleNavigationPagination = (mode, value) => {
@@ -51,7 +56,7 @@ const TvShows = () => {
   return (
     <div className='movie'>
       <div className='topRated-movies'>
-        <NowPlaying nowPlaying={nowPlayingList} type='tv' />
+        {isNowPlayingLoading ? <div className="lazy-header-image"></div> :<NowPlaying nowPlaying={nowPlayingList} type='tv' />}
       </div>
 
       <div className='title_with_genres'>
@@ -64,7 +69,11 @@ const TvShows = () => {
       {showGenres && (
         <div className='filter-genres'>
           {genre && (
-            <p className='reset-filter' onClick={() => setGenre('')}>
+            <p
+              className='reset-filter'
+              onClick={() =>
+                dispatch(updateGenre({ category: 'tvShows', genre: '' }))
+              }>
               Reset filter
             </p>
           )}

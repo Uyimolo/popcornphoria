@@ -13,7 +13,6 @@ const MovieDetails = () => {
   const { data: movieData, isSuccess } = useGetMovieDetailQuery(movieId);
   let movie;
   if (isSuccess) {
-    console.log(movieData);
     movie = movieData;
   }
 

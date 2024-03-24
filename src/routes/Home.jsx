@@ -9,8 +9,11 @@ import Trending from '../components/Trending';
 import MovieCarousels from '../components/MovieCarousels';
 
 const Home = () => {
-  const { data: trendingData, isSuccess: isTrendingSuccess } =
-    useGetAllTrendingQuery();
+  const {
+    data: trendingData,
+    isSuccess: isTrendingSuccess,
+    isLoading: isTrendingLoading,
+  } = useGetAllTrendingQuery();
   let trendingContent;
 
   if (isTrendingSuccess) {
@@ -68,7 +71,11 @@ const Home = () => {
 
   return (
     <div className='homepage'>
-      <Trending />
+      {isTrendingLoading ? (
+        <div className='lazy-header-image'></div>
+      ) : (
+        <Trending />
+      )}
 
       <div className='homepage-carousels'>
         <div>{trendingContent}</div>

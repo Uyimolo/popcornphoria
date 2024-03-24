@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { updateGenre } from '../features/filterSlice';
 
 import {
   useGetCurrentlyPlayingMoviesQuery,
@@ -6,7 +9,11 @@ import {
 } from '../features/apiSlice';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faArrowRight, faTimes } from '@fortawesome/free-solid-svg-icons';
+import {
+  faArrowLeft,
+  faArrowRight,
+  faTimes,
+} from '@fortawesome/free-solid-svg-icons';
 import NowPlaying from '../components/NowPlaying';
 import MovieListPagination from '../components/MovieListPagination';
 import { movieGenres } from '../assets/arraysAndObjects/movieGenres';
@@ -14,9 +21,11 @@ import { movieGenres } from '../assets/arraysAndObjects/movieGenres';
 const Movies = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const [showGenres, setShowGenres] = useState(false);
-  const [genre, setGenre] = useState('');
 
-  const { data: nowPlaying, isSuccess: nowPlayingSuccess } =
+  const dispatch = useDispatch();
+  const genre = useSelector((state) => state.filter.movies.genre);
+
+  const { data: nowPlaying, isSuccess: nowPlayingSuccess, isLoading: isNowPlayingLoading } =
     useGetCurrentlyPlayingMoviesQuery();
 
   let nowPlayingList = nowPlayingSuccess ? nowPlaying.results : '';
@@ -32,7 +41,7 @@ const Movies = () => {
   let movieList = moviesSuccess ? movies.results : '';
 
   const handleFilterByGenre = (id) => {
-    setGenre(id);
+    dispatch(updateGenre({ category: 'movies', genre: id }));
     setShowGenres((prevState) => !prevState);
     window.scrollTo({ top: '10rem', behavior: 'smooth' });
   };
@@ -50,7 +59,7 @@ const Movies = () => {
   return (
     <div className='movie'>
       <div className='topRated-movies'>
-        <NowPlaying nowPlaying={nowPlayingList} type='movie' />
+        {isNowPlayingLoading ? <div className='lazy-header-image'></div> :<NowPlaying nowPlaying={nowPlayingList} type='movie' />}
       </div>
 
       <div className='title_with_genres'>
@@ -62,13 +71,17 @@ const Movies = () => {
 
       {showGenres && (
         <div className='filter-genres'>
-            {genre && (
-              <p className='reset-filter' onClick={() => setGenre('')}>
-                Reset filter
-              </p>
-            )}
+          {genre && (
+            <p className='reset-filter' onClick={() => setGenre('')}>
+              Reset filter
+            </p>
+          )}
 
-            <FontAwesomeIcon icon={faTimes} onClick={() => setShowGenres(false)} className='awesome' />
+          <FontAwesomeIcon
+            icon={faTimes}
+            onClick={() => setShowGenres(false)}
+            className='awesome'
+          />
 
           {movieGenres.map((genreOption) => (
             <p

@@ -242,13 +242,31 @@ header {
   gap: 0.5rem;
 }
 
-.movie-header {
+.movie-header,
+.lazy-header-image {
   margin-top: 6rem;
   overflow: hidden;
   position: relative;
+  height: 34rem;
 }
 
-.movie-header img {
+.lazy-header-image {
+  background-color: var(--gray);
+  animation: lazy-anime 1s ease-in-out 0.2s infinite;
+  transition: 1s;
+}
+
+@keyframes lazy-anime {
+  from {
+    background-color: #eee;
+  }
+  to {
+    background-color: #bbb;
+  }
+}
+
+.movie-header img,
+.lazy-header-image {
   width: 100%;
 }
 
@@ -329,6 +347,10 @@ swiper-slide img {
   width: 100%;
   height: 100%;
   border-radius: 0.3rem;
+}
+
+.lazy-carousel-image {
+  aspect-ratio: 2/3;
 }
 
 .page {
@@ -536,7 +558,7 @@ swiper-slide img {
   .page {
     width: 95%;
     max-width: 800px;
-    margin: 6rem auto;
+    margin: 9rem auto;
   }
 
   .homepage {
@@ -549,8 +571,7 @@ swiper-slide img {
   }
 
   .movie-header {
-    margin: auto;
-    max-height: 35rem;
+    margin: 6rem auto;
   }
 
   .movie-header .overview {
@@ -565,5 +586,8 @@ swiper-slide img {
 @media (min-width: 1024px) {
   .movie-card {
     width: 15%;
+  }
+  .movie-header {
+    /* height: 45rem; */
   }
 }

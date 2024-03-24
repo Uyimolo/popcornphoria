@@ -10,9 +10,7 @@ const Trending = () => {
   let headerContent;
 
   if (isSuccess) {
-    console.log(data)
     const movieData = data.results[0];
-
     headerContent = <MovieHeader movieData={movieData} />;
   }
 
