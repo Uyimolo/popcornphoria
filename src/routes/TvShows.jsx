@@ -1,8 +1,5 @@
 import { useState } from 'react';
-import {
-  useGetTvShowsQuery,
-  useGetCurrentlyPlayingTvShowsQuery,
-} from '../features/apiSlice';
+import { useGetTvShowsQuery } from '../features/apiSlice';
 import MovieListPagination from '../components/MovieListPagination';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -10,7 +7,6 @@ import {
   faArrowRight,
   faTimes,
 } from '@fortawesome/free-solid-svg-icons';
-import NowPlaying from '../components/NowPlaying';
 
 import { tvShowGenres } from '../assets/arraysAndObjects/tvShowGenres';
 import { useDispatch, useSelector } from 'react-redux';
@@ -23,11 +19,6 @@ const TvShows = () => {
   const dispatch = useDispatch();
   const genre = useSelector((state) => state.filter.tvShows.genre);
 
-  const { data: nowPlaying, isSuccess: nowPlayingSuccess, isLoading: isNowPlayingLoading } =
-    useGetCurrentlyPlayingTvShowsQuery();
-
-  const nowPlayingList = nowPlayingSuccess ? nowPlaying.results : '';
-
   let tvGenre = genre ? `&with_genres=${genre}` : '';
 
   const { data: tvShows, isSuccess: tvShowsSuccess } = useGetTvShowsQuery({
@@ -39,6 +30,7 @@ const TvShows = () => {
 
   const handleFilterByGenre = (id) => {
     dispatch(updateGenre({ category: 'tvShows', genre: id }));
+    setPageNumber(1);
     setShowGenres((prevState) => !prevState);
     window.scrollTo({ top: '10rem', behavior: 'smooth' });
   };
@@ -55,10 +47,6 @@ const TvShows = () => {
 
   return (
     <div className='movie'>
-      <div className='topRated-movies'>
-        {isNowPlayingLoading ? <div className="header-placeholder"></div> :<NowPlaying nowPlaying={nowPlayingList} type='tv' />}
-      </div>
-
       <div className='title_with_genres'>
         <h3 className=''>Tv shows </h3>
         <p onClick={() => setShowGenres((prevState) => !prevState)}>

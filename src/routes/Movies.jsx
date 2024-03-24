@@ -1,20 +1,13 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { updateGenre } from '../features/filterSlice';
-
-import {
-  useGetCurrentlyPlayingMoviesQuery,
-  useGetMoviesQuery,
-} from '../features/apiSlice';
-
+import { useGetMoviesQuery } from '../features/apiSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faArrowLeft,
   faArrowRight,
   faTimes,
 } from '@fortawesome/free-solid-svg-icons';
-import NowPlaying from '../components/NowPlaying';
 import MovieListPagination from '../components/MovieListPagination';
 import { movieGenres } from '../assets/arraysAndObjects/movieGenres';
 
@@ -24,11 +17,6 @@ const Movies = () => {
 
   const dispatch = useDispatch();
   const genre = useSelector((state) => state.filter.movies.genre);
-
-  const { data: nowPlaying, isSuccess: nowPlayingSuccess, isLoading: isNowPlayingLoading } =
-    useGetCurrentlyPlayingMoviesQuery();
-
-  let nowPlayingList = nowPlayingSuccess ? nowPlaying.results : '';
 
   // add genres filter if genres is defined in state else fetch data without genres filter
   let movieGenre = genre ? `&with_genres=${genre}` : '';
@@ -42,6 +30,7 @@ const Movies = () => {
 
   const handleFilterByGenre = (id) => {
     dispatch(updateGenre({ category: 'movies', genre: id }));
+    setPageNumber(1)
     setShowGenres((prevState) => !prevState);
     window.scrollTo({ top: '10rem', behavior: 'smooth' });
   };
@@ -58,10 +47,6 @@ const Movies = () => {
 
   return (
     <div className='movie'>
-      <div className='topRated-movies'>
-        {isNowPlayingLoading ? <div className='header-placeholder'></div> :<NowPlaying nowPlaying={nowPlayingList} type='movie' />}
-      </div>
-
       <div className='title_with_genres'>
         <h3 className=''>Movies </h3>
         <p onClick={() => setShowGenres((prevState) => !prevState)}>
@@ -108,6 +93,8 @@ const Movies = () => {
           />
         )}
 
+        {/* hard coded this because the api has a whole lot of pages didnt want to deal with all of them now */}
+        {/* todo: see if i can determine the total number of pages */}
         {[1, 2, 3, 4, 5, 6].map((num) => (
           <p
             key={num}

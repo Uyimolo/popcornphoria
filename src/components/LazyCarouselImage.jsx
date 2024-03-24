@@ -3,11 +3,6 @@ import { useEffect, useState } from 'react';
 const LazyCarouselImage = ({ poster_path, title }) => {
   const [isLoading, setIsLoading] = useState(true);
 
-  const handleImageLoad = () => {
-    // setIsLoading(prevState => !prevState);
-    alert(isLoading)
-  };
-
   useEffect(() => {
     const image = new Image();
     image.onload = () => {

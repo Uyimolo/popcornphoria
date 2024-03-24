@@ -9,6 +9,7 @@
 
 :root {
   --primary-color: #f8b319;
+  --secondary-color: #2241a8;
   --white-text-color: #eee;
   --black: #070707;
   --black-transparent: #0000006c;
@@ -19,13 +20,14 @@
 
 ::-webkit-scrollbar {
   width: 4px;
-  background-color: var(--black);
+  background-color: #444444;
   padding: 2px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--white-text-color);
+  background-color: #b6b5b5;
   border-radius: 0.5rem;
+  width: 2px;
 }
 
 body {
@@ -64,7 +66,7 @@ a {
 button {
   color: var(--white-text-color);
   border: 1px solid var(--white-text-color);
-  background-color: transparent;
+  background-color: var(--black-transparent);
   border-radius: 0.3rem;
   padding: 0.8rem 1.5rem;
   cursor: pointer;
@@ -247,7 +249,7 @@ header {
   margin-top: 6rem;
   overflow: hidden;
   position: relative;
-  height: 34rem;
+  height: 30rem;
 }
 
 .header-placeholder {
@@ -410,11 +412,8 @@ swiper-slide img {
   gap: 0.5rem;
 }
 
-.top-rated-slide {
-  margin: auto;
-  display: block;
-  overflow: hidden;
-  border-radius: 1rem;
+.movie {
+  margin-top: 6rem;
 }
 
 .movies-container {
@@ -591,6 +590,30 @@ swiper-slide img {
     width: 15%;
   }
   .movie-header {
-    /* height: 45rem; */
+    position: relative;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: start;
+    height: 30rem;
   }
+  .movie-header img{
+    width: 50%;
+  }
+  .movie-header .movie-info {
+    position: relative;
+    width: 50%;
+   padding: 0 1rem 0 0;
+   gap: 2rem;
+   justify-content: center;
+  }
+
+  .movie-header .movie-info p {
+    max-width: 90%;
+  }
+
+  .movie-header .movie-info .cta {
+    position: absolute;
+    bottom: 0;
+  }
+
 }
