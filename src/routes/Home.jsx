@@ -1,7 +1,4 @@
-import {
-  useGetAllTrendingQuery,
-  useGetUpcomingMoviesQuery,
-} from '../features/apiSlice';
+import { useGetAllTrendingQuery } from '../features/apiSlice';
 
 import Trending from '../components/Trending';
 import MovieCarousels from '../components/MovieCarousels';
@@ -13,9 +10,6 @@ const Home = () => {
     isSuccess: isTrendingSuccess,
     isLoading: isTrendingLoading,
   } = useGetAllTrendingQuery();
-
-  // const { data: upcomingMoviesData, isSuccess: isUpcomingSuccess } =
-  //   useGetUpcomingMoviesQuery();
 
   return (
     <div className='homepage'>
@@ -32,7 +26,6 @@ const Home = () => {
             carouselTitle='Trending now'
           />
         )}
-       
       </div>
     </div>
   );

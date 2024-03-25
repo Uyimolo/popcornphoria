@@ -22,20 +22,6 @@ export const apiSlice = createApi({
       }),
     }),
 
-    getPopularMovies: builder.query({
-      query: () => ({
-        url: `movie/popular?language=en-US&page=1&api_key=${tmdbApiKey}`,
-        options: tmdbOptions,
-      }),
-    }),
-
-    getCurrentlyPlayingMovies: builder.query({
-      query: () => ({
-        url: `movie/now_playing?language=en-US&page=1&api_key=${tmdbApiKey}`,
-        options: tmdbOptions,
-      }),
-    }),
-
     getMovieDetail: builder.query({
       query: (id) => ({
         url: `movie/${id}?language=en-US&api_key=${tmdbApiKey}`,
@@ -67,20 +53,6 @@ export const apiSlice = createApi({
     getTvShows: builder.query({
       query: ({ page, ext }) => ({
         url: `discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=${page}${ext}&sort_by=popularity.desc&api_key=${tmdbApiKey}`,
-        options: tmdbOptions,
-      }),
-    }),
-
-    getCurrentlyPlayingTvShows: builder.query({
-      query: () => ({
-        url: `tv/airing_today?language=en-US&page=1&api_key=${tmdbApiKey}`,
-        options: tmdbOptions,
-      }),
-    }),
-
-    getPopularTvShows: builder.query({
-      query: () => ({
-        url: `tv/popular?language=en-US&page=1&api_key=${tmdbApiKey}`,
         options: tmdbOptions,
       }),
     }),
@@ -120,9 +92,9 @@ export const apiSlice = createApi({
       }),
     }),
 
-    getUpcomingMovies: builder.query({
-      query: () => ({
-        url: `movie/upcoming?language=en-US&page=1&api_key=${tmdbApiKey}`,
+    getSearchResult: builder.query({
+      query: (textToSearch) => ({
+        url: `search/multi?query=${textToSearch}include_adult=false&language=en-US&page=1&api_key=${tmdbApiKey}`,
         options: tmdbOptions,
       }),
     }),
@@ -132,20 +104,16 @@ export const apiSlice = createApi({
 export const {
   useGetMoviesQuery,
   useGetMovieDetailQuery,
-  useGetPopularMoviesQuery,
-  useGetCurrentlyPlayingMoviesQuery,
   useGetMovieVideosQuery,
   useGetMovieCreditsQuery,
   useGetTvShowsQuery,
-  useGetCurrentlyPlayingTvShowsQuery,
   useGetTvShowDetailQuery,
-  useGetPopularTvShowsQuery,
   useGetTvShowVideosQuery,
   useGetTvShowCreditsQuery,
   useGetSimilarTvShowsQuery,
   useGetAllTrendingQuery,
-  useGetUpcomingMoviesQuery,
   useGetSimilarMoviesQuery,
+  useGetSearchResultQuery
 } = apiSlice;
 
 export default apiSlice;

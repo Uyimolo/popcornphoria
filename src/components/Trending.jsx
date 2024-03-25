@@ -7,14 +7,7 @@ import MovieHeader from './MovieHeader';
 const Trending = () => {
   const { data, isSuccess } = useGetAllTrendingQuery();
 
-  let headerContent;
-
-  if (isSuccess) {
-    const movieData = data.results[0];
-    headerContent = <MovieHeader movieData={movieData} />;
-  }
-
-  return <div>{headerContent}</div>;
+  return <div>{isSuccess && <MovieHeader movieData={data.results[0]} />}</div>;
 };
 
 export default Trending;

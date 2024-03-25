@@ -3,13 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateGenre } from '../features/filterSlice';
 import { useGetMoviesQuery } from '../features/apiSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faArrowLeft,
-  faArrowRight,
-  faTimes,
-} from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import MovieListPagination from '../components/MovieListPagination';
 import { movieGenres } from '../assets/arraysAndObjects/movieGenres';
+import Genres from '../components/Genres';
 
 const Movies = () => {
   const [pageNumber, setPageNumber] = useState(1);
@@ -30,9 +27,15 @@ const Movies = () => {
 
   const handleFilterByGenre = (id) => {
     dispatch(updateGenre({ category: 'movies', genre: id }));
-    setPageNumber(1)
+    setPageNumber(1);
     setShowGenres((prevState) => !prevState);
     window.scrollTo({ top: '10rem', behavior: 'smooth' });
+  };
+
+  const handleResetGenre = () => {
+    dispatch(updateGenre({ category: 'movies', genre: '' }));
+    console.log(genre);
+    setShowGenres(false);
   };
 
   const handleNavigationPagination = (mode, value) => {
@@ -48,37 +51,26 @@ const Movies = () => {
   return (
     <div className='movie'>
       <div className='title_with_genres'>
-        <h3 className=''>Movies </h3>
+        <h3 className=''>{`Movies ${
+          genre
+            ? `(${
+                movieGenres.find((movieGenre) => movieGenre.id === genre).name
+              })`
+            : '(All movies)'
+        }`}</h3>
         <p onClick={() => setShowGenres((prevState) => !prevState)}>
           Filter by genre
         </p>
       </div>
 
       {showGenres && (
-        <div className='filter-genres'>
-          {genre && (
-            <p className='reset-filter' onClick={() => setGenre('')}>
-              Reset filter
-            </p>
-          )}
-
-          <FontAwesomeIcon
-            icon={faTimes}
-            onClick={() => setShowGenres(false)}
-            className='awesome'
-          />
-
-          {movieGenres.map((genreOption) => (
-            <p
-              className={`filter-genre ${
-                genre === genreOption.id ? 'active' : ''
-              }`}
-              key={genreOption.id}
-              onClick={() => handleFilterByGenre(genreOption.id)}>
-              {genreOption.name}
-            </p>
-          ))}
-        </div>
+        <Genres
+          genre={genre}
+          genresList={movieGenres}
+          setShowGenres={setShowGenres}
+          handleFilterByGenre={handleFilterByGenre}
+          handleResetGenre={handleResetGenre}
+        />
       )}
 
       {movieList && <MovieListPagination movieList={movieList} type='movie' />}
