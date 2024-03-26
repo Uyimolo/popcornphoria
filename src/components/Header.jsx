@@ -6,8 +6,11 @@ import {
   faSearch,
 } from '@fortawesome/free-solid-svg-icons';
 import Search from './Search';
+import { useState } from 'react';
 
 const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
+  const [showSearchInput, setShowSearchInput] = useState(false);
+
   return (
     <header>
       <Link>
@@ -17,7 +20,13 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
         </div>
       </Link>
 
-     <Search />
+      <FontAwesomeIcon
+        className='search-icon awesome'
+        icon={faSearch}
+        onClick={() => setShowSearchInput((prevState) => !prevState)}
+      />
+
+      <Search setShowSearchInput={setShowSearchInput} showSearchInput={showSearchInput} />
 
       <div
         className='menu-icons'

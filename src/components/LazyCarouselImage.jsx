@@ -46,7 +46,7 @@ const LazyCarouselImage = ({ poster_path, title }) => {
         <img
           src={`https://image.tmdb.org/t/p/w200${poster_path}`}
           alt={`${title}`}
-          isLoading='lazy'
+          loading='lazy'
         />
       )}
     </div>

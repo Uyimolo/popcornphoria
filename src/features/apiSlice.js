@@ -93,8 +93,8 @@ export const apiSlice = createApi({
     }),
 
     getSearchResult: builder.query({
-      query: (textToSearch) => ({
-        url: `search/multi?query=${textToSearch}include_adult=false&language=en-US&page=1&api_key=${tmdbApiKey}`,
+      query: (searchTerm) => ({
+        url: `search/multi?query=${searchTerm}&include_adult=false&language=en-US&page=1&api_key=${tmdbApiKey}`,
         options: tmdbOptions,
       }),
     }),
@@ -113,7 +113,7 @@ export const {
   useGetSimilarTvShowsQuery,
   useGetAllTrendingQuery,
   useGetSimilarMoviesQuery,
-  useGetSearchResultQuery
+  useLazyGetSearchResultQuery,
 } = apiSlice;
 
 export default apiSlice;

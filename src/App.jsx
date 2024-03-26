@@ -20,7 +20,10 @@ function App() {
         setIsSidebarOpen={setIsSidebarOpen}
       />
       {/* sidebar position : fixed; */}
-      <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
+      <Sidebar
+        isSidebarOpen={isSidebarOpen}
+        setIsSidebarOpen={setIsSidebarOpen}
+      />
       <main>
         <Outlet />
       </main>
