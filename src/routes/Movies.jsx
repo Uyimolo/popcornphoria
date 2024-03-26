@@ -75,38 +75,40 @@ const Movies = () => {
 
       {movieList && <MovieListPagination movieList={movieList} type='movie' />}
       <div className='pagination-scroll'></div>
-      <div className='pagination-navigation'>
-        {pageNumber > 1 && (
-          <FontAwesomeIcon
-            icon={faArrowLeft}
-            color='white'
-            className='previous'
-            onClick={() => handleNavigationPagination('previous')}
-          />
-        )}
+      {movieList &&
+        <div className='pagination-navigation'>
+          {pageNumber > 1 && (
+            <FontAwesomeIcon
+              icon={faArrowLeft}
+              color='white'
+              className='previous'
+              onClick={() => handleNavigationPagination('previous')}
+            />
+          )}
 
-        {/* hard coded this because the api has a whole lot of pages didnt want to deal with all of them now */}
-        {/* todo: see if i can determine the total number of pages */}
-        {[1, 2, 3, 4, 5, 6].map((num) => (
-          <p
-            key={num}
-            className={`pagination-number ${
-              pageNumber === num ? 'active' : ''
-            }`}
-            onClick={() => handleNavigationPagination('number', num)}>
-            {num}
-          </p>
-        ))}
+          {/* hard coded this because the api has a whole lot of pages didnt want to deal with all of them now */}
+          {/* todo: see if i can determine the total number of pages */}
+          {[1, 2, 3, 4, 5, 6].map((num) => (
+            <p
+              key={num}
+              className={`pagination-number ${
+                pageNumber === num ? 'active' : ''
+              }`}
+              onClick={() => handleNavigationPagination('number', num)}>
+              {num}
+            </p>
+          ))}
 
-        {pageNumber < 6 && (
-          <FontAwesomeIcon
-            icon={faArrowRight}
-            color='white'
-            className='previous'
-            onClick={() => handleNavigationPagination('next')}
-          />
-        )}
-      </div>
+          {pageNumber < 6 && (
+            <FontAwesomeIcon
+              icon={faArrowRight}
+              color='white'
+              className='previous'
+              onClick={() => handleNavigationPagination('next')}
+            />
+          )}
+        </div>
+      }
     </div>
   );
 };

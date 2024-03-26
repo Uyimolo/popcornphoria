@@ -29,9 +29,9 @@ const Search = ({ showSearchInput, setShowSearchInput }) => {
 
   const handleCloseSearch = () => {
     if (isSuccess) searchResultList = [];
-    trigger('');
+    // trigger('');
     setShowSearchInput((prevState) => !prevState);
-    setSearchTerm('');
+    // setSearchTerm('');
     console.log(searchResultList);
   };
 
@@ -50,9 +50,15 @@ const Search = ({ showSearchInput, setShowSearchInput }) => {
         <button className='search-button' onClick={handleSearch}>
           Search
         </button>
+
+        <FontAwesomeIcon
+          icon={faClose}
+          className='awesome close-search'
+          onClick={handleCloseSearch}
+        />
       </div>
 
-      {searchResultList && searchResultList.length !== 0 && (
+      {searchResultList && (
         <div className='search-results' ref={searchContainer}>
           <FontAwesomeIcon
             icon={faClose}
@@ -62,11 +68,12 @@ const Search = ({ showSearchInput, setShowSearchInput }) => {
 
           {searchResultList.map((data) => (
             <div className='search-result' key={data.id}>
-              <Link onClick={(handleCloseSearch)}
+              <Link
+                onClick={handleCloseSearch}
                 to={`/${data.media_type === 'movie' ? 'movie' : 'tv'}/${
                   data.id
                 }`}>
-                <img 
+                <img
                   src={`https://image.tmdb.org/t/p/w92${data.poster_path}`}
                   alt=''
                 />

@@ -7,7 +7,7 @@ register();
 const MovieCarousels = ({ movieData, carouselTitle, type }) => {
 
   return (
-    <div className='carousel-container' lazy='true'>
+    <div className='carousel-container' lazy='true' navigation='true'>
       <h3>{carouselTitle}</h3>
       <swiper-container
         breakpoints={JSON.stringify({
