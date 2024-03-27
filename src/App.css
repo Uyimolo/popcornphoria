@@ -600,6 +600,7 @@ swiper-slide img {
 .previous:hover,
 .next:hover,
 .pagination-number:hover {
+  
   background-color: var(--gray);
   color: var(--black);
 }
