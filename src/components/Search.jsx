@@ -9,13 +9,14 @@ const Search = ({ showSearchInput, setShowSearchInput }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const searchContainer = useRef();
 
-  const [trigger, result, lastPromiseInfo] = useLazyGetSearchResultQuery();
+  const [trigger, result] = useLazyGetSearchResultQuery();
 
   const { data, isError, isLoading, isFetching, isSuccess } = result;
 
   const handleSearch = () => {
     searchTerm.trim() !== '' && trigger(searchTerm.trim());
-    searchContainer.current.scrollTo({ top: 0, behavior: 'smooth' });
+    if (searchContainer)
+      searchContainer.current.scrollTo({ top: 0, behavior: 'smooth' });
   };
   let searchResultList;
 
@@ -29,10 +30,7 @@ const Search = ({ showSearchInput, setShowSearchInput }) => {
 
   const handleCloseSearch = () => {
     if (isSuccess) searchResultList = [];
-    // trigger('');
     setShowSearchInput((prevState) => !prevState);
-    // setSearchTerm('');
-    console.log(searchResultList);
   };
 
   return (

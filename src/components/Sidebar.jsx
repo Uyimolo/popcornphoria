@@ -14,7 +14,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 
-const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
+const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, setShowSearchInput }) => {
   const menuContent = [
     { name: 'Home', icon: faHome, to: '/' },
     { name: 'Movies', icon: faCamera, to: '/movie' },
@@ -35,6 +35,11 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
     ,
     ,
   ];
+  // close all modals that may be obstructing the new routes display
+  const handleDisplayRoute = () => {
+    setShowSearchInput(false);
+    setIsSidebarOpen(false);
+  };
   return (
     <aside className={`sidebar ${isSidebarOpen ? 'active' : ''}`}>
       <Link to='/' className='logo'>
@@ -47,7 +52,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
         <div className='sidebar-section-contents'>
           {menuContent.map((item) => (
             <Link
-              onClick={() => setIsSidebarOpen((prevState) => !prevState)}
+              onClick={handleDisplayRoute}
               key={item.name}
               to={item.to}
               className='section-content'>
@@ -63,7 +68,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
         <div className='sidebar-section-contents'>
           {libraryContent.map((item) => (
             <Link
-              onClick={() => setIsSidebarOpen((prevState) => !prevState)}
+              onClick={handleDisplayRoute}
               key={item.name}
               to={item.to}
               className='section-content'>
@@ -79,7 +84,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
         <div className='sidebar-section-contents'>
           {generalContent.map((item) => (
             <Link
-              onClick={() => setIsSidebarOpen((prevState) => !prevState)}
+              onClick={handleDisplayRoute}
               key={item.name}
               to={item.to}
               className='section-content'>

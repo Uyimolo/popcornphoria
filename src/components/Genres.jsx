@@ -18,11 +18,7 @@ const Genres = ({
           </p>
         )}
 
-        <FontAwesomeIcon
-          icon={faTimes}
-          onClick={() => setShowGenres(false)}
-          className='awesome'
-        />
+       
       </div>
       <div className='genres'>
         {genresList.map((genreOption) => (
@@ -36,6 +32,11 @@ const Genres = ({
           </p>
         ))}
       </div>
+       <FontAwesomeIcon
+          icon={faTimes}
+          onClick={() => setShowGenres(false)}
+          className='awesome'
+        />
     </div>
   );
 };

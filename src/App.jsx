@@ -7,6 +7,8 @@ import { useState, useEffect } from 'react';
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [showSearchInput, setShowSearchInput] = useState(false);
+
   const location = useLocation();
 
   useEffect(() => {
@@ -18,11 +20,14 @@ function App() {
       <Header
         isSidebarOpen={isSidebarOpen}
         setIsSidebarOpen={setIsSidebarOpen}
+        setShowSearchInput={setShowSearchInput}
+        showSearchInput={showSearchInput}
       />
       {/* sidebar position : fixed; */}
       <Sidebar
         isSidebarOpen={isSidebarOpen}
         setIsSidebarOpen={setIsSidebarOpen}
+        setShowSearchInput={setShowSearchInput}
       />
       <main>
         <Outlet />
