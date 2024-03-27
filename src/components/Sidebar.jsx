@@ -42,7 +42,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, setShowSearchInput }) => {
   };
   return (
     <aside className={`sidebar ${isSidebarOpen ? 'active' : ''}`}>
-      <Link to='/' className='logo'>
+      <Link to='/' className='logo' onClick={handleDisplayRoute}>
         <p>PopCorn</p>
         <p>Phoria</p>
       </Link>
