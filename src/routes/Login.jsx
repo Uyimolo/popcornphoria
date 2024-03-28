@@ -37,6 +37,7 @@ const Login = () => {
       if (isGoogle) navigate('/');
     } catch (error) {
       console.log(error);
+      alert(error)
     }
   };
 
