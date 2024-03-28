@@ -1,11 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link } from 'react-router-dom';
 import {
   faBarsStaggered,
   faClose,
   faSearch,
 } from '@fortawesome/free-solid-svg-icons';
 import Search from './Search';
+import Logo from './Logo';
 
 const Header = ({
   isSidebarOpen,
@@ -15,12 +15,7 @@ const Header = ({
 }) => {
   return (
     <header>
-      <Link>
-        <div className='logo'>
-          <p>PopCorn</p>
-          <p>Phoria</p>
-        </div>
-      </Link>
+     <Logo />
 
       <FontAwesomeIcon
         className='search-icon awesome'
