@@ -11,6 +11,8 @@ import {
   faInfoCircle,
 } from '@fortawesome/free-solid-svg-icons';
 
+import Logo from './Logo';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 
@@ -28,7 +30,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, setShowSearchInput }) => {
   ];
 
   const generalContent = [
-    { name: 'Sign In', icon: faSignIn, to: '' },
+    { name: 'Sign In', icon: faSignIn, to: '/login' },
     { name: 'About', icon: faInfoCircle, to: '' },
     { name: 'Contact', icon: faContactBook, to: '' },
     { name: 'Settings', icon: faCogs, to: '' },
@@ -42,10 +44,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, setShowSearchInput }) => {
   };
   return (
     <aside className={`sidebar ${isSidebarOpen ? 'active' : ''}`}>
-      <Link to='/' className='logo' onClick={handleDisplayRoute}>
-        <p>PopCorn</p>
-        <p>Phoria</p>
-      </Link>
+      <Logo click={handleDisplayRoute} />
 
       <div className='sidebar-section'>
         <p className='sidebar-section-heading'>Menu</p>
