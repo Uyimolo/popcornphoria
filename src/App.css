@@ -50,7 +50,6 @@ p {
 
 a {
   text-decoration: double;
-  
 }
 
 button {
@@ -414,7 +413,7 @@ swiper-slide img {
   border-radius: 0.5rem;
 }
 
-.auth .forgot-password {
+.auth .forgot-password, .auth .secure-password {
   text-align: right;
   margin-bottom: 2rem;
   font-size: var(--small-font-size);
@@ -423,6 +422,14 @@ swiper-slide img {
 .auth button {
   border-radius: 0.5rem;
   padding: 0.7rem;
+  background-color: var(--secondary-color);
+  border: none;
+  transition: .5s;
+}
+
+.auth button:hover {
+  background-color: var(--primary-color);
+  color: var(--black);
 }
 
 .auth .or {
@@ -778,8 +785,7 @@ swiper-slide img {
   }
 
   .auth {
-    border: 1px solid var(--white-text-color);
-    border-radius: .5rem;
+    border-radius: 0.5rem;
   }
 
   .auth h3 {
