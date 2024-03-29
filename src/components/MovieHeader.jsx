@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-regular-svg-icons';
 import { Link } from 'react-router-dom';
 
-const MovieHeader = ({ movieData, type }) => {
+const MovieHeader = ({ movieData }) => {
   // destructuring movieData
   const {
     poster_path,
@@ -32,7 +32,7 @@ const MovieHeader = ({ movieData, type }) => {
 
         <div className='miscellenous'>
           <FontAwesomeIcon icon={faStar} className='awesome' />
-          <p className='rating'>{vote_average}</p>
+          <p className='rating'>{vote_average.toFixed(1)}</p>
           <p className='rating-count'>({vote_count})</p>
           <div className='seperation'></div>
           <p className='year'>{date.split('-')[0]}</p>
@@ -45,7 +45,9 @@ const MovieHeader = ({ movieData, type }) => {
             <button className='watch-trailer primary-btn'>Watch trailer</button>
           </Link>
 
-          <button className='add-to-watchlist secondary-btn'>
+          <button
+            className='add-to-watchlist secondary-btn'
+            onClick={() => handleAddToWatchlist(movieData)}>
             Add to watchlist
           </button>
         </div>

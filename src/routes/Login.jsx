@@ -4,10 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import { auth, googleProvider } from '../firebase/config';
 import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { useDispatch, useSelector } from 'react-redux';
-import { signinUser } from '../features/authSlice';
+import { errorMessages } from '../assets/arraysAndObjects/errorMessages';
+import { showToastAlert } from '../features/toastSlice';
 
 const Login = () => {
   const redirectRoute = useSelector((state) => state.auth.redirectRoute);
+  const authState = useSelector((state) => state.auth);
+
   const dispatch = useDispatch();
 
   const [loginData, setLoginData] = useState({ email: '', password: '' });
@@ -28,11 +31,15 @@ const Login = () => {
         password
       );
       if (userCredential) {
-        dispatch(signinUser({ email: auth.currentUser.email }));
+        console.log(authState);
         navigate(redirectRoute);
+        dispatch(showToastAlert({ type: 'success', message: `Welcome back` }));
       }
     } catch (error) {
-      console.error(error);
+      console.error(error.message);
+      dispatch(
+        showToastAlert({ type: 'error', message: errorMessages[error.code] })
+      );
     }
   };
 
@@ -41,11 +48,15 @@ const Login = () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       if (result) {
-        dispatch(signinUser({ email: auth.currentUser.email }));
+        dispatch(showToastAlert({ type: 'success', message: 'Welcome back' }));
+
         navigate(redirectRoute);
       }
     } catch (error) {
-      console.error(error);
+      console.error(error.message);
+      dispatch(
+        showToastAlert({ type: 'error', message: errorMessages[error.code] })
+      );
     }
   };
 
@@ -72,7 +83,7 @@ const Login = () => {
         <p className='or'>Or</p>
         <button onClick={handleGoogleSignin}>Sign in with Google</button>
         <p className='no-account'>
-          Don't have an account?{' '}
+          Don't have an account?
           <Link className='link' to='/signup'>
             Sign up now
           </Link>

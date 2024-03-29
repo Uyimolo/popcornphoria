@@ -14,17 +14,14 @@ export const authSlice = createSlice({
     updateRedirectRoute: (state, action) => {
       state.redirectRoute = action.payload.redirectRoute;
     },
-    signinUser: (state, action) => {
-      state.isSignedin = true;
-      state.userEmail = action.payload.email;
+    setUserAuthState: (state, action) => {
+      const { isSignedin, userEmail } = action.payload;
+      state.isSignedin = isSignedin;
+      state.userEmail = userEmail;
     },
-  },
-  signoutUser: (state) => {
-    state = initialState;
   },
 });
 
-export const { updateRedirectRoute, signinUser, signoutUser } =
-  authSlice.actions;
+export const { updateRedirectRoute, setUserAuthState } = authSlice.actions;
 
 export default authSlice.reducer;

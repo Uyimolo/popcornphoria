@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { auth, googleProvider } from '../firebase/config';
 import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { useDispatch, useSelector } from 'react-redux';
-import { signinUser } from '../features/authSlice';
 
 const Signup = () => {
   const dispatch = useDispatch();

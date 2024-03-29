@@ -9,7 +9,7 @@
 
 :root {
   --primary-color: #f8b319;
-  --secondary-color: #2241a88e;
+  --secondary-color: #2241a8;
   --secondary-dark: #02091b;
   --white-text-color: #eee;
   --black: #000000;
@@ -69,6 +69,49 @@ button.primary-btn {
 
 .app {
   position: relative;
+}
+
+.toast-container {
+  color: var(--white-text-color);
+  width: 90%;
+  height: 4rem;
+  position: absolute;
+  top: 6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.toast-container.success {
+  background-color: var(--secondary-color);
+}
+
+.toast-container.error {
+  background-color: red;
+}
+
+.toast-container .toast-message {
+  padding: 0.5rem 1rem;
+}
+
+.toast-container .toast-progress-bar {
+  height: 0.4rem;
+  background-color: var(--gray);
+  bottom: 0;
+  animation: toast 5s ease-in-out 1;
+}
+
+@keyframes toast {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
 }
 
 header {
@@ -413,7 +456,8 @@ swiper-slide img {
   border-radius: 0.5rem;
 }
 
-.auth .forgot-password, .auth .secure-password {
+.auth .forgot-password,
+.auth .secure-password {
   text-align: right;
   margin-bottom: 2rem;
   font-size: var(--small-font-size);
@@ -424,7 +468,7 @@ swiper-slide img {
   padding: 0.7rem;
   background-color: var(--secondary-color);
   border: none;
-  transition: .5s;
+  transition: 0.5s;
 }
 
 .auth button:hover {

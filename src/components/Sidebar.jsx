@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   faHome,
   faCamera,
@@ -8,6 +8,7 @@ import {
   faStar,
   faBookmark,
   faSignIn,
+  faSignOut,
   faCogs,
   faContactBook,
   faInfoCircle,
@@ -18,11 +19,16 @@ import Logo from './Logo';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import { updateRedirectRoute } from '../features/authSlice';
+import { signOut } from 'firebase/auth';
+import { showToastAlert } from '../features/toastSlice';
+import { auth } from '../firebase/config';
+import { current } from '@reduxjs/toolkit';
 
 const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, setShowSearchInput }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const online = useSelector((state) => state.auth.isSignedin);
 
   const menuContent = [
     { name: 'Home', icon: faHome, to: '/' },
@@ -37,19 +43,32 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, setShowSearchInput }) => {
   ];
 
   const generalContent = [
-    { name: 'Sign In', icon: faSignIn, to: '/login' },
+    {
+      name: `${online ? 'Sign Out' : 'Sign In'}`,
+      icon: online ? faSignOut : faSignIn,
+      to: '/',
+    },
     { name: 'About', icon: faInfoCircle, to: '' },
     { name: 'Contact', icon: faContactBook, to: '' },
     { name: 'Settings', icon: faCogs, to: '' },
   ];
 
   // close all modals that may be obstructing the new routes display
-  const handleDisplayRoute = (name) => {
+  const handleDisplayRoute = async (name) => {
     if (name === 'Sign In') {
       const currentPath = location.pathname;
       dispatch(updateRedirectRoute({ redirectRoute: currentPath }));
-      handleDisplayRoute();
+
       navigate('/login');
+    } else if (name === 'Sign Out') {
+      await signOut(auth);
+
+      dispatch(
+        showToastAlert({
+          type: 'success',
+          message: 'You have been signed out.',
+        })
+      );
     }
     setShowSearchInput(false);
     setIsSidebarOpen(false);
@@ -94,7 +113,25 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, setShowSearchInput }) => {
         <p className='sidebar-section-heading'>General</p>
         <div className='sidebar-section-contents'>
           {generalContent.map((item) =>
-            item.name !== 'Sign In' ? (
+            item.name === 'Sign In' ? (
+              // can't render Sign in as a Link because I'll programmatically be changing routes
+              <div
+                onClick={() => handleDisplayRoute(item.name)}
+                key={item.name}
+                className='section-content'>
+                <FontAwesomeIcon className='awesome' icon={item.icon} />
+                <p>{item.name}</p>
+              </div>
+            ) : item.name === 'Sign Out' ? (
+              // can't render Sign in as a Link because I'll programmatically be changing routes
+              <div
+                onClick={() => handleDisplayRoute(item.name)}
+                key={item.name}
+                className='section-content'>
+                <FontAwesomeIcon className='awesome' icon={item.icon} />
+                <p>{item.name}</p>
+              </div>
+            ) : (
               <Link
                 onClick={() => handleDisplayRoute(item.name)}
                 key={item.name}
@@ -103,16 +140,6 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, setShowSearchInput }) => {
                 <FontAwesomeIcon className='awesome' icon={item.icon} />
                 <p>{item.name}</p>
               </Link>
-            ) : (
-              // can't render Sign in as a Link because I'll programmatically be changing routes
-              <div
-                onClick={() => handleDisplayRoute(item.name)}
-                key={item.name}
-                to={item.to}
-                className='section-content'>
-                <FontAwesomeIcon className='awesome' icon={item.icon} />
-                <p>{item.name}</p>
-              </div>
             )
           )}
         </div>
