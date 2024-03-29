@@ -3,8 +3,14 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth, googleProvider } from '../firebase/config';
 import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { signinUser } from '../features/authSlice';
 
 const Login = () => {
+  const redirectRoute = useSelector((state) => state.auth.redirectRoute);
+  const state = useSelector((state) => state.auth);
+  const dispatch = useDispatch;
+
   const [loginData, setLoginData] = useState({ email: '', password: '' });
   const navigate = useNavigate();
   const handleChange = (e) => {
@@ -22,8 +28,9 @@ const Login = () => {
         password
       );
       if (isSignedin) {
-        console.log('signed in');
-        navigate('/');
+        dispatch(signinUser({ email: auth.currentUser.email }));
+        console.log(state);
+        navigate(redirectRoute);
       }
     } catch (error) {
       console.log(error);
@@ -33,11 +40,14 @@ const Login = () => {
   const handleGoogleSignin = async (e) => {
     e.preventDefault();
     try {
-      const isGoogle = signInWithPopup(auth, googleProvider);
-      if (isGoogle) navigate('/');
+      const isSignedin = signInWithPopup(auth, googleProvider);
+      if (isSignedin) {
+        dispatch(signinUser({ email: auth.currentUser.email }));
+        console.log(state);
+        navigate(redirectRoute);
+      }
     } catch (error) {
       console.log(error);
-      alert(error)
     }
   };
 

@@ -1,3 +1,5 @@
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import {
   faHome,
   faCamera,
@@ -15,8 +17,13 @@ import Logo from './Logo';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
+import { updateRedirectRoute } from '../features/authSlice';
 
 const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, setShowSearchInput }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const menuContent = [
     { name: 'Home', icon: faHome, to: '/' },
     { name: 'Movies', icon: faCamera, to: '/movie' },
@@ -34,11 +41,16 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, setShowSearchInput }) => {
     { name: 'About', icon: faInfoCircle, to: '' },
     { name: 'Contact', icon: faContactBook, to: '' },
     { name: 'Settings', icon: faCogs, to: '' },
-    ,
-    ,
   ];
+
   // close all modals that may be obstructing the new routes display
-  const handleDisplayRoute = () => {
+  const handleDisplayRoute = (name) => {
+    if (name === 'Sign In') {
+      const currentPath = location.pathname;
+      dispatch(updateRedirectRoute({ redirectRoute: currentPath }));
+      handleDisplayRoute();
+      navigate('/login');
+    }
     setShowSearchInput(false);
     setIsSidebarOpen(false);
   };
@@ -81,16 +93,28 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, setShowSearchInput }) => {
       <div className='sidebar-section'>
         <p className='sidebar-section-heading'>General</p>
         <div className='sidebar-section-contents'>
-          {generalContent.map((item) => (
-            <Link
-              onClick={handleDisplayRoute}
-              key={item.name}
-              to={item.to}
-              className='section-content'>
-              <FontAwesomeIcon className='awesome' icon={item.icon} />
-              <p>{item.name}</p>
-            </Link>
-          ))}
+          {generalContent.map((item) =>
+            item.name !== 'Sign In' ? (
+              <Link
+                onClick={() => handleDisplayRoute(item.name)}
+                key={item.name}
+                to={item.to}
+                className='section-content'>
+                <FontAwesomeIcon className='awesome' icon={item.icon} />
+                <p>{item.name}</p>
+              </Link>
+            ) : (
+              // can't render Sign in as a Link because I'll programmatically be changing routes
+              <div
+                onClick={() => handleDisplayRoute(item.name)}
+                key={item.name}
+                to={item.to}
+                className='section-content'>
+                <FontAwesomeIcon className='awesome' icon={item.icon} />
+                <p>{item.name}</p>
+              </div>
+            )
+          )}
         </div>
       </div>
     </aside>

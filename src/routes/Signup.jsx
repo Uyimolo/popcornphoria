@@ -2,8 +2,14 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { auth, googleProvider } from '../firebase/config';
 import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { signinUser } from '../features/authSlice';
 
 const Signup = () => {
+  const dispatch = useDispatch();
+  const redirectRoute = useSelector((state) => state.auth.redirectRoute);
+  const state = useSelector(state => state.auth)
+
   const [signupData, setSignupData] = useState({ email: '', password: '' });
   const navigate = useNavigate();
   const handleChange = (e) => {
@@ -21,8 +27,10 @@ const Signup = () => {
         password
       );
       if (isSignedUp) {
+        dispatch(signinUser({ email: auth.currentUser.email }));
+        console.log(state);
         // create logic to return user to initial page where he was before with redux
-        navigate('/');
+        navigate(redirectRoute);
       }
       // setup elaborate error messages and toastify like alerts and input specific validations
     } catch (error) {
@@ -33,8 +41,12 @@ const Signup = () => {
   const handleGoogleSignup = async (e) => {
     e.preventDefault();
     try {
-     const isGoogle = await signInWithPopup(auth, googleProvider);
-     if(isGoogle) navigate('/')
+      const isSignedUp = await signInWithPopup(auth, googleProvider);
+      if (isSignedUp) {
+        dispatch(signinUser({ email: auth.currentUser.email }));
+        console.log(state);
+        navigate(redirectRoute);
+      }
     } catch (error) {
       console.log(error);
     }
