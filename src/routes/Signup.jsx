@@ -8,7 +8,6 @@ import { signinUser } from '../features/authSlice';
 const Signup = () => {
   const dispatch = useDispatch();
   const redirectRoute = useSelector((state) => state.auth.redirectRoute);
-  const state = useSelector(state => state.auth)
 
   const [signupData, setSignupData] = useState({ email: '', password: '' });
   const navigate = useNavigate();
@@ -21,15 +20,13 @@ const Signup = () => {
     e.preventDefault();
     const { email, password } = signupData;
     try {
-      const isSignedUp = await createUserWithEmailAndPassword(
+      const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
-      if (isSignedUp) {
+      if (userCredential) {
         dispatch(signinUser({ email: auth.currentUser.email }));
-        console.log(state);
-        // create logic to return user to initial page where he was before with redux
         navigate(redirectRoute);
       }
       // setup elaborate error messages and toastify like alerts and input specific validations
@@ -41,10 +38,9 @@ const Signup = () => {
   const handleGoogleSignup = async (e) => {
     e.preventDefault();
     try {
-      const isSignedUp = await signInWithPopup(auth, googleProvider);
-      if (isSignedUp) {
+      const result = await signInWithPopup(auth, googleProvider);
+      if (result) {
         dispatch(signinUser({ email: auth.currentUser.email }));
-        console.log(state);
         navigate(redirectRoute);
       }
     } catch (error) {

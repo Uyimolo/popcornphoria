@@ -8,11 +8,11 @@ import { signinUser } from '../features/authSlice';
 
 const Login = () => {
   const redirectRoute = useSelector((state) => state.auth.redirectRoute);
-  const state = useSelector((state) => state.auth);
-  const dispatch = useDispatch;
+  const dispatch = useDispatch();
 
   const [loginData, setLoginData] = useState({ email: '', password: '' });
   const navigate = useNavigate();
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLoginData({ ...loginData, [name]: value });
@@ -22,32 +22,30 @@ const Login = () => {
     e.preventDefault();
     const { email, password } = loginData;
     try {
-      const isSignedin = await signInWithEmailAndPassword(
+      const userCredential = await signInWithEmailAndPassword(
         auth,
         email,
         password
       );
-      if (isSignedin) {
+      if (userCredential) {
         dispatch(signinUser({ email: auth.currentUser.email }));
-        console.log(state);
         navigate(redirectRoute);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
   const handleGoogleSignin = async (e) => {
     e.preventDefault();
     try {
-      const isSignedin = signInWithPopup(auth, googleProvider);
-      if (isSignedin) {
+      const result = await signInWithPopup(auth, googleProvider);
+      if (result) {
         dispatch(signinUser({ email: auth.currentUser.email }));
-        console.log(state);
         navigate(redirectRoute);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

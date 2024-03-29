@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   isSignedin: false,
   //todo:set redirect route to the current route the user was before clicking on sign in. after successful sign in return them to that same route
-  redirectRoute: '',
+  redirectRoute: '/',
   userEmail: '',
 };
 
