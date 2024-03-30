@@ -4,6 +4,7 @@ import { auth, googleProvider } from '../firebase/config';
 import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { showToastAlert } from '../features/toastSlice';
+import { errorMessages } from '../assets/arraysAndObjects/errorMessages';
 
 const Signup = () => {
   const dispatch = useDispatch();
