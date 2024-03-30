@@ -9,12 +9,14 @@
 
 :root {
   --primary-color: #f8b319;
-  --secondary-color: #2241a88e;
+  --secondary-color: #2241a8;
   --secondary-dark: #02091b;
   --white-text-color: #eee;
   --black: #000000;
   --black-transparent: #0000006c;
   --gray: #bbb;
+  --red: rgb(253, 66, 66);
+  --green: rgb(19, 253, 19);
   --linear-gradient: linear-gradient(45deg, #000000 20%, #02091b41);
   --small-font-size: 0.8em;
 }
@@ -69,6 +71,49 @@ button.primary-btn {
 
 .app {
   position: relative;
+}
+
+.toast-container {
+  color: var(--white-text-color);
+  width: 90%;
+  height: 4rem;
+  position: absolute;
+  top: 6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.toast-container.success {
+  background-color: var(--secondary-color);
+}
+
+.toast-container.error {
+  background-color: red;
+}
+
+.toast-container .toast-message {
+  padding: 0.5rem 1rem;
+}
+
+.toast-container .toast-progress-bar {
+  height: 0.4rem;
+  background-color: var(--gray);
+  bottom: 0;
+  animation: toast 5s ease-in-out 1;
+}
+
+@keyframes toast {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
 }
 
 header {
@@ -168,12 +213,10 @@ header {
   gap: 1rem;
   height: 9rem;
   border-radius: 0.5rem;
-  /* background-image: var(--linear-gradient); */
-  background-color: var(--secondary-dark);
 }
 
 .search-result:hover {
-  background-color: var(--secondary-color);
+  background-color: var(--secondary-dark);
 }
 
 .search-result .search-result-details {
@@ -236,6 +279,22 @@ header .menu-icon {
   overflow-y: scroll;
 }
 
+.sidebar .profile {
+  background-color: white;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+}
+
+.sidebar .profile p {
+  padding: 1rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--secondary-color);
+}
 .sidebar .awesome {
   width: 1.2rem;
 }
@@ -408,14 +467,32 @@ swiper-slide img {
   margin: 2rem 0;
 }
 
+.auth label {
+  color: var(--gray);
+}
+
 .auth input {
   padding: 0.7rem;
   border-radius: 0.5rem;
 }
 
-.auth .forgot-password, .auth .secure-password {
+.auth .valid {
+  border: 1px solid var(--green);
+}
+
+.auth .error {
+  border: 1px solid var(--red);
+}
+
+.auth .forgot-password,
+.auth .secure-password {
   text-align: right;
   margin-bottom: 2rem;
+  font-size: var(--small-font-size);
+}
+
+.auth .valid-email {
+  text-align: right;
   font-size: var(--small-font-size);
 }
 
@@ -424,7 +501,7 @@ swiper-slide img {
   padding: 0.7rem;
   background-color: var(--secondary-color);
   border: none;
-  transition: .5s;
+  transition: 0.5s;
 }
 
 .auth button:hover {

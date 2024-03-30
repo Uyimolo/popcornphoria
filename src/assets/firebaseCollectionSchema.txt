@@ -1,0 +1,15 @@
+users (collection)
+|
+└── userId (document)
+    ├── username: "User123"
+    ├── email: "user@example.com"
+    └── watchlist (subcollection)
+        |
+        ├── movieId (document)
+        │   ├── title: "Movie Title"
+        │   ├── genre: "Action"
+        │   └── ...
+        └── tvShowId (document)
+            ├── title: "TV Show Title"
+            ├── genre: "Comedy"
+            └── ...

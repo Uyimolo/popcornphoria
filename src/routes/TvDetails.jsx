@@ -6,6 +6,7 @@ import {
   useGetTvShowCreditsQuery,
 } from '../features/apiSlice';
 import MovieCarousels from '../components/MovieCarousels';
+import AddToWatchlist from '../components/AddToWatchlist';
 const TvDetails = () => {
   const { tvId } = useParams();
 
@@ -96,6 +97,12 @@ const TvDetails = () => {
                 </p>
               ))}
             </div>
+
+            <AddToWatchlist
+              poster_path={tvShow.poster_path}
+              id={tvShow.id}
+              media_type={'tv'}
+            />
 
             {credits && <p>{`Starring: ${credits.join(' | ')}`}</p>}
           </div>

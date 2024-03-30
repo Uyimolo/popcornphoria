@@ -6,6 +6,7 @@ import {
   useGetSimilarMoviesQuery,
 } from '../features/apiSlice';
 import MovieCarousels from '../components/MovieCarousels';
+import AddToWatchlist from '../components/AddToWatchlist';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
@@ -94,6 +95,12 @@ const MovieDetails = () => {
                 </p>
               ))}
             </div>
+
+            <AddToWatchlist
+              poster_path={movie.poster_path}
+              id={movie.id}
+              media_type={'movie'}
+            />
 
             {credits && <p>{`Starring: ${credits.join(' | ')}`}</p>}
           </div>
