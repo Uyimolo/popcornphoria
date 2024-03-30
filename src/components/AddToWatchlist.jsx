@@ -12,9 +12,10 @@ const AddToWatchlist = ({ poster_path, id, media_type }) => {
 
   useEffect(() => {
     checkWatchlist();
-  }, [media_type, online, poster_path]);
+  }, [media_type, online, poster_path, isInWatchlist]);
 
   const checkWatchlist = async () => {
+    setButtonText('Add to watchlist');
     if (!online) return;
 
     const userId = auth.currentUser.uid;
