@@ -12,6 +12,9 @@ import {
   faCogs,
   faContactBook,
   faInfoCircle,
+  faDisplay,
+  faPerson,
+  faPersonBurst,
 } from '@fortawesome/free-solid-svg-icons';
 
 import Logo from './Logo';
@@ -22,13 +25,13 @@ import { updateRedirectRoute } from '../features/authSlice';
 import { signOut } from 'firebase/auth';
 import { showToastAlert } from '../features/toastSlice';
 import { auth } from '../firebase/config';
-import { current } from '@reduxjs/toolkit';
 
 const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, setShowSearchInput }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const online = useSelector((state) => state.auth.isSignedin);
+  const user = useSelector((state) => state.auth.userEmail);
 
   const menuContent = [
     { name: 'Home', icon: faHome, to: '/' },
@@ -73,9 +76,16 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, setShowSearchInput }) => {
     setShowSearchInput(false);
     setIsSidebarOpen(false);
   };
+
   return (
     <aside className={`sidebar ${isSidebarOpen ? 'active' : ''}`}>
       <Logo click={handleDisplayRoute} />
+
+      {online && (
+        <div className='profile'>
+          <p>{user[0].toUpperCase()}</p>
+        </div>
+      )}
 
       <div className='sidebar-section'>
         <p className='sidebar-section-heading'>Menu</p>

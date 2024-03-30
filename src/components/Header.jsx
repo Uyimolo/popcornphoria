@@ -6,6 +6,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import Search from './Search';
 import Logo from './Logo';
+import { useLocation } from 'react-router';
 
 const Header = ({
   isSidebarOpen,
@@ -13,15 +14,19 @@ const Header = ({
   showSearchInput,
   setShowSearchInput,
 }) => {
+  const location = useLocation();
   return (
     <header>
-     <Logo />
+      <Logo />
 
-      <FontAwesomeIcon
-        className='search-icon awesome'
-        icon={faSearch}
-        onClick={() => setShowSearchInput((prevState) => !prevState)}
-      />
+      {!location.pathname.includes('/signup') &&
+        !location.pathname.includes('/login') && (
+          <FontAwesomeIcon
+            className='search-icon awesome'
+            icon={faSearch}
+            onClick={() => setShowSearchInput((prevState) => !prevState)}
+          />
+        )}
 
       <Search
         setShowSearchInput={setShowSearchInput}

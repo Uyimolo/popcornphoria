@@ -26,7 +26,7 @@ function App() {
   useEffect(() => {
     const showToast = setTimeout(() => {
       dispatch(removeToast());
-    }, 5000);
+    }, 4000);
 
     return () => clearTimeout(showToast);
   }, [toast]);
@@ -59,10 +59,8 @@ function App() {
       />
       <main>
         <Outlet />
-        {
-          // error &&
-          <Toast />
-        }
+        {/* custom toasts alerts */}
+        <Toast />
       </main>
 
       <Footer />

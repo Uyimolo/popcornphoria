@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-regular-svg-icons';
 import { Link } from 'react-router-dom';
+import AddToWatchlist from './AddToWatchlist';
 
 const MovieHeader = ({ movieData }) => {
   // destructuring movieData
@@ -45,11 +46,11 @@ const MovieHeader = ({ movieData }) => {
             <button className='watch-trailer primary-btn'>Watch trailer</button>
           </Link>
 
-          <button
-            className='add-to-watchlist secondary-btn'
-            onClick={() => handleAddToWatchlist(movieData)}>
-            Add to watchlist
-          </button>
+          <AddToWatchlist
+            media_type={media_type}
+            poster_path={poster_path}
+            id={id}
+          />
         </div>
       </div>
     </div>
