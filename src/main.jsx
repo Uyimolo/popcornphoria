@@ -12,6 +12,7 @@ import Movies from './routes/Movies.jsx';
 import TvShows from './routes/TvShows.jsx';
 import Login from './routes/Login.jsx';
 import Signup from './routes/Signup.jsx';
+import Watchlist from './routes/Watchlist.jsx';
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,7 @@ const router = createBrowserRouter([
       { path: '/tv/:tvId', element: <TvDetails /> },
       { path: '/login', element: <Login /> },
       { path: '/signup', element: <Signup /> },
+      { path: '/watchlist', element: <Watchlist /> },
     ],
   },
 ]);

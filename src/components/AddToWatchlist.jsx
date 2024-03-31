@@ -77,7 +77,7 @@ const AddToWatchlist = ({ poster_path, id, media_type }) => {
 
   return (
     <button
-      className='add-to-watchlist secondary-btn'
+      className='add-to-watchlist-button'
       onClick={handleAddToWatchlist}
       disabled={isInWatchlist}>
       {buttonText}
