@@ -784,6 +784,10 @@ swiper-slide img {
   color: var(--black);
 }
 
+.watchlist-page {
+  padding: 1rem;
+}
+
 @media (min-width: 768px) {
   ::-webkit-scrollbar {
     width: 4px;

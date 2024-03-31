@@ -42,7 +42,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, setShowSearchInput }) => {
   const libraryContent = [
     { name: 'Recent', icon: faClock, to: '' },
     { name: 'Top Rated', icon: faStar, to: '' },
-    { name: 'WatchList', icon: faBookmark, to: '' },
+    { name: 'Watchlist', icon: faBookmark, to: '/watchlist' },
   ];
 
   const generalContent = [
