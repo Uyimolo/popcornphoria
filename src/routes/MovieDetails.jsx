@@ -96,11 +96,13 @@ const MovieDetails = () => {
               ))}
             </div>
 
-            <AddToWatchlist
-              poster_path={movie.poster_path}
-              id={movie.id}
-              media_type={'movie'}
-            />
+            <div className='watchlist-button'>
+              <AddToWatchlist
+                poster_path={movie.poster_path}
+                id={movie.id}
+                media_type={'movie'}
+              />
+            </div>
 
             {credits && <p>{`Starring: ${credits.join(' | ')}`}</p>}
           </div>
