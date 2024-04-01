@@ -58,11 +58,11 @@ const Watchlist = () => {
                   icon={faDumpster}
                   onClick={() => handleRemoveFromWatchlist(item.docId)}
                 />
-                <ShareMovie
+                {/* <ShareMovie
                   poster_path={item.poster_path}
                   link={`https://localhost:5173/${item.media_type}/${item.id}`}
                   name={item.name}
-                />
+                /> */}
               </div>
             </div>
           ))
