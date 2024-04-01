@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import LazyCarouselImage from '../components/LazyCarouselImage';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDumpster } from '@fortawesome/free-solid-svg-icons';
+import { faDumpster, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import ShareMovie from '../components/ShareMovie';
 import { deleteDoc, doc } from 'firebase/firestore';
 
@@ -28,7 +28,7 @@ const Watchlist = () => {
         setWatchlist(fetchedWatchlist);
       });
     }
-  }, []);
+  }, [watchlist, authenticated]);
 
   const handleRemoveFromWatchlist = async (docId) => {
     if (authenticated) {
@@ -44,7 +44,9 @@ const Watchlist = () => {
     <div className='page watchlist-page'>
       <h3>My watchlist</h3>
       <div className='watchlist-card-container'>
-        {watchlist ? (
+        {!watchlist ? (
+          <FontAwesomeIcon className='awesome rotate' icon={faSpinner} />
+        ) : watchlist.length > 0 ? (
           watchlist.map((item) => (
             <div key={item.id} className='watchlist-movie-card'>
               <Link to={`/${item.media_type}/${item.id}`}>
@@ -65,7 +67,7 @@ const Watchlist = () => {
             </div>
           ))
         ) : (
-          <p>Watchlist is empty</p>
+          <p className='watchlist-placeholder'>No items in watchlist yet.</p>
         )}
       </div>
     </div>

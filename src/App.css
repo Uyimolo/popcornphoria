@@ -201,6 +201,7 @@ header {
   border-radius: 0 0.4rem 0.4rem 0;
   border: none;
   background-color: var(--secondary-color);
+  width: fit-content;
 }
 
 .search-icon {
