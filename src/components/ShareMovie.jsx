@@ -3,24 +3,29 @@ import { showToastAlert } from '../features/toastSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShareNodes } from '@fortawesome/free-solid-svg-icons';
 import { useCallback } from 'react';
-const ShareMovie = (poster_path, link, name) => {
+const ShareMovie = ({ poster_path, link, name }) => {
   const dispatch = useDispatch();
 
   const handleShareMovie = useCallback(async () => {
-    const posterUrl = `https://image.tmdb.org/t/p/w200${poster_path}`;
     if (navigator.share) {
       try {
+        const posterUrl = `https://image.tmdb.org/t/p/w200${poster_path}`;
+        console.log(poster_path);
+
         const response = await fetch(posterUrl);
+        console.log(response);
         // convert qrDataURL to blob
         const blob = await response.blob();
         const file = new File([blob], `${name}.png`, { type: 'image/png' });
-
+        console.log(blob);
+        console.log(file);
         await navigator.share({
           title: 'Have you watched this?',
           text: name,
           link: link,
           files: [file],
         });
+        console.log(file);
       } catch (error) {
         console.error('Error sharing movie:', error);
         dispatch(
