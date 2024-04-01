@@ -10,11 +10,16 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { errorMessages } from '../assets/arraysAndObjects/errorMessages';
 import { showToastAlert } from '../features/toastSlice';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignInAlt, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 
 const Login = () => {
   const redirectRoute = useSelector((state) => state.auth.redirectRoute);
   const [emailValid, setEmailValid] = useState(false);
   const [passwordValid, setPasswordValid] = useState(false);
+  const [signinIcon, setSigninIcon] = useState(faSignInAlt);
+  const [googleIcon, setGoogleIcon] = useState(faGoogle);
 
   const dispatch = useDispatch();
 
@@ -53,8 +58,9 @@ const Login = () => {
 
     const { email, password } = loginData;
 
-    if (emailValid || passwordValid) {
+    if (emailValid && passwordValid) {
       try {
+        setSigninIcon(faSpinner);
         const userCredential = await signInWithEmailAndPassword(
           auth,
           email,
@@ -67,6 +73,7 @@ const Login = () => {
           navigate(redirectRoute);
         }
       } catch (error) {
+        setSigninIcon(faSignInAlt);
         dispatch(
           showToastAlert({ type: 'error', message: errorMessages[error.code] })
         );
@@ -83,6 +90,8 @@ const Login = () => {
 
   const handleGoogleSignin = async (e) => {
     e.preventDefault();
+    setGoogleIcon(faSpinner);
+
     try {
       const result = await signInWithPopup(auth, googleProvider);
       if (result) {
@@ -91,6 +100,7 @@ const Login = () => {
         navigate(redirectRoute);
       }
     } catch (error) {
+      setGoogleIcon(faGoogle);
       dispatch(
         showToastAlert({ type: 'error', message: errorMessages[error.code] })
       );
@@ -149,11 +159,23 @@ const Login = () => {
             'Passwords should be atleast 6 characters'}
         </p>
 
-        <button onClick={handleSignin}>Sign in</button>
+        <button onClick={handleSignin}>
+          <FontAwesomeIcon
+            className={`awesome ${signinIcon === faSpinner ? 'rotate' : ''}`}
+            icon={signinIcon}
+          />{' '}
+          Sign in
+        </button>
 
         <p className='or'>Or</p>
 
-        <button onClick={handleGoogleSignin}>Sign in with Google</button>
+        <button onClick={handleGoogleSignin}>
+          <FontAwesomeIcon
+            className={`awesome googleIcon === faSpinner ? 'rotate' : ''}`}
+            icon={googleIcon}
+          />{' '}
+          Sign in with Google
+        </button>
 
         <p className='no-account'>
           Don't have an account?{' '}

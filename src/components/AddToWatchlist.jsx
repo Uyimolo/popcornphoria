@@ -3,19 +3,21 @@ import { auth, db } from '../firebase/config';
 import { showToastAlert } from '../features/toastSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck, faPlus, faSpinner } from '@fortawesome/free-solid-svg-icons';
 
-const AddToWatchlist = ({ poster_path, id, media_type }) => {
+const AddToWatchlist = ({ poster_path, id, media_type, name }) => {
   const dispatch = useDispatch();
   const online = useSelector((state) => state.auth.isSignedin);
   const [isInWatchlist, setIsInWatchlist] = useState(false);
-  const [buttonText, setButtonText] = useState('Add to watchlist');
+  const [buttonIcon, setButtonIcon] = useState(faPlus);
 
   useEffect(() => {
     checkWatchlist();
   }, [media_type, online, poster_path, isInWatchlist]);
 
   const checkWatchlist = async () => {
-    setButtonText('Add to watchlist');
+    setButtonIcon(faPlus);
     if (!online) return;
 
     const userId = auth.currentUser.uid;
@@ -28,8 +30,8 @@ const AddToWatchlist = ({ poster_path, id, media_type }) => {
 
     const querySnapshot = await getDocs(q);
     setIsInWatchlist(!querySnapshot.empty);
-    if (isInWatchlist) setButtonText('Already in watchlist');
-    console.log('Is in watchlist:', !querySnapshot.empty);
+    if (isInWatchlist) setButtonIcon(faCheck);
+    // console.log('Is in watchlist:', !querySnapshot.empty);
   };
 
   const handleAddToWatchlist = async () => {
@@ -47,17 +49,18 @@ const AddToWatchlist = ({ poster_path, id, media_type }) => {
 
     const userId = auth.currentUser.uid;
 
-    console.log(userId);
+    // console.log(userId);
     const collectionRef = collection(db, 'users', userId, 'watchlist');
     const data = {
       media_type,
       poster_path,
       id,
       date_added: Date.now().toString(),
+      name,
     };
 
     try {
-      setButtonText('Adding to watchlist...');
+      setButtonIcon(faSpinner);
       const isSuccess = await addDoc(collectionRef, data);
       if (isSuccess)
         dispatch(
@@ -66,7 +69,7 @@ const AddToWatchlist = ({ poster_path, id, media_type }) => {
             message: 'Added to watchlist',
           })
         );
-      setButtonText('Added to watchlist');
+      setButtonIcon(faCheck);
     } catch (error) {
       console.error('Error uploading document to Firestore:', error);
       dispatch(
@@ -77,10 +80,14 @@ const AddToWatchlist = ({ poster_path, id, media_type }) => {
 
   return (
     <button
-      className='add-to-watchlist-button'
+      className={`add-to-watchlist-button`}
       onClick={handleAddToWatchlist}
       disabled={isInWatchlist}>
-      {buttonText}
+      <FontAwesomeIcon
+        className={`awesome ${buttonIcon === faSpinner ? 'rotate' : ''}`}
+        icon={buttonIcon}
+      />{' '}
+      {'Watchlist'}
     </button>
   );
 };
