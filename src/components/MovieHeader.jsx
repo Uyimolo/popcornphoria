@@ -43,13 +43,14 @@ const MovieHeader = ({ movieData }) => {
 
         <div className='cta'>
           <Link to={`/${media_type}/${id}`}>
-            <button className='watch-trailer primary-btn'>Watch trailer</button>
+            <button>Watch trailer</button>
           </Link>
 
           <AddToWatchlist
             media_type={media_type}
             poster_path={poster_path}
             id={id}
+            name={film_title}
           />
         </div>
       </div>

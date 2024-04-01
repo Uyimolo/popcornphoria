@@ -18,7 +18,7 @@
   --gray: #bbb;
   --red: rgb(253, 66, 66);
   --green: rgb(19, 253, 19);
-  --linear-gradient: linear-gradient(45deg, #000000 20%, #02091b41);
+  --linear-gradient: linear-gradient(45deg, #000000e7 20%, #04123500);
   --box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.678);
   --small-font-size: 0.8em;
 }
@@ -58,26 +58,39 @@ a {
 
 button {
   color: var(--white-text-color);
-  /* border: 1px solid var(--white-text-color); */
+  border: 1px solid var(--white-text-color);
+  background-color: rgba(146, 146, 146, 0.479);
   border: none;
-  background-color: var(--secondary-color);
   border-radius: 0.3rem;
   padding: 0.8rem 1.5rem;
   cursor: pointer;
+  width: 100%;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
 }
 
 .button:hover {
   box-shadow: 5px 5px black;
 }
 
-button.primary-btn {
-  background-color: var(--primary-color);
-  color: var(--black);
-  border: none;
+.rotate {
+  animation: rotate 2s linear infinite;
 }
 
-.app {
-  position: relative;
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+button.primary-btn {
+  background-color: var(--secondary-color);
+  border: none;
 }
 
 .toast-container {
@@ -136,7 +149,6 @@ header {
   height: 6rem;
   z-index: 2;
   background-color: var(--background-color);
-  box-shadow: var(--box-shadow);
 }
 
 .logo p {
@@ -280,13 +292,12 @@ header .menu-icon {
   flex-direction: column;
   gap: 3rem;
   padding: 2rem 1rem;
-  background-color: #071a2b;
+  background-color: var(--background-color);
   transition: 0.5s;
-  z-index: 2;
   height: 100vh;
   width: 12rem;
   overflow-y: scroll;
-  box-shadow: var(--box-shadow);
+  z-index: 2;
 }
 
 .sidebar .profile {
@@ -350,10 +361,15 @@ header .menu-icon {
 
 .movie-header,
 .header-placeholder {
-  margin: 6rem 0 2rem;
+  margin: 6rem 1rem 2rem;
   overflow: hidden;
   position: relative;
   height: 30rem;
+  border-radius: 0.5rem;
+}
+
+.movie-header {
+  border: none;
 }
 
 .header-placeholder {
@@ -428,6 +444,12 @@ header .menu-icon {
   display: -webkit-box;
   -webkit-line-clamp: 7;
   -webkit-box-orient: vertical;
+}
+
+.homepage {
+  display: flex;
+  flex-direction: column;
+  margin: 3rem 0;
 }
 
 .homepage-carousels {
@@ -565,7 +587,7 @@ swiper-slide img {
 }
 
 .page {
-  margin-top: 6rem;
+  margin-top: 7rem;
   display: flex;
   flex-direction: column;
   gap: 1rem 0;
@@ -578,11 +600,6 @@ swiper-slide img {
   border: none;
   padding: 1rem 1rem 0;
 }
-
-/* {
-  aspect-ratio: 16 / 9;
-  width: 100%;
-} */
 
 .movie-details {
   display: flex;
@@ -620,7 +637,11 @@ swiper-slide img {
 }
 
 .add-to-watchlist-button {
-  width: 100%;
+  background-color: var(--secondary-color);
+}
+
+.add-to-watchlist-button .awesome {
+  font-size: 1.2rem;
 }
 
 .watchlist-button {
@@ -634,7 +655,7 @@ swiper-slide img {
 }
 
 .movie {
-  margin-top: 6rem;
+  margin-top: 7rem;
   position: relative;
 }
 
@@ -675,7 +696,6 @@ swiper-slide img {
 .genres {
   display: flex;
   justify-content: center;
-  /* align-items: center; */
   flex-wrap: wrap;
   gap: 1rem;
   padding: 1rem;
@@ -769,23 +789,52 @@ swiper-slide img {
 }
 
 .pagination-number.active {
-  background-color: var(--primary-color);
+  background-color: var(--secondary-color);
 }
 
 .pagination-number.active:hover {
-  background-color: var(--primary-color);
+  background-color: var(--secondary-color);
   color: var(--white-text-color);
 }
 
-.previous:hover,
-.next:hover,
 .pagination-number:hover {
   background-color: var(--gray);
   color: var(--black);
 }
 
+.previous:hover,
+.next:hover {
+  color: var(--secondary-color);
+}
+
 .watchlist-page {
   padding: 1rem;
+}
+
+.watchlist-card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem calc(5% / 2);
+}
+
+.watchlist-movie-card {
+  display: flex;
+  width: calc(95% / 3);
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  background-color: var(--secondary-dark);
+}
+
+.watchlist-movie-card img {
+  width: 100%;
+}
+
+.watchlist-movie-card .actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: var(--secondary-dark);
 }
 
 @media (min-width: 768px) {
@@ -870,7 +919,7 @@ swiper-slide img {
     position: absolute;
     left: 20%;
     width: 80%;
-    top: 1rem;
+    top: 2rem;
   }
 
   .filter-genres {
@@ -909,6 +958,10 @@ swiper-slide img {
     max-width: 20rem;
   }
 
+  .movie {
+    margin: 5rem 0;
+  }
+
   .movies-container {
     gap: 0.8rem calc(10% / 4);
   }
@@ -920,15 +973,19 @@ swiper-slide img {
   .homepage-carousels {
     padding: 0;
   }
+
+  .watchlist-card-container {
+    gap: 1rem calc(10% / 3);
+  }
+
+  .watchlist-movie-card {
+    width: calc(90% / 4);
+  }
 }
 
 @media (min-width: 1024px) {
   .movie-info {
     background-color: transparent;
-  }
-
-  .sidebar {
-    width: 20%;
   }
 
   .search-results {
@@ -956,7 +1013,6 @@ swiper-slide img {
     max-width: 800px;
   }
 
-
   .movies-container {
     gap: 1rem calc(10% / 5);
   }
@@ -970,10 +1026,10 @@ swiper-slide img {
     flex-direction: row-reverse;
     align-items: start;
     height: 30rem;
+    background-image: var(--linear-gradient);
   }
   .movie-header img {
     width: 50%;
-    border-radius: 0.5rem;
   }
   .movie-header .movie-info {
     position: relative;
@@ -990,5 +1046,50 @@ swiper-slide img {
   .movie-header .movie-info .cta {
     position: absolute;
     bottom: 1rem;
+  }
+
+  .watchlist-card-container {
+    gap: 1rem calc(10% / 5);
+  }
+
+  .watchlist-movie-card {
+    width: calc(90% / 6);
+  }
+}
+
+@media (min-width: 1440px) {
+  :root {
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 1920px) {
+  :root {
+    font-size: 23px;
+  }
+
+  .sidebar {
+    width: 10%;
+  }
+
+  main {
+    width: 70%;
+    left: 10%;
+  }
+
+  .page .trailer-video-container {
+    max-width: none;
+  }
+
+  .title-details {
+    max-width: none;
+  }
+
+  .movie-details .overview {
+    max-width: 1000px;
+  }
+
+  .search-container.active {
+    transform: translateX(-12%);
   }
 }

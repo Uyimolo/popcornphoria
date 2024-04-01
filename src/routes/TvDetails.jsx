@@ -105,6 +105,7 @@ const TvDetails = () => {
                 poster_path={tvShow.poster_path}
                 id={tvShow.id}
                 media_type={'tv'}
+                name={tvShow.name}
               />
             </div>
           </div>

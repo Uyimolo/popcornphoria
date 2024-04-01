@@ -5,6 +5,9 @@ import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { showToastAlert } from '../features/toastSlice';
 import { errorMessages } from '../assets/arraysAndObjects/errorMessages';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGoogle } from '@fortawesome/free-brands-svg-icons';
+import { faSignInAlt, faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 const Signup = () => {
   const dispatch = useDispatch();
@@ -14,6 +17,8 @@ const Signup = () => {
   const [passwordValidationReport, setPasswordValidationReport] = useState('');
   const [emailValid, setEmailValid] = useState(false);
   const [passwordValid, setPasswordValid] = useState(false);
+  const [googleIcon, setGoogleIcon] = useState(faGoogle);
+  const [signupIcon, setSignupIcon] = useState(faSignInAlt);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -92,6 +97,7 @@ const Signup = () => {
     e.preventDefault();
     const { email, password } = signupData;
     if (passwordValid) {
+      setSignupIcon(faSpinner);
       try {
         const userCredential = await createUserWithEmailAndPassword(
           auth,
@@ -109,6 +115,7 @@ const Signup = () => {
           navigate(redirectRoute);
         }
       } catch (error) {
+        setSignupIcon(faSignInAlt);
         console.log(error);
         dispatch(
           showToastAlert({ type: 'error', message: errorMessages[error.code] })
@@ -127,6 +134,7 @@ const Signup = () => {
   const handleGoogleSignup = async (e) => {
     e.preventDefault();
     try {
+      setGoogleIcon(faSpinner);
       const result = await signInWithPopup(auth, googleProvider);
       if (result) {
         dispatch(
@@ -138,6 +146,7 @@ const Signup = () => {
         navigate(redirectRoute);
       }
     } catch (error) {
+      setGoogleIcon(faGoogle);
       dispatch(
         showToastAlert({ type: 'error', message: errorMessages[error.code] })
       );
@@ -191,10 +200,19 @@ const Signup = () => {
         />
         <p className='secure-password'>{passwordValidationReport}</p>
         <button onClick={handleEmailSignup} className='signup-button'>
+          <FontAwesomeIcon
+            className={`awesome ${signupIcon === faSpinner ? 'rotate' : ''}`}
+            icon={signupIcon}
+          />
           Sign up
         </button>
         <p className='or'>Or</p>
-        <button onClick={handleGoogleSignup}>Sign up with Google</button>
+        <button
+          onClick={handleGoogleSignup}
+          className={`awesome googleIcon === faSpinner ? 'rotate' : ''}`}>
+          <FontAwesomeIcon icon={googleIcon} />
+          Sign up with Google
+        </button>
         <p className='no-account'>
           Already have an account?{' '}
           <Link to='/login' className='link'>
