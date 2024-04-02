@@ -57,7 +57,9 @@ function App() {
         setIsSidebarOpen={setIsSidebarOpen}
         setShowSearchInput={setShowSearchInput}
       />
-      <div className={`curtain ${isSidebarOpen ? 'active' : ''}`}></div>
+      <div
+        onClick={() => setIsSidebarOpen(false)}
+        className={`curtain ${isSidebarOpen ? 'active' : ''}`}></div>
       <main>
         <Outlet />
         {/* custom toasts alerts */}

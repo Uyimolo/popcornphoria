@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom';
 import { register } from 'swiper/element/bundle';
-import LazyCarouselImage from './LazyCarouselImage';
+// import LazyCarouselImage from './LazyCarouselImage';
+import { Suspense, lazy } from 'react';
+
+const LazyCarouselImage = lazy(() => import('./LazyCarouselImage'));
 
 register();
 
 const MovieCarousels = ({ movieData, carouselTitle, type }) => {
-
   return (
     <div className='carousel-container' lazy='true' navigation='true'>
       <h3>{carouselTitle}</h3>
@@ -34,10 +36,13 @@ const MovieCarousels = ({ movieData, carouselTitle, type }) => {
               <swiper-slide key={movie.id} lazy='true'>
                 {/* conditionally set media type */}
                 <Link to={`/${type ? type : movie.media_type}/${movie.id}`}>
-                  <LazyCarouselImage
-                    poster_path={movie.poster_path}
-                    title={movie.title}
-                  />
+                  <Suspense
+                    fallback={<div className='lazy-carousel-image'> </div>}>
+                    <LazyCarouselImage
+                      poster_path={movie.poster_path}
+                      title={movie.title}
+                    />
+                  </Suspense>
                 </Link>
               </swiper-slide>
             ))

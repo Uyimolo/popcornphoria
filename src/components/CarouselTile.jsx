@@ -4,6 +4,7 @@ const CarouselTile = ({ imagePath }) => {
       <img
         src={`https://image.tmdb.org/t/p/w500${movieData.poster_path}`}
         alt=''
+        loading="lazy"
       />
     </div>
   );
