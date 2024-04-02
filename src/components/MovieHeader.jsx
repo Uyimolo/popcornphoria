@@ -51,6 +51,7 @@ const MovieHeader = ({ movieData }) => {
             poster_path={poster_path}
             id={id}
             name={film_title}
+            year={date.split('-')[0]}
           />
         </div>
       </div>

@@ -7,6 +7,8 @@ import {
 } from '../features/apiSlice';
 import MovieCarousels from '../components/MovieCarousels';
 import AddToWatchlist from '../components/AddToWatchlist';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 const TvDetails = () => {
   const { tvId } = useParams();
 
@@ -75,7 +77,9 @@ const TvDetails = () => {
             alt=''
           />
         ) : (
-          <div></div>
+          <div className='spinner-center'>
+            <FontAwesomeIcon className='awesome rotate ' icon={faSpinner} />
+          </div>
         )}
       </div>
 
@@ -106,6 +110,7 @@ const TvDetails = () => {
                 id={tvShow.id}
                 media_type={'tv'}
                 name={tvShow.name}
+                year={tvShow.first_air_date.split('-')[0]}
               />
             </div>
           </div>

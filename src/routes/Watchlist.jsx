@@ -3,12 +3,10 @@ import { auth, db } from '../firebase/config';
 import { useEffect } from 'react';
 import { collection, onSnapshot } from 'firebase/firestore';
 import { useSelector } from 'react-redux';
-import LazyCarouselImage from '../components/LazyCarouselImage';
-import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDumpster, faSpinner } from '@fortawesome/free-solid-svg-icons';
-import ShareMovie from '../components/ShareMovie';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { deleteDoc, doc } from 'firebase/firestore';
+import WatchlistCard from '../components/WatchlistCard';
 
 const Watchlist = () => {
   const authenticated = useSelector((state) => state.auth.isSignedin);
@@ -40,31 +38,25 @@ const Watchlist = () => {
     }
   };
 
+  const getDate = (milliseconds) => {
+    console.log(milliseconds);
+    return new Date(milliseconds);
+  };
+
   return (
     <div className='page watchlist-page'>
       <h3>My watchlist</h3>
       <div className='watchlist-card-container'>
         {!watchlist ? (
-          <FontAwesomeIcon className='awesome rotate' icon={faSpinner} />
+          <div className='spinner-center'>
+            <FontAwesomeIcon className='awesome rotate' icon={faSpinner} />
+          </div>
         ) : watchlist.length > 0 ? (
-          watchlist.map((item) => (
-            <div key={item.id} className='watchlist-movie-card'>
-              <Link to={`/${item.media_type}/${item.id}`}>
-                <LazyCarouselImage poster_path={item.poster_path} />
-              </Link>
-              <div className='actions'>
-                <FontAwesomeIcon
-                  className='awesome'
-                  icon={faDumpster}
-                  onClick={() => handleRemoveFromWatchlist(item.docId)}
-                />
-                {/* <ShareMovie
-                  poster_path={item.poster_path}
-                  link={`https://localhost:5173/${item.media_type}/${item.id}`}
-                  name={item.name}
-                /> */}
-              </div>
-            </div>
+          watchlist.map((movie) => (
+            <WatchlistCard
+              handleRemoveFromWatchlist={handleRemoveFromWatchlist}
+              movie={movie}
+            />
           ))
         ) : (
           <p className='watchlist-placeholder'>No items in watchlist yet.</p>

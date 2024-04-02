@@ -19,8 +19,23 @@
   --red: rgb(253, 66, 66);
   --green: rgb(19, 253, 19);
   --linear-gradient: linear-gradient(45deg, #000000e7 20%, #04123500);
-  --box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.678);
+  --box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.37);
   --small-font-size: 0.8em;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  background-color: #4444445e;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #b6b5b55b;
+  border-radius: 0.5rem;
+  width: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.63);
 }
 
 body {
@@ -75,8 +90,24 @@ button {
   box-shadow: 5px 5px black;
 }
 
+button.primary-btn {
+  background-color: var(--secondary-color);
+  border: none;
+}
+
 .rotate {
   animation: rotate 2s linear infinite;
+}
+
+.spinner-center {
+  width: 100%;
+  padding-top: 5rem;
+  display: grid;
+  place-content: center;
+}
+
+.spinner-center .rotate {
+  font-size: 4rem;
 }
 
 @keyframes rotate {
@@ -86,11 +117,6 @@ button {
   100% {
     transform: rotate(360deg);
   }
-}
-
-button.primary-btn {
-  background-color: var(--secondary-color);
-  border: none;
 }
 
 .toast-container {
@@ -114,7 +140,7 @@ button.primary-btn {
 }
 
 .toast-container.error {
-  background-color: red;
+  background-color: rgba(221, 54, 54, 0.911);
 }
 
 .toast-container .toast-message {
@@ -149,6 +175,7 @@ header {
   height: 6rem;
   z-index: 2;
   background-color: var(--background-color);
+  box-shadow: var(--box-shadow);
 }
 
 .logo p {
@@ -358,6 +385,22 @@ header .menu-icon {
 .sidebar-section div {
   display: flex;
   gap: 0.5rem;
+}
+
+.curtain {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  background-color: #e0dddd56;
+  transform: translateX(-100%);
+  transition: 1s;
+  transition-timing-function: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+}
+
+.curtain.active {
+  transform: translate(0);
 }
 
 .movie-header,
@@ -813,53 +856,59 @@ swiper-slide img {
 }
 
 .watchlist-card-container {
+  width: 100%;
   display: flex;
-  flex-wrap: wrap;
-  gap: 2rem calc(5% / 2);
+  flex-direction: column;
+  gap: 2rem;
 }
 
 .watchlist-movie-card {
   display: flex;
-  width: calc(95% / 3);
-  flex-direction: column;
-  overflow: hidden;
-  border-radius: 0.5rem;
+}
+
+.watchlist-movie-card:hover {
   background-color: var(--secondary-dark);
 }
 
 .watchlist-movie-card img {
-  width: 100%;
+  width: 9rem;
+  border-radius: 0.5rem;
+}
+
+.watchlist-movie-card .details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.watchlist-movie-card .details .text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .watchlist-movie-card .actions {
   display: flex;
-  justify-content: space-between;
-  padding: 1rem;
-  background-color: var(--secondary-dark);
+  gap: 2rem;
+}
+
+.watchlist-movie-card .awesome {
+  font-size: 1.5rem;
 }
 
 @media (min-width: 768px) {
-  ::-webkit-scrollbar {
-    width: 4px;
-    background-color: #4444445e;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background-color: #b6b5b55b;
-    border-radius: 0.5rem;
-    width: 2px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(255, 255, 255, 0.63);
-  }
-
   h1 {
     max-width: 28rem;
   }
   header .logo,
   header .menu-icons {
     display: none;
+  }
+
+  .toast-container {
+    width: fit-content;
   }
 
   .search {
@@ -974,14 +1023,6 @@ swiper-slide img {
   .homepage-carousels {
     padding: 0;
   }
-
-  .watchlist-card-container {
-    gap: 1rem calc(10% / 3);
-  }
-
-  .watchlist-movie-card {
-    width: calc(90% / 4);
-  }
 }
 
 @media (min-width: 1024px) {
@@ -1050,11 +1091,13 @@ swiper-slide img {
   }
 
   .watchlist-card-container {
-    gap: 1rem calc(10% / 5);
+    gap: 1rem 5%;
+    flex-direction: row;
+    flex-wrap: wrap;
   }
 
   .watchlist-movie-card {
-    width: calc(90% / 6);
+    width: calc(90% / 2);
   }
 }
 

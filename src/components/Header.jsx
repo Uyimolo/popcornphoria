@@ -18,9 +18,9 @@ const Header = ({
   return (
     <header>
       <Logo />
-
       {!location.pathname.includes('/signup') &&
-        !location.pathname.includes('/login') && (
+        !location.pathname.includes('/login') &&
+        !isSidebarOpen && (
           <FontAwesomeIcon
             className='search-icon awesome'
             icon={faSearch}

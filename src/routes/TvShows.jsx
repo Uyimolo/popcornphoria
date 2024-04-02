@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useGetTvShowsQuery } from '../features/apiSlice';
 import MovieListPagination from '../components/MovieListPagination';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faArrowRight, faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 import { tvShowGenres } from '../assets/arraysAndObjects/tvShowGenres';
 import { useDispatch, useSelector } from 'react-redux';
@@ -70,8 +70,13 @@ const TvShows = () => {
         />
       )}
 
-      {tvShowsList && <MovieListPagination movieList={tvShowsList} type='tv' />}
-      <div className='pagination-scroll'></div>
+      {tvShowsList ? (
+        <MovieListPagination movieList={tvShowsList} type='tv' />
+      ) : (
+        <div className='spinner-center'>
+          <FontAwesomeIcon className='awesome rotate ' icon={faSpinner} />
+        </div>
+      )}
       {tvShowsList && (
         <div className='pagination-navigation'>
           {pageNumber > 1 && (
