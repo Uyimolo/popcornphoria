@@ -3,7 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateGenre } from '../features/filterSlice';
 import { useGetMoviesQuery } from '../features/apiSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import {
+  faArrowLeft,
+  faArrowRight,
+  faSpinner,
+} from '@fortawesome/free-solid-svg-icons';
 import MovieListPagination from '../components/MovieListPagination';
 import { movieGenres } from '../assets/arraysAndObjects/movieGenres';
 import Genres from '../components/Genres';
@@ -73,9 +77,14 @@ const Movies = () => {
         />
       )}
 
-      {movieList && <MovieListPagination movieList={movieList} type='movie' />}
-      <div className='pagination-scroll'></div>
-      {movieList &&
+      {movieList ? (
+        <MovieListPagination movieList={movieList} type='movie' />
+      ) : (
+        <div className='spinner-center'>
+          <FontAwesomeIcon className='awesome rotate ' icon={faSpinner} />
+        </div>
+      )}
+      {movieList && (
         <div className='pagination-navigation'>
           {pageNumber > 1 && (
             <FontAwesomeIcon
@@ -86,8 +95,6 @@ const Movies = () => {
             />
           )}
 
-          {/* hard coded this because the api has a whole lot of pages didnt want to deal with all of them now */}
-          {/* todo: see if i can determine the total number of pages */}
           {[1, 2, 3, 4, 5, 6].map((num) => (
             <p
               key={num}
@@ -108,7 +115,7 @@ const Movies = () => {
             />
           )}
         </div>
-      }
+      )}
     </div>
   );
 };
