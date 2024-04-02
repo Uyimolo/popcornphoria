@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faPlus, faSpinner } from '@fortawesome/free-solid-svg-icons';
 
-const AddToWatchlist = ({ poster_path, id, media_type, name, year}) => {
+const AddToWatchlist = ({ poster_path, id, media_type, name, year }) => {
   const dispatch = useDispatch();
   const online = useSelector((state) => state.auth.isSignedin);
   const [isInWatchlist, setIsInWatchlist] = useState(false);
@@ -17,8 +17,12 @@ const AddToWatchlist = ({ poster_path, id, media_type, name, year}) => {
   }, [media_type, online, poster_path, isInWatchlist]);
 
   const checkWatchlist = async () => {
-    setButtonIcon(faPlus);
-    if (!online) return;
+    setButtonIcon(faSpinner);
+    if (!online) {
+      setButtonIcon(faPlus);
+
+      return;
+    }
 
     const userId = auth.currentUser.uid;
     const watchlistRef = collection(db, 'users', userId, 'watchlist');

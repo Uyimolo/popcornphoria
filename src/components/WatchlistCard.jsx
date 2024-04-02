@@ -9,6 +9,7 @@ import {
   faSpinner,
 } from '@fortawesome/free-solid-svg-icons';
 import ShareMovie from '../components/ShareMovie';
+import LazyWatchlistImage from './LazyWatchlistImage';
 
 const WatchlistCard = ({ movie, handleRemoveFromWatchlist }) => {
   const timestamp = movie.date_added;
@@ -23,13 +24,20 @@ const WatchlistCard = ({ movie, handleRemoveFromWatchlist }) => {
   return (
     <div key={movie.docId} className='watchlist-movie-card'>
       <Link to={`/${movie.media_type}/${movie.id}`}>
-        <LazyCarouselImage poster_path={movie.poster_path} />
+        {/* <LazyCarouselImage poster_path={movie.poster_path} /> */}
+        <LazyWatchlistImage poster_path={movie.poster_path} />
       </Link>
       <div className='details'>
         <div className='text'>
-          <p>{`Title: ${movie.name}`}</p>
-          <p>{`Release year: ${movie.year}`}</p>
-          <p>{`Date added: ${formattedDate}`}</p>
+          <p>
+            <span>Title:</span> {movie.name}
+          </p>
+          <p>
+            <span>Release date:</span> {movie.year}
+          </p>
+          <p>
+            <span>Date added:</span> {formattedDate}
+          </p>
         </div>
 
         <div className='actions'>

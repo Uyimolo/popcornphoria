@@ -24,12 +24,12 @@
 }
 
 ::-webkit-scrollbar {
-  width: 4px;
-  background-color: #4444445e;
+  width: 6px;
+  /* background-color: #4444445e; */
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #b6b5b55b;
+  background-color: #b6b5b536;
   border-radius: 0.5rem;
   width: 2px;
 }
@@ -71,6 +71,11 @@ a {
   text-decoration: double;
 }
 
+.awesome {
+  cursor: pointer;
+  color: var(--white-text-color);
+}
+
 button {
   color: var(--white-text-color);
   border: 1px solid var(--white-text-color);
@@ -86,8 +91,13 @@ button {
   justify-content: center;
 }
 
-.button:hover {
-  box-shadow: 5px 5px black;
+button:hover {
+  background-color: var(--primary-color);
+  color: var(--black);
+}
+
+button:hover .awesome {
+  color: var(--black);
 }
 
 button.primary-btn {
@@ -299,11 +309,6 @@ header {
   height: 9rem;
 }
 
-.awesome {
-  cursor: pointer;
-  color: var(--white-text-color);
-}
-
 header .menu-icon {
   font-size: 2em;
 }
@@ -403,11 +408,16 @@ header .menu-icon {
   transform: translate(0);
 }
 
-.movie-header,
-.header-placeholder {
+.movie-header {
   margin: 6rem 1rem 2rem;
   overflow: hidden;
   position: relative;
+  height: 30rem;
+  border-radius: 0.5rem;
+}
+
+.header-placeholder {
+  margin: 6rem 1rem 2rem;
   height: 30rem;
   border-radius: 0.5rem;
 }
@@ -417,22 +427,24 @@ header .menu-icon {
 }
 
 .header-placeholder {
-  background-color: var(--gray);
-  animation: lazy-anime 3s ease-in-out 0.2s infinite;
+  background-color: var(--white-text-color);
+  animation: placeholderAnimation 2s ease-in-out infinite;
   transition: 1s;
 }
 
-@keyframes lazy-anime {
-  from {
-    background-color: #b3b3b3;
+@keyframes placeholderAnimation {
+  0% {
+    opacity: 0.5;
   }
-  to {
-    background-color: #9b9b9b;
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0.5;
   }
 }
 
-.movie-header img,
-.header-placeholder {
+.movie-header img {
   width: 100%;
 }
 
@@ -531,6 +543,7 @@ swiper-slide img {
   width: 100%;
   height: 100%;
   background-color: white;
+  animation: placeholderAnimation 2s ease-in-out infinite;
 }
 
 .auth {
@@ -867,12 +880,18 @@ swiper-slide img {
 }
 
 .watchlist-movie-card:hover {
-  background-color: var(--secondary-dark);
+  background-color: rgba(0, 0, 0, 0.384);
 }
 
 .watchlist-movie-card img {
   width: 9rem;
-  border-radius: 0.5rem;
+}
+
+.watchlist-image-placeholder {
+  width: 9rem;
+  aspect-ratio: 2/3;
+  background-color: white;
+  animation: placeholderAnimation 2s ease-in-out infinite;
 }
 
 .watchlist-movie-card .details {
@@ -1099,6 +1118,8 @@ swiper-slide img {
   .watchlist-movie-card {
     width: calc(90% / 2);
   }
+
+ 
 }
 
 @media (min-width: 1440px) {

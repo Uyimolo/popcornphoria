@@ -54,6 +54,7 @@ const Watchlist = () => {
         ) : watchlist.length > 0 ? (
           watchlist.map((movie) => (
             <WatchlistCard
+              key={movie.id}
               handleRemoveFromWatchlist={handleRemoveFromWatchlist}
               movie={movie}
             />
