@@ -2,46 +2,52 @@ import React, { useState } from 'react';
 import { auth, db } from '../firebase/config';
 import { useEffect } from 'react';
 import { collection, onSnapshot } from 'firebase/firestore';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-import { deleteDoc, doc } from 'firebase/firestore';
 import WatchlistCard from '../components/WatchlistCard';
+import { useNavigate } from 'react-router';
+import { showToastAlert } from '../features/toastSlice';
 
 const Watchlist = () => {
   const authenticated = useSelector((state) => state.auth.isSignedin);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!authenticated) {
+      dispatch(
+        showToastAlert({
+          type: 'error',
+          message: 'Please sign in to view watchlist',
+        })
+      );
+      navigate('/');
+    }
+  }, [authenticated]);
 
   const [watchlist, setWatchlist] = useState(null);
   useEffect(() => {
     if (authenticated) {
-      const userId = auth.currentUser.uid;
+      const userId = auth.currentUser?.uid;
 
-      const watchlistRef = collection(db, 'users', userId, 'watchlist');
+      const watchlistRef = userId
+        ? collection(db, 'users', userId, 'watchlist')
+        : '';
 
-      onSnapshot(watchlistRef, (snapshot) => {
-        const fetchedWatchlist = snapshot.docs.map((doc) => ({
-          ...doc.data(),
-          docId: doc.id,
-        }));
-        setWatchlist(fetchedWatchlist);
-      });
+      if (watchlistRef) {
+        onSnapshot(watchlistRef, (snapshot) => {
+          const fetchedWatchlist = snapshot.docs.map((doc) => ({
+            ...doc.data(),
+            docId: doc.id,
+          }));
+          setWatchlist(fetchedWatchlist);
+        });
+      }
+    } else {
+      return;
     }
   }, [watchlist, authenticated]);
-
-  const handleRemoveFromWatchlist = async (docId) => {
-    if (authenticated) {
-      const userId = auth.currentUser.uid;
-
-      const documentRef = doc(db, 'users', userId, 'watchlist', docId);
-      const isDeleted = await deleteDoc(documentRef);
-      if (isDeleted) alert('deleted');
-    }
-  };
-
-  const getDate = (milliseconds) => {
-    console.log(milliseconds);
-    return new Date(milliseconds);
-  };
 
   return (
     <div className='page watchlist-page'>
@@ -53,11 +59,7 @@ const Watchlist = () => {
           </div>
         ) : watchlist.length > 0 ? (
           watchlist.map((movie) => (
-            <WatchlistCard
-              key={movie.id}
-              handleRemoveFromWatchlist={handleRemoveFromWatchlist}
-              movie={movie}
-            />
+            <WatchlistCard key={movie.id} movie={movie} />
           ))
         ) : (
           <p className='watchlist-placeholder'>No items in watchlist yet.</p>

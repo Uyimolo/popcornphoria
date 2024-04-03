@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import LazyCarouselImage from './LazyCarouselImage';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,8 +10,16 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import ShareMovie from '../components/ShareMovie';
 import LazyWatchlistImage from './LazyWatchlistImage';
+import { deleteDoc, doc } from 'firebase/firestore';
+import { useDispatch, useSelector } from 'react-redux';
+import { auth, db } from '../firebase/config';
+import { showToastAlert } from '../features/toastSlice';
 
-const WatchlistCard = ({ movie, handleRemoveFromWatchlist }) => {
+const WatchlistCard = ({ movie }) => {
+  const [deleteIcon, setDeleteIcon] = useState(faDumpster);
+  const authenticated = useSelector((state) => state.auth.isSignedin);
+  const dispatch = useDispatch();
+
   const timestamp = movie.date_added;
   const date = new Date(timestamp);
 
@@ -21,10 +29,34 @@ const WatchlistCard = ({ movie, handleRemoveFromWatchlist }) => {
   const year = date.getFullYear();
 
   const formattedDate = `${day} ${month} ${year}.`;
+
+  const handleRemoveFromWatchlist = async (docId, name) => {
+    setDeleteIcon(faSpinner);
+    if (authenticated) {
+      try {
+        const userId = auth.currentUser.uid;
+        const documentRef = doc(db, 'users', userId, 'watchlist', docId);
+        await deleteDoc(documentRef);
+        dispatch(
+          showToastAlert({
+            type: 'success',
+            message: `${name} has been removed from your watchlist`,
+          })
+        );
+      } catch {
+        dispatch(
+          showToastAlert({
+            type: 'error',
+            message: `Error deleting ${name} from watchlist`,
+          })
+        );
+      }
+    }
+  };
+
   return (
     <div key={movie.docId} className='watchlist-movie-card'>
       <Link to={`/${movie.media_type}/${movie.id}`}>
-        {/* <LazyCarouselImage poster_path={movie.poster_path} /> */}
         <LazyWatchlistImage poster_path={movie.poster_path} />
       </Link>
       <div className='details'>
@@ -42,9 +74,9 @@ const WatchlistCard = ({ movie, handleRemoveFromWatchlist }) => {
 
         <div className='actions'>
           <FontAwesomeIcon
-            className='awesome'
-            icon={faDumpster}
-            onClick={() => handleRemoveFromWatchlist(movie.docId)}
+            className={`awesome ${deleteIcon === faSpinner ? 'rotate' : ''}`}
+            icon={deleteIcon}
+            onClick={() => handleRemoveFromWatchlist(movie.docId, movie.name)}
           />
           <ShareMovie
             poster_path={movie.poster_path}

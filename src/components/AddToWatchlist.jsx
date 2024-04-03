@@ -10,7 +10,7 @@ const AddToWatchlist = ({ poster_path, id, media_type, name, year }) => {
   const dispatch = useDispatch();
   const online = useSelector((state) => state.auth.isSignedin);
   const [isInWatchlist, setIsInWatchlist] = useState(false);
-  const [buttonIcon, setButtonIcon] = useState(faPlus);
+  const [buttonIcon, setButtonIcon] = useState(faSpinner);
 
   useEffect(() => {
     checkWatchlist();
@@ -34,7 +34,13 @@ const AddToWatchlist = ({ poster_path, id, media_type, name, year }) => {
 
     const querySnapshot = await getDocs(q);
     setIsInWatchlist(!querySnapshot.empty);
-    if (isInWatchlist) setButtonIcon(faCheck);
+    if (isInWatchlist) {
+      setButtonIcon(faCheck);
+    }
+    if (!isInWatchlist) {
+      // alert('not in watchlist');
+      setButtonIcon(faPlus);
+    }
     // console.log('Is in watchlist:', !querySnapshot.empty);
   };
 
@@ -43,7 +49,7 @@ const AddToWatchlist = ({ poster_path, id, media_type, name, year }) => {
       dispatch(
         showToastAlert({
           type: 'error',
-          message: 'Please sign in to add to watchlist',
+          message: 'Please sign in to add items to your watchlist',
         })
       );
       return;
@@ -70,7 +76,7 @@ const AddToWatchlist = ({ poster_path, id, media_type, name, year }) => {
         dispatch(
           showToastAlert({
             type: 'success',
-            message: 'Added to watchlist',
+            message: `${name} has been added to your watchlist`,
           })
         );
       setButtonIcon(faCheck);
