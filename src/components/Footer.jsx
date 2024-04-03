@@ -22,8 +22,9 @@ const Footer = () => {
   ];
 
   const legalContent = [
-    { name: 'Terms of service', to: '/' },
     { name: 'Privacy', to: '/' },
+    { name: 'Terms of service', to: '/' },
+    { name: 'Built with TMDB API', to: '' },
     { name: 'Copyright Notice', to: '/' },
   ];
 
@@ -62,19 +63,15 @@ const Footer = () => {
         <h3>Legal</h3>
 
         <div className='footer-section-content'>
-          {legalContent.map((link) => (
-            <Link to={link.to}>
+          {legalContent.map((link) =>
+            !link.name === 'Built with TMDB API' ? (
+              <Link to={link.to}>
+                <p>{link.name}</p>
+              </Link>
+            ) : (
               <p>{link.name}</p>
-            </Link>
-          ))}
-        </div>
-      </div>
-
-      <div className='footer-section'>
-        <h3>Built with</h3>
-        <div className='footer-section-content'>
-          <p>TMDB API</p>
-          <p>React</p>
+            )
+          )}
         </div>
       </div>
     </footer>
