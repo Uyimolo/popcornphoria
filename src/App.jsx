@@ -66,7 +66,8 @@ function App() {
         <Toast />
       </main>
 
-      <Footer />
+      {!location.pathname.includes('/signup') &&
+        !location.pathname.includes('/login') && <Footer />}
     </div>
   );
 }

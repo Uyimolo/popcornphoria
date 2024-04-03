@@ -35,8 +35,8 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, setShowSearchInput }) => {
 
   const menuContent = [
     { name: 'Home', icon: faHome, to: '/' },
-    { name: 'Movies', icon: faCamera, to: '/movie' },
-    { name: 'TV Shows', icon: faTelevision, to: '/tv' },
+    { name: 'Browse Movies', icon: faCamera, to: '/movie' },
+    { name: 'Browse TV Shows', icon: faTelevision, to: '/tv' },
   ];
 
   const libraryContent = [
