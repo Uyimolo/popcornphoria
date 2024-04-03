@@ -68,7 +68,7 @@ p {
 }
 
 a {
-  text-decoration: double;
+  text-decoration: none;
 }
 
 .awesome {
@@ -132,7 +132,7 @@ button.primary-btn {
 .toast-container {
   color: var(--white-text-color);
   width: 90%;
-  height: 4rem;
+  height: fit-content;
   position: fixed;
   top: 6rem;
   left: 50%;
@@ -1118,8 +1118,6 @@ swiper-slide img {
   .watchlist-movie-card {
     width: calc(90% / 2);
   }
-
- 
 }
 
 @media (min-width: 1440px) {
