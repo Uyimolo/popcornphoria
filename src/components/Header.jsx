@@ -2,11 +2,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faBarsStaggered,
   faClose,
-  faSearch,
 } from '@fortawesome/free-solid-svg-icons';
-import Search from './Search';
 import Logo from './Logo';
 import { useLocation } from 'react-router';
+import { useState } from 'react';
+import HeaderSearchComponent from './HeaderSearchComponent';
 
 const Header = ({
   isSidebarOpen,
@@ -14,23 +14,16 @@ const Header = ({
   showSearchInput,
   setShowSearchInput,
 }) => {
+  const [searchTerm, setSearchTerm] = useState('');
+
   const location = useLocation();
   return (
     <header>
       <Logo />
-      {!location.pathname.includes('/signup') &&
-        !location.pathname.includes('/login') &&
-        !isSidebarOpen && (
-          <FontAwesomeIcon
-            className='search-icon awesome'
-            icon={faSearch}
-            onClick={() => setShowSearchInput((prevState) => !prevState)}
-          />
-        )}
 
-      <Search
-        setShowSearchInput={setShowSearchInput}
-        showSearchInput={showSearchInput}
+      <HeaderSearchComponent
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
       />
 
       <div
