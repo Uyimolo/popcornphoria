@@ -3,13 +3,14 @@ import {
   faInstagram,
   faTwitter,
 } from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const navigationContent = [
     { name: 'Home', to: '/' },
-    { name: 'Browse movies', to: '/movies' },
+    { name: 'Browse movies', to: '/movie' },
     { name: 'Browse TV shows', to: '/tv' },
     { name: 'Watchlist', to: '/watchlist' },
   ];
@@ -40,7 +41,7 @@ const Footer = () => {
 
         <div className='footer-section-content'>
           {navigationContent.map((link) => (
-            <Link to={link.to}>
+            <Link key={link.name} to={link.to}>
               <p>{link.name}</p>
             </Link>
           ))}
@@ -52,7 +53,7 @@ const Footer = () => {
 
         <div className='footer-section-content'>
           {informationContent.map((link) => (
-            <Link to={link.to}>
+            <Link key={link.name} to={link.to}>
               <p>{link.name}</p>
             </Link>
           ))}
@@ -65,13 +66,27 @@ const Footer = () => {
         <div className='footer-section-content'>
           {legalContent.map((link) =>
             !link.name === 'Built with TMDB API' ? (
-              <Link to={link.to}>
+              <Link key={link.name} to={link.to}>
                 <p>{link.name}</p>
               </Link>
             ) : (
-              <p>{link.name}</p>
+              <p key={link.name}>{link.name}</p>
             )
           )}
+        </div>
+      </div>
+
+      <div className='footer-section'>
+        <h3>Socials</h3>
+
+        <div className='footer-section-content socials'>
+          {socialMediaContent.map((link) => (
+            <div key={link.name} className='social-link'>
+              <Link to={link.to}>
+                <FontAwesomeIcon className='awesome' icon={link.icon} />
+              </Link>
+            </div>
+          ))}
         </div>
       </div>
     </footer>
