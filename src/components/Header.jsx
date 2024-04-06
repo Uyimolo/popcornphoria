@@ -1,30 +1,33 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faBarsStaggered,
-  faClose,
-} from '@fortawesome/free-solid-svg-icons';
+import { faBarsStaggered, faClose } from '@fortawesome/free-solid-svg-icons';
 import Logo from './Logo';
-import { useLocation } from 'react-router';
 import { useState } from 'react';
 import HeaderSearchComponent from './HeaderSearchComponent';
+import Search from './Search';
 
-const Header = ({
-  isSidebarOpen,
-  setIsSidebarOpen,
-  showSearchInput,
-  setShowSearchInput,
-}) => {
+const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [showSearchResult, setShowSearchResult] = useState(false);
 
-  const location = useLocation();
   return (
     <header>
       <Logo />
 
-      <HeaderSearchComponent
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-      />
+      <div className='search-wrapper'>
+        <HeaderSearchComponent
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          setShowSearchResult={setShowSearchResult}
+          showSearchResult={showSearchResult}
+        />
+
+        {
+          <Search
+            showSearchResult={showSearchResult}
+            setShowSearchResult={setShowSearchResult}
+          />
+        }
+      </div>
 
       <div
         className='menu-icons'

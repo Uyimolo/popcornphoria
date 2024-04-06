@@ -45,6 +45,8 @@ function App() {
 
   return (
     <div className='App'>
+      {/* custom toasts alerts */}
+      <Toast />
       <Header
         isSidebarOpen={isSidebarOpen}
         setIsSidebarOpen={setIsSidebarOpen}
@@ -62,8 +64,6 @@ function App() {
         className={`curtain ${isSidebarOpen ? 'active' : ''}`}></div>
       <main>
         <Outlet />
-        {/* custom toasts alerts */}
-        <Toast />
       </main>
 
       {!location.pathname.includes('/signup') &&

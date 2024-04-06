@@ -32,7 +32,7 @@ const Movies = () => {
   const handleFilterByGenre = (id) => {
     dispatch(updateGenre({ category: 'movies', genre: id }));
     setPageNumber(1);
-    setShowGenres((prevState) => !prevState);
+    setShowGenres(false);
     window.scrollTo({ top: '10rem', behavior: 'smooth' });
   };
 
@@ -54,28 +54,17 @@ const Movies = () => {
 
   return (
     <div className='movie'>
-      <div className='title_with_genres'>
-        <h3 className=''>{`Movies ${
-          genre
-            ? `(${
-                movieGenres.find((movieGenre) => movieGenre.id === genre).name
-              })`
-            : '(All movies)'
-        }`}</h3>
-        <p onClick={() => setShowGenres((prevState) => !prevState)}>
-          Filter by genre
-        </p>
-      </div>
+      
 
-      {showGenres && (
-        <Genres
-          genre={genre}
-          genresList={movieGenres}
-          setShowGenres={setShowGenres}
-          handleFilterByGenre={handleFilterByGenre}
-          handleResetGenre={handleResetGenre}
-        />
-      )}
+      <Genres
+        genre={genre}
+        genresList={movieGenres}
+        showGenres={showGenres}
+        setShowGenres={setShowGenres}
+        handleFilterByGenre={handleFilterByGenre}
+        handleResetGenre={handleResetGenre}
+        type='movies'
+      />
 
       {movieList ? (
         <MovieListPagination movieList={movieList} type='movie' />
