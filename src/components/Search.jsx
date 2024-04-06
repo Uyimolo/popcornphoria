@@ -22,37 +22,41 @@ const Search = ({ showSearchResult, setShowSearchResult }) => {
     <div
       className={`search-container ${showSearchResult ? 'active' : ''}`}
       ref={searchContainerRef}>
-      <div className='search-results'>
-        {searchResultList.map((data) => (
-          <div className='search-result' key={data.id}>
-            <Link
-              to={`/${data.media_type === 'movie' ? 'movie' : 'tv'}/${data.id}`}
-              onClick={handleCloseSearch}>
-              <img
-                src={`https://image.tmdb.org/t/p/w92${data.poster_path}`}
-                alt={data.name}
-              />
-            </Link>
+      {searchResultList.length > 0 ? 
+        <div className='search-results'>
+          {searchResultList.map((data) => (
+            <div className='search-result' key={data.id}>
+              <Link
+                to={`/${data.media_type === 'movie' ? 'movie' : 'tv'}/${
+                  data.id
+                }`}
+                onClick={handleCloseSearch}>
+                <img
+                  src={`https://image.tmdb.org/t/p/w92${data.poster_path}`}
+                  alt={data.name}
+                />
+              </Link>
 
-            <div className='search-result-details'>
-              <p className='title'>{data.title ? data.title : data.name}</p>
+              <div className='search-result-details'>
+                <p className='title'>{data.title ? data.title : data.name}</p>
 
-              {data.release_date && <p>{data.release_date.split('-')[0]}</p>}
+                {data.release_date && <p>{data.release_date.split('-')[0]}</p>}
 
-              {data.first_air_date && (
-                <p>{data.first_air_date.split('-')[0]}</p>
-              )}
+                {data.first_air_date && (
+                  <p>{data.first_air_date.split('-')[0]}</p>
+                )}
 
-              <p>{data.media_type === 'movie' ? 'Movie' : 'TV show'}</p>
+                <p>{data.media_type === 'movie' ? 'Movie' : 'TV show'}</p>
 
-              <div className='stars'>
-                <FontAwesomeIcon icon={faStar} className='awesome' />
-                <p>{data.vote_average.toFixed(1)}</p>
+                <div className='stars'>
+                  <FontAwesomeIcon icon={faStar} className='awesome' />
+                  <p>{data.vote_average.toFixed(1)}</p>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div> : <p>Match not found</p>
+      }
     </div>
   );
 };
