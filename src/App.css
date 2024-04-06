@@ -147,7 +147,7 @@ button.primary-btn {
   flex-direction: column;
   justify-content: space-between;
   overflow: hidden;
-  z-index: 2;
+  z-index: 3;
 }
 
 .toast-container.success {
@@ -228,6 +228,10 @@ header {
   padding: 0.7rem 1rem 0.7rem 3rem;
 }
 
+.search-input {
+  background-color: #ffffff33;
+}
+
 .search input::placeholder {
   color: var(--gray);
 }
@@ -241,10 +245,18 @@ header {
   font-size: 1rem;
   position: absolute;
   left: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 0.7rem;
+  /* transform: translateY(-50%); */
   height: 1rem;
 }
+
+.search-icon.active {
+  animation: rotate-icon 1s ease-in-out infinite linear;
+}
+
+/* @keyframes rotate-icon {
+  
+} */
 
 .search-container {
   background-color: var(--background-color);
@@ -716,6 +728,10 @@ swiper-slide img {
   background-color: var(--secondary-color);
 }
 
+.add-to-watchlist-button:disabled {
+  background-color: var(--modal-background);
+}
+
 .add-to-watchlist-button .awesome {
   font-size: 1.2rem;
 }
@@ -747,11 +763,11 @@ swiper-slide img {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem;
+  padding: 0 1rem;
+  margin: 1rem 0 0 0;
 }
 
 .title_with_genres p {
-  color: var(--primary-color);
   cursor: pointer;
 }
 
@@ -767,6 +783,10 @@ swiper-slide img {
 .filter-genres.active {
   max-height: 20rem;
   overflow: scroll;
+}
+
+.genres-container h3 {
+  padding-left: 1rem;
 }
 
 .genres {
@@ -786,10 +806,6 @@ swiper-slide img {
   cursor: pointer;
   width: fit-content;
   margin: 1rem 0;
-}
-
-.genres-header p:hover {
-  color: var(--primary-color);
 }
 
 .filter-genres .awesome {
@@ -1087,7 +1103,7 @@ footer .footer-section-content.socials .social-link .awesome:hover {
 
   .homepage {
     width: 95%;
-    margin: auto;
+    margin: 0 0 6rem;
   }
 
   .movie-header {
@@ -1142,7 +1158,7 @@ footer .footer-section-content.socials .social-link .awesome:hover {
     background-color: transparent;
   }
 
- .search-result {
+  .search-result {
     width: 32%;
   }
 

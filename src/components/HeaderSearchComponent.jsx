@@ -37,9 +37,17 @@ const HeaderSearchComponent = ({
     }
   }, [result]);
 
+  useEffect(() => {
+    if (searchTerm.trim() !== '') {
+      handleSearch();
+    }
+  }, [searchTerm]);
+
   const handleSearch = () => {
-    setSearchIcon(faSpinner);
-    searchTerm.trim() !== '' && trigger(searchTerm.trim());
+    if (searchTerm.trim() !== '') {
+      setSearchIcon(faSpinner);
+      trigger(searchTerm.trim());
+    }
   };
 
   const handleClearSearch = () => {
@@ -62,12 +70,13 @@ const HeaderSearchComponent = ({
                 placeholder='Search movies and TV shows'
                 value={searchTerm}
                 onInput={(e) => setSearchTerm(e.target.value)}
-                onChange={handleSearch}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
               />
 
               <FontAwesomeIcon
                 className={`search-icon awesome ${
-                  searchIcon === faSpinner ? '' : ''
+                  searchIcon === faSpinner ? 'rotate' : ''
                 }`}
                 icon={searchIcon}
               />

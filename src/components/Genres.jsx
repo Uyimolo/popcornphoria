@@ -1,5 +1,3 @@
-import { useEffect, useLayoutEffect, useRef } from 'react';
-
 const Genres = ({
   genre,
   genresList,
@@ -11,14 +9,16 @@ const Genres = ({
 }) => {
   return (
     <div className='genres-container'>
+      <h3>{type === 'movies' ? 'Movies' : 'TV Shows'}</h3>
+
       <div className='title_with_genres'>
-        <h3 className=''>{`${type === 'movies' ? 'Movies' : 'TV Shows'} ${
+        <p className=''>{`${
           genre
             ? `(${
                 genresList.find((movieGenre) => movieGenre.id === genre).name
               })`
             : `(All)`
-        }`}</h3>
+        }`}</p>
         <p onClick={() => setShowGenres((prevState) => !prevState)}>
           {showGenres ? 'Close filter' : 'Filter by genres'}
         </p>
