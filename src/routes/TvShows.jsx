@@ -2,7 +2,11 @@ import { useState } from 'react';
 import { useGetTvShowsQuery } from '../features/apiSlice';
 import MovieListPagination from '../components/MovieListPagination';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faArrowRight, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import {
+  faArrowLeft,
+  faArrowRight,
+  faSpinner,
+} from '@fortawesome/free-solid-svg-icons';
 
 import { tvShowGenres } from '../assets/arraysAndObjects/tvShowGenres';
 import { useDispatch, useSelector } from 'react-redux';
@@ -49,26 +53,17 @@ const TvShows = () => {
 
   return (
     <div className='movie'>
-      <div className='title_with_genres'>
-        <h3 className=''>{`TV shows ${
-          genre
-            ? `(${tvShowGenres.find((tvGenre) => tvGenre.id === genre).name})`
-            : '(All Series)'
-        }`}</h3>
-        <p onClick={() => setShowGenres((prevState) => !prevState)}>
-          Filter by genre
-        </p>
-      </div>
+     
 
-      {showGenres && (
-        <Genres
-          genre={genre}
-          genresList={tvShowGenres}
-          setShowGenres={setShowGenres}
-          handleFilterByGenre={handleFilterByGenre}
-          handleResetGenre={handleResetGenre}
-        />
-      )}
+      <Genres
+        genre={genre}
+        genresList={tvShowGenres}
+        setShowGenres={setShowGenres}
+        showGenres={showGenres}
+        handleFilterByGenre={handleFilterByGenre}
+        handleResetGenre={handleResetGenre}
+        type='tv shows'
+      />
 
       {tvShowsList ? (
         <MovieListPagination movieList={tvShowsList} type='tv' />

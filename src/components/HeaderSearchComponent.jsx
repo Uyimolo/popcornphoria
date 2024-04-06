@@ -1,19 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { useLazyGetSearchResultQuery } from '../features/apiSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faSpinner } from '@fortawesome/free-solid-svg-icons';
-import { useLocation, useNavigate } from 'react-router';
-import { useDispatch, useSelector } from 'react-redux';
+import {
+  faClose,
+  faSearch,
+  faSpinner,
+} from '@fortawesome/free-solid-svg-icons';
+import { useLocation } from 'react-router';
+import { useDispatch } from 'react-redux';
 import { updateSearchResults } from '../features/searchSlice';
 
-const HeaderSearchComponent = ({ isSidebarOpen }) => {
-  const [searchTerm, setSearchTerm] = useState('');
+const HeaderSearchComponent = ({
+  isSidebarOpen,
+  setShowSearchResult,
+  showSearchResult,
+  setSearchTerm,
+  searchTerm,
+}) => {
   const [trigger, result] = useLazyGetSearchResultQuery();
   const [searchIcon, setSearchIcon] = useState(faSearch);
   const location = useLocation();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const searchResultState = useSelector((state) => state.search.searchResults);
 
   useEffect(() => {
     const { data, isSuccess, isError, error } = result;
@@ -26,13 +33,19 @@ const HeaderSearchComponent = ({ isSidebarOpen }) => {
 
       dispatch(updateSearchResults({ searchResults: searchResultList }));
       setSearchIcon(faSearch);
-      navigate('/search');
+      setShowSearchResult(true);
     }
   }, [result]);
 
   const handleSearch = () => {
     setSearchIcon(faSpinner);
     searchTerm.trim() !== '' && trigger(searchTerm.trim());
+  };
+
+  const handleClearSearch = () => {
+    dispatch(updateSearchResults({ searchResults: [] }));
+    setShowSearchResult(false);
+    setSearchTerm('');
   };
 
   return (
@@ -48,7 +61,8 @@ const HeaderSearchComponent = ({ isSidebarOpen }) => {
                 id='search-input'
                 placeholder='Search movies and TV shows'
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onInput={(e) => setSearchTerm(e.target.value)}
+                onChange={handleSearch}
               />
 
               <FontAwesomeIcon
@@ -56,13 +70,16 @@ const HeaderSearchComponent = ({ isSidebarOpen }) => {
                   searchIcon === faSpinner ? '' : ''
                 }`}
                 icon={searchIcon}
-                onClick={() => setShowSearchInput((prevState) => !prevState)}
               />
-            </div>
 
-            <button className='search-button' onClick={handleSearch}>
-              Search
-            </button>
+              {showSearchResult && (
+                <FontAwesomeIcon
+                  className='close-search awesome'
+                  icon={faClose}
+                  onClick={handleClearSearch}
+                />
+              )}
+            </div>
           </div>
         )}
     </div>
