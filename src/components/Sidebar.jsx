@@ -49,7 +49,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, setShowSearchInput }) => {
     { name: 'Browse Movies', icon: faFilm, to: '/movie' },
     { name: 'Browse TV Shows', icon: faTelevision, to: '/tv' },
     { name: 'Watchlist', icon: faBookmark, to: '/watchlist' },
-    { name: 'Discover', icon: faClock, to: '/' },
+    { name: 'Discover', icon: faClock, to: '/discover' },
   ];
 
   const libraryContent = [{ name: 'Top Rated', icon: faStar, to: '' }];

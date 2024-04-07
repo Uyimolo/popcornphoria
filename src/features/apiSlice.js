@@ -43,6 +43,20 @@ export const apiSlice = createApi({
       }),
     }),
 
+    getNowPlayingMovies: builder.query({
+      query: () => ({
+        url: `movie/now_playing?language=en-US&page=1&api_key=${tmdbApiKey}`,
+        options: tmdbOptions,
+      }),
+    }),
+
+    getPopularMovies: builder.query({
+      query: () => ({
+        url: `movie/popular?language=en-US&page=1&api_key=${tmdbApiKey}`,
+        options: tmdbOptions,
+      }),
+    }),
+
     getMovieCredits: builder.query({
       query: (id) => ({
         url: `movie/${id}/credits?language=en-US&api_key=${tmdbApiKey}`,
@@ -92,6 +106,20 @@ export const apiSlice = createApi({
       }),
     }),
 
+    getTvOnTheAir: builder.query({
+      query: () => ({
+        url: `tv/on_the_air?language=en-US&page=1&api_key=${tmdbApiKey}`,
+        options: tmdbOptions,
+      }),
+    }),
+
+    getPopularTvShows: builder.query({
+      query: () => ({
+        url: `tv/popular?language=en-US&page=1&api_key=${tmdbApiKey}`,
+        options: tmdbOptions,
+      }),
+    }),
+
     getSearchResult: builder.query({
       query: (searchTerm) => ({
         url: `search/multi?query=${searchTerm}&include_adult=false&language=en-US&page=1&api_key=${tmdbApiKey}`,
@@ -106,10 +134,14 @@ export const {
   useGetMovieDetailQuery,
   useGetMovieVideosQuery,
   useGetMovieCreditsQuery,
+  useGetPopularMoviesQuery,
+  useGetNowPlayingMoviesQuery,
   useGetTvShowsQuery,
   useGetTvShowDetailQuery,
   useGetTvShowVideosQuery,
   useGetTvShowCreditsQuery,
+  useGetTvOnTheAirQuery,
+  useGetPopularTvShowsQuery,
   useGetSimilarTvShowsQuery,
   useGetAllTrendingQuery,
   useGetSimilarMoviesQuery,

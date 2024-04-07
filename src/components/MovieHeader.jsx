@@ -24,6 +24,13 @@ const MovieHeader = ({ movieData }) => {
   return (
     <div className='movie-header'>
       <img
+        className='header-image-desktop'
+        src={`https://image.tmdb.org/t/p/w780${movieData.backdrop_path}`}
+        alt={`${film_title}`}
+      />
+
+      <img
+        className='header-image-mobile'
         src={`https://image.tmdb.org/t/p/w780${poster_path}`}
         alt={`${film_title}`}
       />

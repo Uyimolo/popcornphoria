@@ -13,7 +13,7 @@ import TvShows from './routes/TvShows.jsx';
 import Login from './routes/Login.jsx';
 import Signup from './routes/Signup.jsx';
 import Watchlist from './routes/Watchlist.jsx';
-// import Search from './routes/Search.jsx';
+import Discover from './routes/Discover.jsx';
 
 const router = createBrowserRouter([
   {
@@ -28,7 +28,7 @@ const router = createBrowserRouter([
       { path: '/login', element: <Login /> },
       { path: '/signup', element: <Signup /> },
       { path: '/watchlist', element: <Watchlist /> },
-      // { path: '/search', element: <Search /> },
+      { path: '/discover', element: <Discover /> },
     ],
   },
 ]);

@@ -77,6 +77,7 @@ const WatchlistCard = ({ movie }) => {
             className={`awesome ${deleteIcon === faSpinner ? 'rotate' : ''}`}
             icon={deleteIcon}
             onClick={() => handleRemoveFromWatchlist(movie.docId, movie.name)}
+            title='Delete from watchlist'
           />
           <ShareMovie
             poster_path={movie.poster_path}
