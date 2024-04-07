@@ -19,7 +19,7 @@
   --gray: #bbb;
   --red: rgb(253, 66, 66);
   --green: rgb(19, 253, 19);
-  --linear-gradient: linear-gradient(45deg, #000000e7 20%, #04123500);
+  --linear-gradient: linear-gradient(45deg, #000000 20%, #b2b2b300);
   --box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.37);
   --small-font-size: 0.8em;
 }
@@ -229,7 +229,7 @@ header {
 }
 
 .search-input {
-  background-color: #ffffff33;
+  background-color: var(--modal-background);
 }
 
 .search input::placeholder {
@@ -351,34 +351,26 @@ header .menu-icon {
   position: fixed;
   top: 0;
   transform: translateX(-100%);
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-  padding: 2rem 2rem 2rem 1rem;
+  padding: 1rem 1rem;
   background-color: var(--background-color);
   transition: 0.5s;
   height: 100vh;
+  overflow: hidden;
   width: fit-content;
-  overflow-y: scroll;
   z-index: 2;
 }
 
-.sidebar .profile {
-  background-color: white;
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  display: grid;
-  place-content: center;
-  cursor: pointer;
+.sidebar-content-wrapper {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  padding-top: 4rem;
+  overflow-y: scroll;
+  height: 100%;
+  padding-bottom: 5rem;
 }
 
-.sidebar .profile p {
-  padding: 1rem;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--secondary-color);
-}
 .sidebar .awesome {
   width: 1.2rem;
 }
@@ -528,14 +520,14 @@ header .menu-icon {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 7;
+  -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
 }
 
 .homepage {
-  margin: 10rem 0 0;
   display: flex;
   flex-direction: column;
+  padding-top: 10rem;
 }
 
 .homepage-carousels {
@@ -543,7 +535,6 @@ header .menu-icon {
   flex-direction: column;
   gap: 1rem;
   padding: 0 1rem 2rem;
-  z-index: 0;
 }
 
 .carousel-container {
@@ -556,6 +547,7 @@ header .menu-icon {
 swiper-container {
   border-radius: 0.3rem 0.5rem 0.8rem 0.3rem;
   overflow: hidden;
+  z-index: 0;
 }
 
 swiper-slide {
@@ -950,6 +942,7 @@ footer {
   flex-direction: column;
   align-items: center;
   gap: 2rem;
+  display: none;
 }
 
 footer .footer-section h3 {
@@ -1061,13 +1054,11 @@ footer .footer-section-content.socials .social-link .awesome:hover {
 
   .sidebar {
     position: fixed;
-    top: 6.2rem;
+    top: 1rem;
     left: 0;
     transform: translateX(0);
     width: 25%;
     z-index: 1;
-    margin-bottom: 10rem;
-    height: calc(100vh - 6rem);
   }
 
   .sidebar .logo {
@@ -1079,6 +1070,7 @@ footer .footer-section-content.socials .social-link .awesome:hover {
     transform: translateX(33%);
     width: 75%;
     top: 2rem;
+    padding-right: 1rem;
   }
 
   .filter-genres {
@@ -1102,11 +1094,11 @@ footer .footer-section-content.socials .social-link .awesome:hover {
   }
 
   .homepage {
-    width: 95%;
+    width: 100%;
     margin: 0 0 6rem;
   }
 
-  .movie-header {
+  .movie-header, .header-placeholder {
     margin: 6rem auto 2rem;
   }
 
@@ -1154,8 +1146,30 @@ footer .footer-section-content.socials .social-link .awesome:hover {
 }
 
 @media (min-width: 1024px) {
+  header .logo {
+    width: 15rem;
+  }
+
+  .sidebar {
+    width: 15rem;
+  }
   .movie-info {
     background-color: transparent;
+  }
+
+  .search-wrapper {
+    width: calc(100%);
+    padding-left: 1rem;
+  }
+
+  .input-icon-container {
+    position: absolute;
+    right: 0;
+    width: 50%;
+  }
+
+  .search-container {
+    padding-top: 2rem;
   }
 
   .search-result {
@@ -1164,6 +1178,13 @@ footer .footer-section-content.socials .social-link .awesome:hover {
 
   .filter-genres.active {
     max-height: 11rem;
+  }
+
+
+  main {
+    transform: translateX(15rem);
+    width: calc(100% - 15rem);
+    /* background-color: yellow; */
   }
 
   .page {
@@ -1189,33 +1210,6 @@ footer .footer-section-content.socials .social-link .awesome:hover {
 
   .movie-card {
     width: calc(90% / 6);
-  }
-  .movie-header {
-    position: relative;
-    display: flex;
-    flex-direction: row-reverse;
-    align-items: start;
-    height: 30rem;
-    background-image: var(--linear-gradient);
-  }
-  .movie-header img {
-    width: 50%;
-  }
-  .movie-header .movie-info {
-    position: relative;
-    width: 50%;
-    gap: 2rem;
-    justify-content: center;
-    background-image: none;
-  }
-
-  .movie-header .movie-info p {
-    max-width: 90%;
-  }
-
-  .movie-header .movie-info .cta {
-    position: absolute;
-    bottom: 1rem;
   }
 
   .watchlist-card-container {

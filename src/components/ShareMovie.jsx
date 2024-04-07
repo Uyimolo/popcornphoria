@@ -1,53 +1,37 @@
 import { useDispatch } from 'react-redux';
 import { showToastAlert } from '../features/toastSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShareNodes } from '@fortawesome/free-solid-svg-icons';
+import { faShare } from '@fortawesome/free-solid-svg-icons';
 import { useCallback } from 'react';
-const ShareMovie = ({ poster_path, link, name }) => {
+
+const ShareMovie = ({ name, link }) => {
   const dispatch = useDispatch();
 
   const handleShareMovie = useCallback(async () => {
-    if (navigator.share) {
-      try {
-        const posterUrl = `https://image.tmdb.org/t/p/w200${poster_path}`;
-        console.log(poster_path);
-
-        const response = await fetch(posterUrl);
-        console.log(response);
-        // convert qrDataURL to blob
-        const blob = await response.blob();
-        const file = new File([blob], `${name}.png`, { type: 'image/png' });
-        console.log(blob);
-        console.log(file);
+    try {
+      if (navigator.share) {
         await navigator.share({
-          title: 'Have you watched this?',
-          text: name,
-          link: link,
-          files: [file],
+          title: name,
+          text: `Check out ${name} on Popcornphoria!`,
+          url: link,
         });
-        console.log(file);
-      } catch (error) {
-        console.error('Error sharing movie:', error);
-        dispatch(
-          showToastAlert({ type: 'error', message: 'Error sharing movie' })
-        );
+      } else {
+        throw new Error('Web Share API is not supported in this browser.');
       }
-    } else {
-      // Fallback for browsers that do not support navigator.share
+    } catch (error) {
+      console.error('Error sharing movie:', error);
       dispatch(
-        showToastAlert({
-          type: 'error',
-          message: 'Web Share API is not supported in this browser.',
-        })
+        showToastAlert({ type: 'error', message: 'Failed to share movie.' })
       );
     }
-  }, []);
+  }, [dispatch, name, link]);
 
   return (
     <FontAwesomeIcon
+      className='awesome share-icon'
+      icon={faShare}
       onClick={handleShareMovie}
-      className='awesome'
-      icon={faShareNodes}
+      title='Share'
     />
   );
 };

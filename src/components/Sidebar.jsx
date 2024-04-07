@@ -12,9 +12,14 @@ import {
   faCogs,
   faContactBook,
   faInfoCircle,
-  faDisplay,
-  faPerson,
-  faPersonBurst,
+  faShieldAlt,
+  faFileAlt,
+  faHandshake,
+  faFilm,
+  faCopyright,
+  faQuestionCircle,
+  faNewspaper,
+  faBriefcase,
 } from '@fortawesome/free-solid-svg-icons';
 
 import Logo from './Logo';
@@ -25,6 +30,12 @@ import { updateRedirectRoute } from '../features/authSlice';
 import { signOut } from 'firebase/auth';
 import { showToastAlert } from '../features/toastSlice';
 import { auth } from '../firebase/config';
+import {
+  faFacebook,
+  faInstagram,
+  faTwitter,
+} from '@fortawesome/free-brands-svg-icons';
+import SidebarSection from './SidebarSection';
 
 const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, setShowSearchInput }) => {
   const location = useLocation();
@@ -35,15 +46,13 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, setShowSearchInput }) => {
 
   const menuContent = [
     { name: 'Home', icon: faHome, to: '/' },
-    { name: 'Browse Movies', icon: faCamera, to: '/movie' },
+    { name: 'Browse Movies', icon: faFilm, to: '/movie' },
     { name: 'Browse TV Shows', icon: faTelevision, to: '/tv' },
+    { name: 'Watchlist', icon: faBookmark, to: '/watchlist' },
+    { name: 'Discover', icon: faClock, to: '/' },
   ];
 
-  const libraryContent = [
-    { name: 'Recent', icon: faClock, to: '' },
-    { name: 'Top Rated', icon: faStar, to: '' },
-    { name: 'Watchlist', icon: faBookmark, to: '/watchlist' },
-  ];
+  const libraryContent = [{ name: 'Top Rated', icon: faStar, to: '' }];
 
   const generalContent = [
     {
@@ -54,6 +63,20 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, setShowSearchInput }) => {
     { name: 'About', icon: faInfoCircle, to: '' },
     { name: 'Contact', icon: faContactBook, to: '' },
     { name: 'Settings', icon: faCogs, to: '' },
+  ];
+
+  const informationContent = [
+    { name: 'Privacy', to: '/', icon: faShieldAlt },
+    { name: 'Contact us', to: '/', icon: faContactBook },
+    { name: 'Help center', to: '/', icon: faInfoCircle },
+    { name: 'Press room', to: '/', icon: faNewspaper },
+    { name: 'Careers', to: '/', icon: faBriefcase },
+  ];
+
+  const socialMediaContent = [
+    { name: 'Twitter', to: 'https://x.com/codeFrontline', icon: faTwitter },
+    { name: 'Instagram', to: 'https://instagram.com', icon: faInstagram },
+    { name: 'Facebook', to: 'https://facebook.com', icon: faFacebook },
   ];
 
   // close all modals that may be obstructing the new routes display
@@ -80,79 +103,30 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, setShowSearchInput }) => {
   return (
     <aside className={`sidebar ${isSidebarOpen ? 'active' : ''}`}>
       <Logo click={handleDisplayRoute} />
+      <div className='sidebar-content-wrapper'>
+        <SidebarSection
+          sectionHeading='Menu'
+          content={menuContent}
+          handleDisplayRoute={handleDisplayRoute}
+        />
 
-      {online && (
-        <div className='profile'>
-          <p>{user[0].toUpperCase()}</p>
-        </div>
-      )}
+        <SidebarSection
+          sectionHeading='Library'
+          content={libraryContent}
+          handleDisplayRoute={handleDisplayRoute}
+        />
 
-      <div className='sidebar-section'>
-        <p className='sidebar-section-heading'>Menu</p>
-        <div className='sidebar-section-contents'>
-          {menuContent.map((item) => (
-            <Link
-              onClick={handleDisplayRoute}
-              key={item.name}
-              to={item.to}
-              className='section-content'>
-              <FontAwesomeIcon className='awesome' icon={item.icon} />
-              <p>{item.name}</p>
-            </Link>
-          ))}
-        </div>
-      </div>
+        <SidebarSection
+          sectionHeading='General'
+          content={generalContent}
+          handleDisplayRoute={handleDisplayRoute}
+        />
 
-      <div className='sidebar-section'>
-        <p className='sidebar-section-heading'>Library</p>
-        <div className='sidebar-section-contents'>
-          {libraryContent.map((item) => (
-            <Link
-              onClick={handleDisplayRoute}
-              key={item.name}
-              to={item.to}
-              className='section-content'>
-              <FontAwesomeIcon className='awesome' icon={item.icon} />
-              <p className='sidebar-content-name'>{item.name}</p>
-            </Link>
-          ))}
-        </div>
-      </div>
-
-      <div className='sidebar-section'>
-        <p className='sidebar-section-heading'>General</p>
-        <div className='sidebar-section-contents'>
-          {generalContent.map((item) =>
-            item.name === 'Sign In' ? (
-              // can't render Sign in as a Link because I'll programmatically be changing routes
-              <div
-                onClick={() => handleDisplayRoute(item.name)}
-                key={item.name}
-                className='section-content'>
-                <FontAwesomeIcon className='awesome' icon={item.icon} />
-                <p>{item.name}</p>
-              </div>
-            ) : item.name === 'Sign Out' ? (
-              // can't render Sign in as a Link because I'll programmatically be changing routes
-              <div
-                onClick={() => handleDisplayRoute(item.name)}
-                key={item.name}
-                className='section-content'>
-                <FontAwesomeIcon className='awesome' icon={item.icon} />
-                <p>{item.name}</p>
-              </div>
-            ) : (
-              <Link
-                onClick={() => handleDisplayRoute(item.name)}
-                key={item.name}
-                to={item.to}
-                className='section-content'>
-                <FontAwesomeIcon className='awesome' icon={item.icon} />
-                <p>{item.name}</p>
-              </Link>
-            )
-          )}
-        </div>
+        <SidebarSection
+          sectionHeading='information'
+          content={informationContent}
+          handleDisplayRoute={handleDisplayRoute}
+        />
       </div>
     </aside>
   );

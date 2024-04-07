@@ -24,7 +24,7 @@ const MovieHeader = ({ movieData }) => {
   return (
     <div className='movie-header'>
       <img
-        src={`https://image.tmdb.org/t/p/w400${poster_path}`}
+        src={`https://image.tmdb.org/t/p/w780${poster_path}`}
         alt={`${film_title}`}
       />
 

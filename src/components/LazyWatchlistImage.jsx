@@ -8,7 +8,7 @@ const LazyWatchlistImage = ({ poster_path, title }) => {
     image.onload = () => {
       setIsLoading(false);
     };
-    image.src = `https://image.tmdb.org/t/p/w200${poster_path}`;
+    image.src = `https://image.tmdb.org/t/p/w154${poster_path}`;
   }, [poster_path]);
 
   return (
@@ -17,7 +17,7 @@ const LazyWatchlistImage = ({ poster_path, title }) => {
         <div className='watchlist-image-placeholder'></div>
       ) : (
         <img
-          src={`https://image.tmdb.org/t/p/w200${poster_path}`}
+          src={`https://image.tmdb.org/t/p/w154${poster_path}`}
           alt={`${title}`}
         />
         // <div className='watchlist-image-placeholder'></div>
