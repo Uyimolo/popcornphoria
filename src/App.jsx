@@ -66,8 +66,8 @@ function App() {
         <Outlet />
       </main>
 
-      {!location.pathname.includes('/signup') &&
-        !location.pathname.includes('/login') && <Footer />}
+      {/* {!location.pathname.includes('/signup') &&
+        !location.pathname.includes('/login') && <Footer />} */}
     </div>
   );
 }

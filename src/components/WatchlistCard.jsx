@@ -80,7 +80,7 @@ const WatchlistCard = ({ movie }) => {
           />
           <ShareMovie
             poster_path={movie.poster_path}
-            link={`https://localhost:5173/${movie.media_type}/${movie.id}`}
+            link={`https://popcornphoria.vercel.app/${movie.media_type}/${movie.id}`}
             name={movie.name}
           />
         </div>
