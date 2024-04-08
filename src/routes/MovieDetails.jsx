@@ -46,11 +46,6 @@ const MovieDetails = () => {
   const { data: similarMoviesData, isSuccess: similarMovieSuccess } =
     useGetSimilarMoviesQuery(movieId);
 
-  let similarMovies;
-  if (similarMovieSuccess) {
-    similarMovies = similarMoviesData.results;
-  }
-
   const { data: creditsData, isSuccess: creditsSuccess } =
     useGetMovieCreditsQuery(movieId);
 
@@ -117,7 +112,7 @@ const MovieDetails = () => {
               />
             </div>
 
-            {credits && <p>{`Starring: ${credits.join(' | ')}`}</p>}
+            {creditsSuccess && <p>{`Starring: ${credits.join(' | ')}`}</p>}
           </div>
 
           <div className='story-line'>
@@ -125,10 +120,10 @@ const MovieDetails = () => {
             <p className='overview'>{movie.overview}</p>
           </div>
 
-          {similarMovies && (
+          {similarMovieSuccess && (
             <div className='similar-movies'>
               <MovieCarousels
-                movieData={similarMovies}
+                movieData={similarMoviesData.results}
                 carouselTitle='Similar movies'
                 type='movie'
               />

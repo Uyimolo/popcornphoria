@@ -6,23 +6,30 @@ import { useSelector } from 'react-redux';
 import { setShowSearch } from '../features/searchSlice';
 import { useEffect, useRef } from 'react';
 
-const Search = ({ showSearchResult, setShowSearchResult }) => {
+const Search = ({}) => {
   const searchContainerRef = useRef();
   const searchResultList = useSelector((state) => state.search.searchResults);
 
+  const showSearchResult = useSelector((state) => state.search.showSearch);
+
   const handleCloseSearch = () => {
-    setShowSearchResult(false);
+    dispatch(setShowSearch({ showSearch: false }));
   };
 
   useEffect(() => {
     searchContainerRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+    console.log(searchResultList);
   }, [searchResultList]);
+
+  useEffect(() => {
+    console.log(showSearchResult);
+  }, [showSearchResult]);
 
   return (
     <div
       className={`search-container ${showSearchResult ? 'active' : ''}`}
       ref={searchContainerRef}>
-      {searchResultList.length > 0 ? 
+      {searchResultList.length > 0 ? (
         <div className='search-results'>
           {searchResultList.map((data) => (
             <div className='search-result' key={data.id}>
@@ -55,8 +62,10 @@ const Search = ({ showSearchResult, setShowSearchResult }) => {
               </div>
             </div>
           ))}
-        </div> : <p>Match not found</p>
-      }
+        </div>
+      ) : (
+        <p>Match not found</p>
+      )}
     </div>
   );
 };

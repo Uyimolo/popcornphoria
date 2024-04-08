@@ -6,27 +6,14 @@ import HeaderSearchComponent from './HeaderSearchComponent';
 import Search from './Search';
 
 const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [showSearchResult, setShowSearchResult] = useState(false);
-
   return (
     <header>
       <Logo />
 
       <div className='search-wrapper'>
-        <HeaderSearchComponent
-          searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm}
-          setShowSearchResult={setShowSearchResult}
-          showSearchResult={showSearchResult}
-        />
+        <HeaderSearchComponent />
 
-        {
-          <Search
-            showSearchResult={showSearchResult}
-            setShowSearchResult={setShowSearchResult}
-          />
-        }
+        {<Search />}
       </div>
 
       <div

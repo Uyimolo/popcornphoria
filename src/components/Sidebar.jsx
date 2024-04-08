@@ -2,7 +2,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   faHome,
-  faCamera,
   faTelevision,
   faClock,
   faStar,
@@ -13,19 +12,13 @@ import {
   faContactBook,
   faInfoCircle,
   faShieldAlt,
-  faFileAlt,
-  faHandshake,
   faFilm,
-  faCopyright,
-  faQuestionCircle,
   faNewspaper,
   faBriefcase,
 } from '@fortawesome/free-solid-svg-icons';
 
 import Logo from './Logo';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link } from 'react-router-dom';
 import { updateRedirectRoute } from '../features/authSlice';
 import { signOut } from 'firebase/auth';
 import { showToastAlert } from '../features/toastSlice';
@@ -36,13 +29,17 @@ import {
   faTwitter,
 } from '@fortawesome/free-brands-svg-icons';
 import SidebarSection from './SidebarSection';
+import {
+  setShowSearch,
+  updateSearchResults,
+  updateSearchTerm,
+} from '../features/searchSlice';
 
 const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, setShowSearchInput }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const online = useSelector((state) => state.auth.isSignedin);
-  const user = useSelector((state) => state.auth.userEmail);
 
   const menuContent = [
     { name: 'Home', icon: faHome, to: '/' },
@@ -98,6 +95,9 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, setShowSearchInput }) => {
     }
     setShowSearchInput(false);
     setIsSidebarOpen(false);
+    dispatch(setShowSearch({ showSearch: false }));
+    dispatch(updateSearchResults({ searchResults: [] }));
+    dispatch(updateSearchTerm({ searchTerm: '' }));
   };
 
   return (
@@ -128,6 +128,8 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, setShowSearchInput }) => {
           handleDisplayRoute={handleDisplayRoute}
         />
       </div>
+
+      
     </aside>
   );
 };
