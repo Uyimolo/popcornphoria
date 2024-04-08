@@ -7,20 +7,20 @@ import {
   faSpinner,
 } from '@fortawesome/free-solid-svg-icons';
 import { useLocation } from 'react-router';
-import { useDispatch } from 'react-redux';
-import { updateSearchResults } from '../features/searchSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  setShowSearch,
+  updateSearchResults,
+  updateSearchTerm,
+} from '../features/searchSlice';
 
-const HeaderSearchComponent = ({
-  isSidebarOpen,
-  setShowSearchResult,
-  showSearchResult,
-  setSearchTerm,
-  searchTerm,
-}) => {
+const HeaderSearchComponent = ({ isSidebarOpen }) => {
   const [trigger, result] = useLazyGetSearchResultQuery();
   const [searchIcon, setSearchIcon] = useState(faSearch);
   const location = useLocation();
   const dispatch = useDispatch();
+  const showSearchResult = useSelector((state) => state.search.showSearch);
+  const searchTerm = useSelector((state) => state.search.searchTerm);
 
   useEffect(() => {
     const { data, isSuccess, isError, error } = result;
@@ -33,7 +33,7 @@ const HeaderSearchComponent = ({
 
       dispatch(updateSearchResults({ searchResults: searchResultList }));
       setSearchIcon(faSearch);
-      setShowSearchResult(true);
+      dispatch(setShowSearch({ showSearch: true }));
     }
   }, [result]);
 
@@ -52,8 +52,8 @@ const HeaderSearchComponent = ({
 
   const handleClearSearch = () => {
     dispatch(updateSearchResults({ searchResults: [] }));
-    setShowSearchResult(false);
-    setSearchTerm('');
+    dispatch(setShowSearch({ showSearch: false }));
+    dispatch(updateSearchTerm({ searchTerm: '' }));
   };
 
   return (
@@ -69,8 +69,12 @@ const HeaderSearchComponent = ({
                 id='search-input'
                 placeholder='Search movies and TV shows'
                 value={searchTerm}
-                onInput={(e) => setSearchTerm(e.target.value)}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onInput={(e) =>
+                  dispatch(updateSearchTerm({ searchTerm: e.target.value }))
+                }
+                onChange={(e) =>
+                  dispatch(updateSearchTerm({ searchTerm: e.target.value }))
+                }
                 onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
               />
 
