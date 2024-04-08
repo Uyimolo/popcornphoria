@@ -1,10 +1,13 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 const SidebarSection = ({ handleDisplayRoute, content, sectionHeading }) => {
+  const location = useLocation()
   return (
     <div className='sidebar-section'>
       <p className='sidebar-section-heading'>{sectionHeading}</p>
+
       <div className='sidebar-section-contents'>
         {content.map((item) =>
           item.name === 'Sign In' ? (
@@ -30,7 +33,7 @@ const SidebarSection = ({ handleDisplayRoute, content, sectionHeading }) => {
               onClick={() => handleDisplayRoute(item.name)}
               key={item.name}
               to={item.to}
-              className='section-content'>
+              className={`section-content ${location.pathname === item.to ? 'active' : ''}`}>
               <FontAwesomeIcon className='awesome' icon={item.icon} />
               <p>{item.name}</p>
             </Link>

@@ -63,11 +63,11 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, setShowSearchInput }) => {
   ];
 
   const informationContent = [
-    { name: 'Privacy', to: '/', icon: faShieldAlt },
-    { name: 'Contact us', to: '/', icon: faContactBook },
-    { name: 'Help center', to: '/', icon: faInfoCircle },
-    { name: 'Press room', to: '/', icon: faNewspaper },
-    { name: 'Careers', to: '/', icon: faBriefcase },
+    { name: 'Privacy', to: '', icon: faShieldAlt },
+    { name: 'Contact us', to: '', icon: faContactBook },
+    { name: 'Help center', to: '', icon: faInfoCircle },
+    { name: 'Press room', to: '', icon: faNewspaper },
+    { name: 'Careers', to: '', icon: faBriefcase },
   ];
 
   const socialMediaContent = [
