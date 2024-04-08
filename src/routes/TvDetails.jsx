@@ -9,6 +9,8 @@ import MovieCarousels from '../components/MovieCarousels';
 import AddToWatchlist from '../components/AddToWatchlist';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import ShareMovie from '../components/ShareMovie';
+
 const TvDetails = () => {
   const { tvId } = useParams();
 
@@ -71,9 +73,9 @@ const TvDetails = () => {
             title='Embedded youtube'
           />
         ) : //if no video show the poster image
-        tvShow && tvShow.poster_path ? (
+        tvShow && tvShow.backdrop_path ? (
           <img
-            src={`https://image.tmdb.org/t/p/w500${tvShow.poster_path}`}
+            src={`https://image.tmdb.org/t/p/w500${tvShow.backdrop_path}`}
             alt=''
           />
         ) : (
@@ -88,11 +90,15 @@ const TvDetails = () => {
           <div className='title-details'>
             <h2>{tvShow.name}</h2>
 
-            <p className='year'>{`${tvShow.first_air_date.split('-')[0]} | ${
-              tvShow.number_of_seasons
-            } ${
-              tvShow.number_of_seasons < 2 ? 'season' : 'seasons'
-            } | ${tvShow.vote_average.toFixed(1)} stars`}</p>
+            <div className='share'>
+              {' '}
+              <p className='year'>{`${tvShow.first_air_date.split('-')[0]} | ${
+                tvShow.number_of_seasons
+              } ${
+                tvShow.number_of_seasons < 2 ? 'season' : 'seasons'
+              } | ${tvShow.vote_average.toFixed(1)} stars`}</p>
+              <ShareMovie name={tvShow.name} link={`https://popcornphoria.vercel.app/tv/${tvShow.id}`} />
+            </div>
 
             <div className='genres'>
               {tvShow.genres.map((genre) => (
