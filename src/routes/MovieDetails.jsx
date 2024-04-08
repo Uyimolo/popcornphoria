@@ -9,6 +9,7 @@ import MovieCarousels from '../components/MovieCarousels';
 import AddToWatchlist from '../components/AddToWatchlist';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ShareMovie from '../components/ShareMovie';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
@@ -71,9 +72,9 @@ const MovieDetails = () => {
             title='Embedded youtube'
           />
         ) : //if no video show the poster image
-        movie && movie.poster_path ? (
+        movie && movie.backdrop_path ? (
           <img
-            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+            src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
             alt=''
           />
         ) : (
@@ -87,10 +88,16 @@ const MovieDetails = () => {
         <div className='movie-details'>
           <div className='title-details'>
             <h2>{movie.title}</h2>
+            <div className='share'>
+              <p className='year'>{`${
+                movie.release_date.split('-')[0]
+              } | ${movie.vote_average.toFixed(1)} stars`}</p>
 
-            <p className='year'>{`${
-              movie.release_date.split('-')[0]
-            } | ${movie.vote_average.toFixed(1)} stars`}</p>
+              <ShareMovie
+                name={movie.name}
+                link={`https://popcornphoria.vercel.app/movie/${movie.id}`}
+              />
+            </div>
 
             <div className='genres'>
               {movie.genres.map((genre) => (
