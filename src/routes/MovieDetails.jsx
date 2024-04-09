@@ -1,15 +1,18 @@
-import { useParams } from 'react-router';
+import MovieCarousels from '../components/MovieCarousels';
+import AddToWatchlist from '../components/AddToWatchlist';
+import ShareMovie from '../components/ShareMovie';
+
 import {
   useGetMovieDetailQuery,
   useGetMovieVideosQuery,
   useGetMovieCreditsQuery,
   useGetSimilarMoviesQuery,
 } from '../features/apiSlice';
-import MovieCarousels from '../components/MovieCarousels';
-import AddToWatchlist from '../components/AddToWatchlist';
+
+import { useParams } from 'react-router';
+
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import ShareMovie from '../components/ShareMovie';
 
 const MovieDetails = () => {
   const { movieId } = useParams();

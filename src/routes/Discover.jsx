@@ -1,5 +1,5 @@
-import React from 'react';
 import MovieCarousels from '../components/MovieCarousels';
+
 import {
   useGetNowPlayingMoviesQuery,
   useGetPopularMoviesQuery,
@@ -53,12 +53,6 @@ const Discover = () => {
           carouselTitle='Popular TV shows'
         />
       )}
-
-      {/* <MovieCarousels /> */}
-
-      {/* <MovieCarousels /> */}
-
-      {/* <MovieCarousels /> */}
     </div>
   );
 };

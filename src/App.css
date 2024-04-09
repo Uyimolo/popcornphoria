@@ -9,6 +9,9 @@
 
 :root {
   --background-color: #020d19;
+  /* --light-background-color: #e6f2ff; */
+  --light-background-color: #fafafa;
+
   --modal-background: #e0dddd91;
   --secondary-color: #2241a8;
   --secondary-transparent: #2241a869;
@@ -26,8 +29,129 @@
   --small-font-size: 0.8em;
 }
 
-body {
+.App {
   background-color: var(--background-color);
+}
+
+.App.light {
+  background-color: var(--light-background-color);
+}
+
+.App.light p,
+.App.light .awesome {
+  color: #000000;
+}
+
+.App.light h1,
+.App.light h2,
+.App.light h3 {
+  color: #003366;
+}
+
+.App.light button {
+  background-color: var(--secondary-color);
+}
+
+.App.light button:hover {
+  background-color: var(--secondary-transparent);
+}
+
+.App.light header {
+  background-color: var(--secondary-transparent);
+}
+
+.App.light .logo p {
+  color: white;
+}
+
+.App.light header .light-dark-mode .moon {
+  color: white;
+}
+
+.App.light .menu-icon {
+  color: white;
+}
+
+.App.light .sidebar {
+  background-color: var(--light-background-color);
+}
+
+.App.light .search-input {
+  background-color: var(--secondary-transparent);
+  color: var(--heading-color);
+}
+
+.App.light .search .awesome {
+  color: var(--heading-color);
+}
+
+.App.light .search-input::placeholder {
+  color: var(--heading-color);
+}
+
+.App.light .search-container {
+  background-color: var(--light-background-color);
+}
+
+.App.light .search-result img {
+  border: 1px solid var(--secondary-transparent);
+}
+
+.App.light .search-result-details {
+  background-color: transparent;
+}
+
+.App.light .search-result:hover {
+  /* background-color: var(--secondary-transparent); */
+  color: white;
+  background-color: rgba(0, 0, 0, 0.384);
+}
+
+.App.light .search-result:hover .search-result-details p {
+  color: white;
+}
+
+ .App.light .search-result-details:hover  {
+  background-color: transparent;
+ }
+
+.App.light .search-result-details:hover p {
+  color: white;
+}
+
+.App.light .movie-header .movie-info {
+  background-image: linear-gradient(45deg, #00000098 20%, #b2b2b300) ;
+}
+
+.App.light .movie-header .movie-info p {
+  color: white;
+}
+
+.App.light .filter-genre:hover,
+.App.light .filter-genre.active {
+  color: tomato;
+}
+
+.App.light .previous,
+.App.light .next {
+  color: var(--secondary-color);
+}
+
+.App.light .pagination-number.active {
+  color: var(--text-color);
+}
+
+.App.light .movie-details .genre {
+  border: 1px solid #333333;
+}
+
+.App.light .add-to-watchlist-button .awesome {
+  color: var(--text-color);
+}
+
+.App.light .add-to-watchlist-button:hover {
+  background-color: var(--secondary-color);
+  box-shadow: var(--box-shadow);
 }
 
 main {
@@ -37,8 +161,6 @@ main {
 
 ::-webkit-scrollbar {
   width: 6px;
-  /* background-color: #4444445e; */
-  /* display: none; */
 }
 
 ::-webkit-scrollbar-thumb {
@@ -53,7 +175,8 @@ main {
 
 h1,
 h2,
-h3 {
+h3,
+.App.light .movie-header h1 {
   line-height: 1;
   font-weight: 500;
   color: var(--heading-color);
@@ -71,7 +194,8 @@ h3 {
   font-size: 1.2em;
 }
 
-p {
+p,
+.App.light .movie-header p {
   color: var(--text-color);
   line-height: 1.6;
 }
@@ -119,6 +243,7 @@ button.primary-btn {
   border: none;
 }
 
+/* loading spinners  */
 .rotate {
   animation: rotate 2s linear infinite;
 }
@@ -142,6 +267,8 @@ button.primary-btn {
     transform: rotate(360deg);
   }
 }
+
+/* toast alerts */
 
 .toast-container {
   color: var(--text-color);
@@ -188,12 +315,14 @@ button.primary-btn {
   }
 }
 
+/* header, search and theme icons */
 header {
   position: fixed;
   width: 100%;
   top: 0;
   left: 0;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   padding: 1rem;
   height: 8rem;
@@ -201,6 +330,14 @@ header {
   backdrop-filter: blur(5px);
   background-color: #020b19b4;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.384);
+}
+/* shows logo, theme icons and hamburger menu icon for mobile */
+.top-header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  height: fit-content;
 }
 
 .logo {
@@ -210,7 +347,7 @@ header {
   width: fit-content;
   background-color: transparent;
   border-radius: 0.3rem;
-  padding: 0 0.5rem 0 0;
+  padding: 0;
 }
 
 .logo img {
@@ -225,21 +362,13 @@ header {
   text-decoration: none;
   color: white;
 }
-
+/* shows search bar for mobile, display: none in tab and desktop */
 .search-wrapper {
   width: 100%;
-  position: absolute;
-  bottom: -0.5rem;
-  left: 0;
 }
-
-.search {
-  display: flex;
-  padding: 1rem;
-  width: 100%;
-  justify-content: space-between;
-  align-items: center;
-  /* background-color: blue; */
+/* shows search bar in tab and desktop modes */
+.top-header .inner-search-wrapper {
+  display: none;
 }
 
 .search-input {
@@ -250,8 +379,6 @@ header {
   color: var(--text-color);
   letter-spacing: 2px;
   padding: 0.7rem 1rem 0.7rem 3rem;
-  /* background-color: #2241a8a4; */
-  /* border: 1px solid var(--white-text-color); */
 }
 
 .search input::placeholder {
@@ -268,28 +395,24 @@ header {
   position: absolute;
   left: 1rem;
   top: 0.7rem;
-  /* transform: translateY(-50%); */
   height: 1rem;
 }
 
 .search-icon.active {
   animation: rotate-icon 1s ease-in-out infinite linear;
 }
-
-/* @keyframes rotate-icon {
-  
-} */
-
+/* contains search results and is seperate from the search bar */
 .search-container {
   background-color: var(--background-color);
   width: 100%;
-  height: calc(100vh - 8rem);
-  position: absolute;
-  top: 4rem;
+  position: fixed;
+  top: 8rem;
+  bottom: 0;
   overflow: scroll;
   padding: 1rem 1rem;
   transform: translateX(-100%);
-  transition: 1s;
+  transition: transform 1s;
+  z-index: 1;
 }
 
 .search-container.active {
@@ -363,13 +486,39 @@ header {
   width: 6rem;
   height: 9rem;
 }
+/* theme icons */
+header .menu-icon-theme {
+  display: flex;
+  height: fit-content;
+  width: fit-content;
+  align-items: center;
+  gap: 1rem;
+}
 
 header .menu-icon {
   font-size: 2em;
 }
 
-.close-icon {
-  height: 2.4rem;
+header .light-dark-mode {
+  display: flex;
+  gap: 1rem;
+  height: fit-content;
+  padding: 0.2rem;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+
+header .light-dark-mode .sun {
+  color: goldenrod;
+  width: 2rem;
+}
+
+header .light-dark-mode .moon {
+  width: 2rem;
+}
+
+header .light-dark-mode .awesome {
+  font-size: 1.5em;
 }
 
 .sidebar {
@@ -443,7 +592,7 @@ header .menu-icon {
   display: flex;
   gap: 0.5rem;
 }
-
+/* transparent div that appears with sidebar in mobile view */
 .curtain {
   width: 100%;
   height: 100vh;
@@ -459,7 +608,7 @@ header .menu-icon {
 .curtain.active {
   transform: translate(0);
 }
-
+/* large movie poster on home page */
 .movie-header {
   margin: 0rem 1rem 2rem;
   overflow: hidden;
@@ -492,16 +641,16 @@ header .menu-icon {
     opacity: 0.5;
   }
 }
-
+/* header image using poster_path in mobile and tabs */
 .movie-header img {
   width: 100%;
 }
-
+/* shows header image using backdrop_path in desktop view */
 .header-image-desktop {
   display: none;
 }
 
-.movie-info {
+.movie-header .movie-info {
   position: absolute;
   top: 0;
   left: 0;
@@ -526,27 +675,27 @@ header .menu-icon {
   width: fit-content;
 }
 
-.miscellenous {
+.movie-header .miscellenous {
   display: flex;
   gap: 0.4rem;
   align-items: center;
 }
 
-.miscellenous .awesome {
-  color: var(--primary-color);
+.movie-header .miscellenous .awesome {
+  color: goldenrod;
 }
 
-.miscellenous p {
+.movie-header .miscellenous p {
   color: var(--gray);
 }
 
-.miscellenous .seperation {
+.movie-header .miscellenous .seperation {
   width: 0.2rem;
   height: 0.2rem;
   background-color: var(--white-text-color);
 }
 
-.movie-info .overview {
+.movie-header .movie-info .overview {
   max-width: 40rem;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -568,6 +717,7 @@ header .menu-icon {
   padding: 0 1rem 2rem;
 }
 
+/* Swipper carousel used in home, similar movies/similar tv shows (in browser movies/tv shows) and in discover pages */
 .carousel-container {
   display: flex;
   flex-direction: column;
@@ -590,7 +740,7 @@ swiper-slide img {
   height: 100%;
   border-radius: 0.3rem;
 }
-
+/* placeholder to show while carousel images are loading */
 .lazy-carousel-image {
   aspect-ratio: 2/3;
   width: 100%;
@@ -695,9 +845,9 @@ swiper-slide img {
 .auth .no-account .link {
   color: var(--primary-color);
 }
-
+/* general page styling */
 .page {
-  margin-top: 9rem;
+  padding-top: 9rem;
   display: flex;
   flex-direction: column;
   gap: 1rem 0;
@@ -709,8 +859,9 @@ swiper-slide img {
   width: 100%;
   border: none;
   padding: 1rem 1rem 0;
+  /* box-shadow: var(--box-shadow); */
 }
-
+/* movie details page no direct links appears when you click a movie or tv show */
 .movie-details {
   display: flex;
   flex-direction: column;
@@ -718,7 +869,7 @@ swiper-slide img {
   gap: 2em;
 }
 
-.title-details {
+.movie-details .title-details {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -740,34 +891,34 @@ swiper-slide img {
   inset: 0 0;
 }
 
-.genre,
+.movie-details .genre,
 .movie-details .year {
   position: relative;
   color: var(--gray);
   font-size: 0.8em;
 }
 
-.genre {
+.movie-details .genre {
   border: 1px solid var(--gray);
   padding: 0 0.5rem;
 }
-
+/* on movie/ tvshows details page and movie header (home page) */
 .add-to-watchlist-button .awesome {
   font-size: 1.2rem;
 }
 
-.watchlist-button {
+.movie-details .watchlist-button {
   margin: 1.5rem 0;
 }
 
-.story-line {
+.movie-details .story-line {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
-
+/* general styling for movies and tv shows page (browse movies, browse tvshows) */
 .movie {
-  margin-top: 9rem;
+  padding-top: 9rem;
   position: relative;
 }
 
@@ -812,7 +963,6 @@ swiper-slide img {
 .genres {
   display: flex;
   flex-wrap: wrap;
-  /* justify-content: center; */
   align-items: center;
   gap: 1.5rem 1.3rem;
   padding: 1rem;
@@ -839,14 +989,11 @@ swiper-slide img {
 .filter-genre {
   transition: 0.5s;
   cursor: pointer;
-  /* border: 1px solid var(--white-text-color); */
-  /* padding: .1rem 1rem; */
-  /* border-radius: 1rem; */
 }
 
 .filter-genre:hover,
 .filter-genre.active {
-  color:tomato;
+  color: tomato;
 }
 
 .movie-card {
@@ -914,8 +1061,7 @@ swiper-slide img {
 }
 
 .watchlist-page {
-  margin: 9rem 0 0;
-  padding: 1rem;
+  padding: 9rem 1rem 0;
 }
 
 .watchlist-card-container {
@@ -968,70 +1114,17 @@ swiper-slide img {
 }
 
 .discover {
-  padding: 1rem;
+  padding: 9rem 1rem;
   gap: 2rem;
 }
-/* footer {
-  margin: 2rem 0 0 0;
-  padding: 5rem 1rem;
-  background-color: var(--black);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-  display: none;
-}
-
-footer .footer-section h3 {
-  text-align: center;
-  margin-bottom: 1rem;
-}
-
-footer .footer-section-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.3rem;
-}
-
-footer .footer-section-content p:hover {
-  color: var(--secondary-color);
-}
-
-footer .footer-section-content p {
-  cursor: pointer;
-  color: var(--gray);
-}
-
-footer .footer-section-content.socials {
-  flex-direction: row;
-  gap: 1rem;
-}
-
-footer .footer-section-content.socials .social-link {
-  width: 2rem;
-  height: 2rem;
-  display: grid;
-  place-content: center;
-}
-
-footer .footer-section-content.socials .awesome {
-  font-size: 1.5rem;
-  transition: 0.5s;
-}
-
-footer .footer-section-content.socials .social-link .awesome:hover {
-  color: var(--secondary-color);
-  font-size: 2rem;
-}
-
-.footer-seperator {
-  position: relative;
-} */
 
 @media (min-width: 768px) {
   h1 {
     max-width: 28rem;
+  }
+
+  .toast-container {
+    width: fit-content;
   }
 
   header {
@@ -1041,25 +1134,28 @@ footer .footer-section-content.socials .social-link .awesome:hover {
     z-index: 2;
   }
 
-  header .menu-icons {
+  header .top-header {
+    width: 100%;
+  }
+
+  .top-header .inner-search-wrapper {
+    width: 100%;
+    display: block;
+  }
+
+  header .menu-icon-theme {
+    width: 55%;
+    display: flex;
+    padding: 0;
+    justify-content: space-between;
+  }
+
+  header .menu-icon {
     display: none;
   }
 
-  .toast-container {
-    width: fit-content;
-  }
-  .search {
-    padding: 0;
-  }
-
   .search-wrapper {
-    position: relative;
-    width: 75%;
-    inset: 0 0;
-    padding: 0;
-    margin: 0;
-    backdrop-filter: blur(5px);
-    background-color: #0315254d;
+    display: none;
   }
 
   .search-input {
@@ -1067,12 +1163,12 @@ footer .footer-section-content.socials .social-link .awesome:hover {
   }
 
   .search-container {
-    top: 4.3rem;
-    padding: 1rem 0rem 0rem 1rem;
+    padding: 0rem 0rem 4rem 1rem;
     transform: translateX(120%);
-    height: calc(100vh - 6rem);
+    top: 6rem;
+    right: 0;
+    width: 75%;
   }
-
   .search-results {
     flex-direction: row;
     flex-wrap: wrap;
@@ -1082,16 +1178,16 @@ footer .footer-section-content.socials .social-link .awesome:hover {
 
   .search-result {
     width: 48%;
-    background-color: var(--secondary-dark);
   }
 
   .sidebar {
     position: fixed;
-    top: 1rem;
+    top: 0rem;
     left: 0;
     transform: translateX(0);
     width: 25%;
     z-index: 1;
+    padding-top: 3rem;
   }
 
   .sidebar .logo {
@@ -1099,10 +1195,17 @@ footer .footer-section-content.socials .social-link .awesome:hover {
   }
 
   main {
-    position: relative;
     transform: translateX(33%);
     width: 75%;
     top: 2rem;
+  }
+
+  .page {
+    margin: 0;
+  }
+
+  .movie {
+    padding: 8rem 0 0 0;
   }
 
   .filter-genres {
@@ -1111,10 +1214,6 @@ footer .footer-section-content.socials .social-link .awesome:hover {
 
   .filter-genres.active {
     max-height: 14rem;
-  }
-
-  .page {
-    margin: 6rem 0;
   }
 
   .auth {
@@ -1127,7 +1226,7 @@ footer .footer-section-content.socials .social-link .awesome:hover {
 
   .homepage {
     width: 100%;
-    padding: 0 1rem;
+    padding: 2rem 1rem;
   }
 
   .movie-header,
@@ -1137,10 +1236,6 @@ footer .footer-section-content.socials .social-link .awesome:hover {
 
   .movie-header .overview {
     max-width: 20rem;
-  }
-
-  .movie {
-    margin: 5rem 0;
   }
 
   .movies-container {
@@ -1155,48 +1250,19 @@ footer .footer-section-content.socials .social-link .awesome:hover {
     padding: 0;
   }
 
-  /* footer {
-    width: 75%;
-    transform: translateX(33%);
-    position: relative;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-
-  footer .footer-section h3 {
-    text-align: left;
-  }
-
-  footer .footer-section-content {
-    text-align: left;
-    align-items: baseline;
-  }
-
-  footer .footer-section-content.socials {
-    flex-direction: column;
-  } */
-
   .discover {
-    padding: 1rem;
+    padding: 8rem 1rem;
+  }
+
+  .watchlist-page {
+    padding: 8rem 1rem;
   }
 }
 
 @media (min-width: 1024px) {
-  /* ::-webkit-scrollbar {
-    width: 6px;
-  
+  header {
+    align-items: center;
   }
-
-  ::-webkit-scrollbar-thumb {
-    background-color: #b6b5b536;
-    border-radius: 0.5rem;
-    width: 2px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(255, 255, 255, 0.63);
-  } */
 
   .sidebar {
     width: 15rem;
@@ -1205,26 +1271,11 @@ footer .footer-section-content.socials .social-link .awesome:hover {
     background-color: transparent;
   }
 
-  .search-wrapper {
-    width: calc(100%);
-    padding-left: 1rem;
-  }
-
-  .input-icon-container {
-    position: absolute;
-    right: 0;
-    width: 50%;
-  }
-
   .search-container {
     padding-top: 2rem;
     height: calc(100vh - 5rem);
-    top: 3rem;
     width: calc(100vw - 15rem);
-  }
-
-  .search-container.active {
-    transform: translateX(8.5%);
+    /* left: -5.6rem; */
   }
 
   .search-result {
@@ -1251,7 +1302,6 @@ footer .footer-section-content.socials .social-link .awesome:hover {
 
   .page {
     max-width: none;
-    margin: 6rem 0;
   }
 
   .page .trailer-video-container {

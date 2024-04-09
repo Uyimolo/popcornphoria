@@ -1,8 +1,7 @@
-import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-regular-svg-icons';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { setShowSearch } from '../features/searchSlice';
 import { useEffect, useRef } from 'react';
 
@@ -11,6 +10,7 @@ const Search = ({}) => {
   const searchResultList = useSelector((state) => state.search.searchResults);
 
   const showSearchResult = useSelector((state) => state.search.showSearch);
+  const dispatch = useDispatch();
 
   const handleCloseSearch = () => {
     dispatch(setShowSearch({ showSearch: false }));
@@ -18,12 +18,9 @@ const Search = ({}) => {
 
   useEffect(() => {
     searchContainerRef.current.scrollTo({ top: 0, behavior: 'smooth' });
-    console.log(searchResultList);
   }, [searchResultList]);
 
-  useEffect(() => {
-    console.log(showSearchResult);
-  }, [showSearchResult]);
+  useEffect(() => {}, [showSearchResult]);
 
   return (
     <div

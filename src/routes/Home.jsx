@@ -1,7 +1,7 @@
-import { useGetAllTrendingQuery } from '../features/apiSlice';
-
 import Trending from '../components/Trending';
 import MovieCarousels from '../components/MovieCarousels';
+
+import { useGetAllTrendingQuery } from '../features/apiSlice';
 
 const Home = () => {
   // handle all queries

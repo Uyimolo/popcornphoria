@@ -26,7 +26,9 @@ const Genres = ({
 
       <div className={`filter-genres ${showGenres ? 'active' : ''}`}>
         <div className='genres-header'>
-          <p className={`reset-filter `} onClick={genre && handleResetGenre}>
+          <p
+            className={`reset-filter `}
+            onClick={() => handleResetGenre(genre)}>
             {genre ? 'Reset filter' : 'Select genre'}
           </p>
         </div>

@@ -1,30 +1,32 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import { auth, googleProvider } from '../firebase/config';
-import {
-  signInWithEmailAndPassword,
-  signInWithPopup,
-  validatePassword,
-} from 'firebase/auth';
+import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+
 import { useDispatch, useSelector } from 'react-redux';
-import { errorMessages } from '../assets/arraysAndObjects/errorMessages';
 import { showToastAlert } from '../features/toastSlice';
+
+import { errorMessages } from '../assets/arraysAndObjects/errorMessages';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignInAlt, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 
 const Login = () => {
+  // route to redirect users to
   const redirectRoute = useSelector((state) => state.auth.redirectRoute);
   const [emailValid, setEmailValid] = useState(false);
   const [passwordValid, setPasswordValid] = useState(false);
+
   const [signinIcon, setSigninIcon] = useState(faSignInAlt);
   const [googleIcon, setGoogleIcon] = useState(faGoogle);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [loginData, setLoginData] = useState({ email: '', password: '' });
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -107,6 +109,8 @@ const Login = () => {
     }
   };
 
+  // show error states and success states in UI
+
   const emailClass =
     loginData.email.length > 0 && emailValid
       ? 'valid'
@@ -126,7 +130,7 @@ const Login = () => {
       <form action='' className='auth'>
         <h3>It's nice to see you again.</h3>
 
-        <label for='email'>Email</label>
+        <label htmlFor='email'>Email</label>
         <input
           id='email'
           className={emailClass}
@@ -142,7 +146,7 @@ const Login = () => {
           </p>
         )}
 
-        <label for='password'>Password</label>
+        <label htmlFor='password'>Password</label>
         <input
           className={passwordClass}
           id='password'
