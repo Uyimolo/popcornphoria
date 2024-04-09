@@ -57,7 +57,7 @@ const HeaderSearchComponent = ({ isSidebarOpen }) => {
   };
 
   return (
-    <div className=''>
+    <div className='inner-search-wrapper'>
       {!location.pathname.includes('/signup') &&
         !location.pathname.includes('/login') &&
         !isSidebarOpen && (

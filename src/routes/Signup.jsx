@@ -1,25 +1,33 @@
 import { useState } from 'react';
+
 import { Link, useNavigate } from 'react-router-dom';
-import { auth, googleProvider } from '../firebase/config';
-import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { showToastAlert } from '../features/toastSlice';
+
+import { auth, googleProvider } from '../firebase/config';
+import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+
 import { errorMessages } from '../assets/arraysAndObjects/errorMessages';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { faSignInAlt, faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 const Signup = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const redirectRoute = useSelector((state) => state.auth.redirectRoute);
 
   const [signupData, setSignupData] = useState({ email: '', password: '' });
+
   const [passwordValidationReport, setPasswordValidationReport] = useState('');
   const [emailValid, setEmailValid] = useState(false);
   const [passwordValid, setPasswordValid] = useState(false);
+
   const [googleIcon, setGoogleIcon] = useState(faGoogle);
   const [signupIcon, setSignupIcon] = useState(faSignInAlt);
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -152,7 +160,7 @@ const Signup = () => {
       );
     }
   };
-
+  // success and error UI states
   const emailClass =
     signupData.email.length > 0 && emailValid
       ? 'valid'

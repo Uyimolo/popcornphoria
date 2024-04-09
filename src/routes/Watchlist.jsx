@@ -6,20 +6,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import WatchlistCard from '../components/WatchlistCard';
 import { useNavigate } from 'react-router-dom';
-// import { showToastAlert } from '../features/toastSlice';
 
 const Watchlist = () => {
   const authenticated = useSelector((state) => state.auth.isSignedin);
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const [watchlist, setWatchlist] = useState(null);
 
-  // Restructured useEffect to handle authentication and data fetching
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        setLoading(true); // Reset loading on state change
+        setLoading(true); 
         const userId = user.uid;
         const watchlistRef = userId
           ? collection(db, 'users', userId, 'watchlist')

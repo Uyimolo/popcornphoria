@@ -8,12 +8,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { removeToast } from './features/toastSlice';
 import { setUserAuthState } from './features/authSlice';
 import { auth } from './firebase/config';
+import Search from './components/Search';
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [showSearchInput, setShowSearchInput] = useState(false);
   const toast = useSelector((state) => state.toast);
   const user = useSelector((state) => state.auth.userEmail);
+  const themeMode = useSelector((state) => state.theme.mode);
   const dispatch = useDispatch();
 
   const location = useLocation();
@@ -43,7 +45,7 @@ function App() {
   }, [user]);
 
   return (
-    <div className='App'>
+    <div className={`App ${themeMode === 'light' ? 'light' : ''}`}>
       {/* custom toasts alerts */}
       <Toast />
       <Header
@@ -61,6 +63,8 @@ function App() {
       <div
         onClick={() => setIsSidebarOpen(false)}
         className={`curtain ${isSidebarOpen ? 'active' : ''}`}></div>
+      {<Search />}
+
       <main>
         <Outlet />
       </main>

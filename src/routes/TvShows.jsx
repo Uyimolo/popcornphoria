@@ -1,6 +1,9 @@
 import { useState } from 'react';
+
 import { useGetTvShowsQuery } from '../features/apiSlice';
-import MovieListPagination from '../components/MovieListPagination';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateGenre } from '../features/filterSlice';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faArrowLeft,
@@ -9,8 +12,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 import { tvShowGenres } from '../assets/arraysAndObjects/tvShowGenres';
-import { useDispatch, useSelector } from 'react-redux';
-import { updateGenre } from '../features/filterSlice';
+
+import MovieListPagination from '../components/MovieListPagination';
 import Genres from '../components/Genres';
 
 const TvShows = () => {
@@ -36,9 +39,11 @@ const TvShows = () => {
     // window.scrollTo({ top: '10rem', behavior: 'smooth' });
   };
 
-  const handleResetGenre = () => {
-    dispatch(updateGenre({ category: 'tvShows', genre: '' }));
-    setShowGenres(false);
+  const handleResetGenre = (isGenre) => {
+    if (isGenre) {
+      dispatch(updateGenre({ category: 'tvShows', genre: '' }));
+      setShowGenres(false);
+    }
   };
 
   const handleNavigationPagination = (mode, value) => {
@@ -53,8 +58,6 @@ const TvShows = () => {
 
   return (
     <div className='movie'>
-     
-
       <Genres
         genre={genre}
         genresList={tvShowGenres}

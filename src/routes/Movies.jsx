@@ -1,16 +1,20 @@
 import { useState } from 'react';
+
+import MovieListPagination from '../components/MovieListPagination';
+import Genres from '../components/Genres';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { updateGenre } from '../features/filterSlice';
 import { useGetMoviesQuery } from '../features/apiSlice';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faArrowLeft,
   faArrowRight,
   faSpinner,
 } from '@fortawesome/free-solid-svg-icons';
-import MovieListPagination from '../components/MovieListPagination';
+
 import { movieGenres } from '../assets/arraysAndObjects/movieGenres';
-import Genres from '../components/Genres';
 
 const Movies = () => {
   const [pageNumber, setPageNumber] = useState(1);
@@ -36,10 +40,12 @@ const Movies = () => {
     window.scrollTo({ top: '10rem', behavior: 'smooth' });
   };
 
-  const handleResetGenre = () => {
-    dispatch(updateGenre({ category: 'movies', genre: '' }));
-    console.log(genre);
-    setShowGenres(false);
+  const handleResetGenre = (isGenre) => {
+    if (isGenre) {
+      dispatch(updateGenre({ category: 'movies', genre: '' }));
+      console.log(genre);
+      setShowGenres(false);
+    }
   };
 
   const handleNavigationPagination = (mode, value) => {
@@ -54,8 +60,6 @@ const Movies = () => {
 
   return (
     <div className='movie'>
-      
-
       <Genres
         genre={genre}
         genresList={movieGenres}

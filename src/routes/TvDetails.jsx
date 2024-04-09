@@ -1,15 +1,18 @@
 import { useParams } from 'react-router';
+
 import {
   useGetSimilarTvShowsQuery,
   useGetTvShowDetailQuery,
   useGetTvShowVideosQuery,
   useGetTvShowCreditsQuery,
 } from '../features/apiSlice';
+
 import MovieCarousels from '../components/MovieCarousels';
 import AddToWatchlist from '../components/AddToWatchlist';
+import ShareMovie from '../components/ShareMovie';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-import ShareMovie from '../components/ShareMovie';
 
 const TvDetails = () => {
   const { tvId } = useParams();
@@ -97,7 +100,10 @@ const TvDetails = () => {
               } ${
                 tvShow.number_of_seasons < 2 ? 'season' : 'seasons'
               } | ${tvShow.vote_average.toFixed(1)} stars`}</p>
-              <ShareMovie name={tvShow.name} link={`https://popcornphoria.vercel.app/tv/${tvShow.id}`} />
+              <ShareMovie
+                name={tvShow.name}
+                link={`https://popcornphoria.vercel.app/tv/${tvShow.id}`}
+              />
             </div>
 
             <div className='genres'>
