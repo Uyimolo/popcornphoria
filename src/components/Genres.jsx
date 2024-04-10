@@ -9,7 +9,7 @@ const Genres = ({
 }) => {
   return (
     <div className='genres-container'>
-      <h3>{type === 'movies' ? 'Movies' : 'TV Shows'}</h3>
+      <h2>{type === 'movies' ? 'Movies' : 'TV Shows'}</h2>
 
       <div className='title_with_genres'>
         <p className=''>{`${

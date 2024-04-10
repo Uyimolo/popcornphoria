@@ -45,7 +45,7 @@ const Watchlist = () => {
 
   return (
     <div className='page watchlist-page'>
-      <h3>My watchlist</h3>
+      <h2>My watchlist</h2>
       <div className='watchlist-card-container'>
         {loading ? (
           <div className='spinner-center'>

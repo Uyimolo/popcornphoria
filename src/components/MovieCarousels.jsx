@@ -25,7 +25,7 @@ const MovieCarousels = ({ movieData, carouselTitle, type }) => {
             navigation: true,
           },
           1024: {
-            slidesPerView: 7.4,
+            slidesPerView: 6.4,
             spaceBetween: 10,
           },
         })}>
