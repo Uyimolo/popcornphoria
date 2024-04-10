@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import LazyCarouselImage from './LazyCarouselImage';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faClock,
-  faCrown,
+  
   faDumpster,
   faSpinner,
 } from '@fortawesome/free-solid-svg-icons';
