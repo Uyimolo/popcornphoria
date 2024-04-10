@@ -92,7 +92,7 @@ const MovieDetails = () => {
               } | ${movie.vote_average.toFixed(1)} stars`}</p>
 
               <ShareMovie
-                name={movie.name}
+                name={movie.title}
                 link={`https://popcornphoria.vercel.app/movie/${movie.id}`}
               />
             </div>
