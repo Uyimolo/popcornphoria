@@ -35,17 +35,21 @@ import {
   updateSearchTerm,
 } from '../features/searchSlice';
 
+import displayPictureWhite from '../assets/images/dp_white.svg';
+import displayPicture from '../assets/images/dp.svg';
+
 const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, setShowSearchInput }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const online = useSelector((state) => state.auth.isSignedin);
+  const theme = useSelector((state) => state.theme.mode);
 
   const menuContent = [
     { name: 'Home', icon: faHome, to: '/' },
-    { name: 'Browse Movies', icon: faFilm, to: '/movie' },
-    { name: 'Browse TV Shows', icon: faTelevision, to: '/tv' },
-    { name: 'Watchlist', icon: faBookmark, to: '/watchlist' },
+    { name: 'Explore Movies', icon: faFilm, to: '/movie' },
+    { name: 'Explore TV Shows', icon: faTelevision, to: '/tv' },
+    { name: 'My Watchlist', icon: faBookmark, to: '/watchlist' },
     { name: 'Discover', icon: faClock, to: '/discover' },
   ];
 
@@ -104,6 +108,10 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, setShowSearchInput }) => {
     <aside className={`sidebar ${isSidebarOpen ? 'active' : ''}`}>
       <Logo click={handleDisplayRoute} />
       <div className='sidebar-content-wrapper'>
+       {online && <div className='user-profile'>
+          <img src={theme === 'light' ? displayPicture : displayPictureWhite} alt='' className='profile-image awesome' />
+          <p>{auth.currentUser?.email.split('@')[0].toUpperCase()}</p>
+        </div>}
         <SidebarSection
           sectionHeading='Menu'
           content={menuContent}
@@ -128,8 +136,6 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, setShowSearchInput }) => {
           handleDisplayRoute={handleDisplayRoute}
         />
       </div>
-
-      
     </aside>
   );
 };

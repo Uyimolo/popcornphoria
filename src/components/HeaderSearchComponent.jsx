@@ -58,43 +58,41 @@ const HeaderSearchComponent = ({ isSidebarOpen }) => {
 
   return (
     <div className='inner-search-wrapper'>
-      {!location.pathname.includes('/signup') &&
-        !location.pathname.includes('/login') &&
-        !isSidebarOpen && (
-          <div className='search'>
-            <div className='input-icon-container'>
-              <input
-                type='text'
-                className='search-input'
-                id='search-input'
-                placeholder='Search movies and TV shows'
-                value={searchTerm}
-                onInput={(e) =>
-                  dispatch(updateSearchTerm({ searchTerm: e.target.value }))
-                }
-                onChange={(e) =>
-                  dispatch(updateSearchTerm({ searchTerm: e.target.value }))
-                }
-                onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-              />
+      {!isSidebarOpen && (
+        <div className='search'>
+          <div className='input-icon-container'>
+            <input
+              type='text'
+              className='search-input'
+              id='search-input'
+              placeholder='Search movies and TV shows'
+              value={searchTerm}
+              onInput={(e) =>
+                dispatch(updateSearchTerm({ searchTerm: e.target.value }))
+              }
+              onChange={(e) =>
+                dispatch(updateSearchTerm({ searchTerm: e.target.value }))
+              }
+              onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+            />
 
+            <FontAwesomeIcon
+              className={`search-icon awesome ${
+                searchIcon === faSpinner ? 'rotate' : ''
+              }`}
+              icon={searchIcon}
+            />
+
+            {showSearchResult && (
               <FontAwesomeIcon
-                className={`search-icon awesome ${
-                  searchIcon === faSpinner ? 'rotate' : ''
-                }`}
-                icon={searchIcon}
+                className='close-search awesome'
+                icon={faClose}
+                onClick={handleClearSearch}
               />
-
-              {showSearchResult && (
-                <FontAwesomeIcon
-                  className='close-search awesome'
-                  icon={faClose}
-                  onClick={handleClearSearch}
-                />
-              )}
-            </div>
+            )}
           </div>
-        )}
+        </div>
+      )}
     </div>
   );
 };
