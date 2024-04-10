@@ -6,6 +6,9 @@ const CarouselTile = ({ imagePath }) => {
         alt=''
         loading="lazy"
       />
+      <div className="details">
+        <p>love</p>
+      </div>
     </div>
   );
 };

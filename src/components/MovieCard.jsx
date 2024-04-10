@@ -18,10 +18,15 @@ const MovieCard = ({ movie, type }) => {
       {isLoading ? (
         <div className='lazy-carousel-image'></div>
       ) : (
-        <img
-          src={`https://image.tmdb.org/t/p/w200${poster_path}`}
-          alt={`${title}`}
-        />
+        <div className='movie-card-inner-wrapper'>
+          <img
+            src={`https://image.tmdb.org/t/p/w200${poster_path}`}
+            alt={`${title}`}
+          />
+          <p className='vote-average'>
+            {movie.vote_average === 0 ? 'NR' : movie.vote_average.toFixed(1)}
+          </p>
+        </div>
       )}
     </Link>
   );

@@ -13,6 +13,11 @@ const Home = () => {
 
   return (
     <div className='homepage'>
+      <div className="welcome-message">
+        <h1>Welcome.</h1>
+        <h2>Millions of movies, TV shows await your discovery.  Explore now.</h2>
+      </div>
+
       {isTrendingLoading ? (
         <div className='header-placeholder'></div>
       ) : (

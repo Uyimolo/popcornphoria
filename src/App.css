@@ -111,16 +111,16 @@
   color: white;
 }
 
- .App.light .search-result-details:hover  {
+.App.light .search-result-details:hover {
   background-color: transparent;
- }
+}
 
 .App.light .search-result-details:hover p {
   color: white;
 }
 
 .App.light .movie-header .movie-info {
-  background-image: linear-gradient(45deg, #00000098 20%, #b2b2b300) ;
+  background-image: linear-gradient(45deg, #00000098 20%, #b2b2b300);
 }
 
 .App.light .movie-header .movie-info p {
@@ -707,7 +707,30 @@ header .light-dark-mode .awesome {
 .homepage {
   display: flex;
   flex-direction: column;
-  padding-top: 10rem;
+  padding-top: 8rem;
+  gap: 2rem;
+}
+
+.homepage .welcome-message {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  /* margin-top: 2rem; */
+  padding: 2rem 1rem 0;
+  background-size: cover;
+  background-position: center;
+  /* background: 
+  rgba(0, 0, 0, 0.541)
+  url('./assets/images/popcorn.jpg');  */
+}
+
+.homepage .welcome-message h2 {
+  line-height: 1.3;
+  color: var(--gray);
+}
+
+.App.light .homepage .welcome-message h2 {
+  color: #666;
 }
 
 .homepage-carousels {
@@ -723,22 +746,55 @@ header .light-dark-mode .awesome {
   flex-direction: column;
   gap: 1rem;
   background-color: transparent;
+  /* overflow: visible; */
 }
 
 swiper-container {
   border-radius: 0.3rem 0.5rem 0.8rem 0.3rem;
-  overflow: hidden;
+  overflow-x: hidden;
   z-index: 0;
 }
 
 swiper-slide {
-  overflow: hidden;
+  /* overflow-x: hidden; */
+  position: relative;
+}
+
+swiper-slide .title {
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+swiper-slide .date {
+  font-size: .8rem;
+}
+
+.carousel-image-wrapper {
+  position: relative;
+}
+
+.carousel-image-wrapper .vote-average, .movie-card-inner-wrapper .vote-average {
+  position: absolute;
+  bottom: -0.5rem;
+  right: 0.2rem;
+  width: 1.7rem;
+  height: 1.7rem;
+  background-color: rgb(255, 21, 21);
+  border-radius: 50%;
+  display: grid;
+  place-content: center;
+  font-size: .7em;
+}
+
+.App.light .carousel-image-wrapper .vote-average, .App.light .movie-card-inner-wrapper .vote-average{
+color: white;
 }
 
 swiper-slide img {
   width: 100%;
   height: 100%;
   border-radius: 0.3rem;
+  box-shadow: var(--box-shadow);
 }
 /* placeholder to show while carousel images are loading */
 .lazy-carousel-image {
@@ -747,6 +803,7 @@ swiper-slide img {
   height: 100%;
   background-color: white;
   animation: placeholderAnimation 2s ease-in-out infinite;
+  position: relative;
 }
 
 .auth {
@@ -1000,6 +1057,7 @@ swiper-slide img {
   width: calc(90% / 3);
   aspect-ratio: 2/3;
   border-radius: 0.5rem;
+  position: relative;
 }
 
 .movie-card:hover {
@@ -1226,12 +1284,17 @@ swiper-slide img {
 
   .homepage {
     width: 100%;
+    padding: 6rem 1rem;
+    gap: 0;
+  }
+
+  .homepage .welcome-message {
     padding: 2rem 1rem;
   }
 
   .movie-header,
   .header-placeholder {
-    margin: 6rem 0 2rem;
+    margin: 0rem 0 2rem;
   }
 
   .movie-header .overview {
