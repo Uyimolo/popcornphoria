@@ -677,9 +677,9 @@ header .light-dark-mode .awesome {
   width: 100%;
 }
 /* shows header image using backdrop_path in desktop view */
-.header-image-desktop {
+/* .header-image-desktop {
   display: none;
-}
+} */
 
 .movie-header .movie-info {
   position: absolute;
@@ -1391,13 +1391,13 @@ swiper-slide img {
     width: 32%;
   }
 
-  .header-image-mobile {
+  /* .header-image-mobile {
     display: none;
-  }
+  } */
 
-  .header-image-desktop {
+  /* .header-image-desktop {
     display: block;
-  }
+  } */
 
   .filter-genres.active {
     max-height: 11rem;
