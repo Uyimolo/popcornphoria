@@ -16,6 +16,12 @@ const ShareMovie = ({ name, link }) => {
           url: link,
         });
       } else {
+        dispatch(
+          showToastAlert({
+            type: 'error',
+            message: 'Web Share API is not supported in this browser.',
+          })
+        );
         throw new Error('Web Share API is not supported in this browser.');
       }
     } catch (error) {

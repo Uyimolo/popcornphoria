@@ -16,7 +16,7 @@ const Watchlist = () => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        setLoading(true); 
+        setLoading(true);
         const userId = user.uid;
         const watchlistRef = userId
           ? collection(db, 'users', userId, 'watchlist')
@@ -54,9 +54,9 @@ const Watchlist = () => {
         ) : !watchlist || watchlist.length < 1 ? (
           <p className='watchlist-placeholder'>{'Watchlist is empty'}</p>
         ) : (
-          watchlist.map((movie) => (
-            <WatchlistCard key={movie.id} movie={movie} />
-          ))
+          watchlist
+            .sort((a, b) => b.date_added - a.date_added)
+            .map((movie) => <WatchlistCard key={movie.id} movie={movie} />)
         )}
       </div>
       {!authenticated && !loading && (
