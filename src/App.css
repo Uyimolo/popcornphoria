@@ -562,7 +562,7 @@ header .light-dark-mode .awesome {
   display: flex;
   flex-direction: column;
   gap: 3rem;
-  padding: 1rem 1rem 5rem;
+  padding: 3rem 1rem 5rem;
   overflow-y: scroll;
   height: 100%;
 }
@@ -900,19 +900,6 @@ swiper-slide img {
 .auth .valid-email {
   text-align: right;
   font-size: var(--small-font-size);
-}
-
-.auth button {
-  border-radius: 0.5rem;
-  padding: 0.7rem;
-  background-color: var(--secondary-color);
-  border: none;
-  transition: 0.5s;
-}
-
-.auth button:hover {
-  background-color: var(--primary-color);
-  color: var(--black);
 }
 
 .auth .or {
