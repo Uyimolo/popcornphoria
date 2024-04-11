@@ -26,23 +26,24 @@ const MovieHeader = ({ movieData }) => {
   const film_title = media_type === 'movie' ? title : name;
 
   const isMobileDevice = () => {
-    return window.matchMedia('@media (max-width: 1023px)').matches;
+    return window.matchMedia('(max-width: 1023px)').matches;
   };
 
   useEffect(() => {
+    console.log(isMobileDevice());
     setImagePath(
       isMobileDevice()
-        ? `https://image.tmdb.org/t/p/w780${poster_path}`
+        ? `https://image.tmdb.org/t/p/w500${poster_path}`
         : `https://image.tmdb.org/t/p/w780${backdrop_path}`
     );
-  }, []);
+  }, [poster_path, backdrop_path]);
 
   return (
     <div className='movie-header'>
       <img
         className='header-image'
         src={`${imagePath}`}
-        alt={`${film_title}`}
+        alt={`${imagePath && film_title}`}
       />
 
       <div className='movie-info'>
