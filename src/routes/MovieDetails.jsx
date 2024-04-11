@@ -127,7 +127,7 @@ const MovieDetails = () => {
             <div className='similar-movies'>
               <MovieCarousels
                 movieData={similarMoviesData.results}
-                carouselTitle='Similar movies'
+                carouselTitle='More like this'
                 type='movie'
               />
             </div>

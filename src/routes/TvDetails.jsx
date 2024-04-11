@@ -136,7 +136,7 @@ const TvDetails = () => {
             <div className='similar-tv-'>
               <MovieCarousels
                 movieData={similarTvshows}
-                carouselTitle='Similar tv shows'
+                carouselTitle='More like this'
                 type='tv'
               />
             </div>
