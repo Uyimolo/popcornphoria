@@ -123,7 +123,7 @@ const MovieDetails = () => {
             <p className='overview'>{movie.overview}</p>
           </div>
 
-          {similarMovieSuccess && (
+          {similarMovieSuccess && similarMoviesData.results > 0 && (
             <div className='similar-movies'>
               <MovieCarousels
                 movieData={similarMoviesData.results}
