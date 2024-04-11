@@ -107,11 +107,18 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, setShowSearchInput }) => {
   return (
     <aside className={`sidebar ${isSidebarOpen ? 'active' : ''}`}>
       <Logo click={handleDisplayRoute} />
-      <div className='sidebar-content-wrapper'>
-       {online && <div className='user-profile'>
-          <img src={theme === 'light' ? displayPicture : displayPictureWhite} alt='' className='profile-image awesome' />
+      <div className='logo'></div>
+      {online && (
+        <div className='user-profile'>
+          <img
+            src={theme === 'light' ? displayPicture : displayPictureWhite}
+            alt=''
+            className='profile-image awesome'
+          />
           <p>{auth.currentUser?.email.split('@')[0].toUpperCase()}</p>
-        </div>}
+        </div>
+      )}
+      <div className='sidebar-content-wrapper'>
         <SidebarSection
           sectionHeading='Menu'
           content={menuContent}

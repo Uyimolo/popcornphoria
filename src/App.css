@@ -14,9 +14,11 @@
   --modal-background: #e0dddd91;
   --secondary-color: #2241a8;
   --secondary-transparent: #2241a869;
+  --secondary-transparent-light: #003366b4;
   --button-disabled: rgba(146, 146, 146, 0.479);
   --secondary-dark: #02091b;
   --text-color: #d8d8d8;
+  --text-color-light: #333333;
   --heading-color: #ffffff;
   --black: #000000;
   --black-transparent: #0000006c;
@@ -38,7 +40,7 @@
 
 .App.light p,
 .App.light .awesome {
-  color: #000000;
+  color: var(--text-color-light);
 }
 
 .App.light h1,
@@ -47,7 +49,7 @@
   color: #003366;
 }
 .App.light label {
-  color: black;
+  color: var(--text-color-light);
 }
 
 .App.light button {
@@ -66,7 +68,7 @@
   color: white;
 }
 .App.light header {
-  background-color: var(--secondary-transparent);
+  background-color: var(--secondary-transparent-light);
 }
 
 .App.light .logo p {
@@ -87,11 +89,10 @@
 
 .App.light .curtain {
   background-color: var(--secondary-transparent);
- 
 }
 
 .App.light .sidebar .logo p {
-  color: #333333;
+  color: var(--text-color-light);
 }
 
 .App.light .search-input {
@@ -122,7 +123,7 @@
 .App.light .search-result:hover {
   /* background-color: var(--secondary-transparent); */
   color: white;
-  background-color: rgba(0, 0, 0, 0.384);
+  background-color: rgba(0, 0, 0, 0.274);
 }
 
 .App.light .search-result:hover .search-result-details p {
@@ -500,7 +501,7 @@ header {
 }
 
 .search-result img {
-  border-radius: 0.5rem 0 0 0.5rem;
+  border-radius: 0.5rem;
   width: 6rem;
   height: 9rem;
 }
@@ -543,7 +544,7 @@ header .light-dark-mode .awesome {
   position: fixed;
   top: 0;
   transform: translateX(-100%);
-  padding: 2rem 0rem 1rem 1rem;
+  padding: 2rem 0rem 1rem 0rem;
   background-color: var(--background-color);
   transition: 0.5s;
   height: 100vh;
@@ -552,27 +553,42 @@ header .light-dark-mode .awesome {
   z-index: 2;
 }
 
+.sidebar .logo {
+  padding-left: 0.5rem;
+}
+
 .sidebar-content-wrapper {
-  margin-top: 0.5rem;
+  /* margin-top: 0.5rem; */
   display: flex;
   flex-direction: column;
   gap: 3rem;
-  padding-top: 4rem;
+  padding: 1rem 1rem 5rem;
   overflow-y: scroll;
   height: 100%;
-  padding-bottom: 5rem;
 }
 
 .sidebar .user-profile {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  gap: 0.2rem;
+  justify-content: left;
   align-items: center;
-  width: fit-content;
+  margin-top: 2rem;
+  margin-right: 1rem;
+  border-radius: 0.5rem;
+  padding: 0.3rem 1rem;
+  cursor: pointer;
+}
+
+.sidebar .user-profile:hover {
+  background-color: var(--secondary-transparent);
 }
 
 .sidebar .user-profile img {
   width: 3rem;
+}
+
+.sidebar .user-profile p {
+  font-weight: bold;
 }
 
 .sidebar .awesome {
@@ -1100,6 +1116,7 @@ swiper-slide img {
   aspect-ratio: 2/3;
   border-radius: 0.5rem;
   position: relative;
+  box-shadow: var(--box-shadow);
 }
 
 .movie-card:hover {
@@ -1233,7 +1250,7 @@ swiper-slide img {
 
   header {
     justify-content: space-between;
-    height: 6rem;
+    height: fit-content;
     align-items: center;
     z-index: 2;
   }
@@ -1298,6 +1315,10 @@ swiper-slide img {
     display: none;
   }
 
+  .sidebar .user-profile {
+    margin-top: 3rem;
+  }
+
   main {
     transform: translateX(33%);
     width: 75%;
@@ -1309,7 +1330,7 @@ swiper-slide img {
   }
 
   .movie {
-    padding: 8rem 0 0 0;
+    padding: 7rem 0 0 0;
   }
 
   .filter-genres {
@@ -1330,12 +1351,12 @@ swiper-slide img {
 
   .homepage {
     width: 100%;
-    padding: 6rem 1rem;
+    padding: 5rem 1rem;
     gap: 0;
   }
 
   .homepage .welcome-message {
-    padding: 2rem 1rem;
+    padding: 2rem 0rem;
   }
 
   .movie-header,
@@ -1360,11 +1381,11 @@ swiper-slide img {
   }
 
   .discover {
-    padding: 8rem 1rem;
+    padding: 7rem 1rem;
   }
 
   .watchlist-page {
-    padding: 8rem 1rem;
+    padding: 7rem 1rem;
   }
 }
 
@@ -1390,14 +1411,6 @@ swiper-slide img {
   .search-result {
     width: 32%;
   }
-
-  /* .header-image-mobile {
-    display: none;
-  } */
-
-  /* .header-image-desktop {
-    display: block;
-  } */
 
   .filter-genres.active {
     max-height: 11rem;
@@ -1435,24 +1448,23 @@ swiper-slide img {
 
   .auth-page {
     display: flex;
-flex-direction: row-reverse;
-align-items:center ;
-justify-content: space-between;
-padding-top: 7rem;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 7rem;
   }
 
   .auth-page img {
-    display:block;
+    display: block;
     width: 50%;
     max-width: 30rem;
     /* display: none; */
   }
 
   .auth-page .auth {
-  width: 50%;
-  margin: 0;
+    width: 50%;
+    margin: 0;
   }
-
 
   .watchlist-card-container {
     gap: 1rem 5%;

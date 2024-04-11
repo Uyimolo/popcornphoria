@@ -30,7 +30,6 @@ const MovieHeader = ({ movieData }) => {
   };
 
   useEffect(() => {
-    console.log(isMobileDevice());
     setImagePath(
       isMobileDevice()
         ? `https://image.tmdb.org/t/p/w500${poster_path}`
