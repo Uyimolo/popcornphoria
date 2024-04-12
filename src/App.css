@@ -532,7 +532,7 @@ header .light-dark-mode .awesome {
   position: fixed;
   top: 0;
   transform: translateX(-100%);
-  padding: 2rem 0rem 1rem 0rem;
+  padding: 2rem 0rem 5rem 0rem;
   background-color: var(--background-color);
   transition: 0.5s;
   height: 100vh;
