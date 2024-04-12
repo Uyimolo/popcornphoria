@@ -447,7 +447,7 @@ header {
   display: flex;
   flex-direction: column;
   border-radius: 1rem;
-  padding: .5rem;
+  padding: 0.5rem;
   gap: 1rem;
   /* background-color: yellow; */
 }
@@ -456,12 +456,11 @@ header {
   box-shadow: 2px 2px 15px var(--secondary-transparent);
 }
 
-
 .search-result .search-result-details {
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding:0 1rem;
+  padding: 0 1rem;
   border-radius: 0 0.5rem 0.5rem 0;
   transition: 0.5s;
 }
@@ -483,15 +482,14 @@ header {
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
-  font-weight:bold;
+  font-weight: bold;
   font-size: 1.2em;
 }
 
 .search-result img {
-  border-radius: .7rem;
+  border-radius: 0.7rem;
   width: 100%;
 }
-
 
 /* theme icons */
 header .menu-icon-theme {
@@ -546,7 +544,6 @@ header .light-dark-mode .awesome {
 }
 
 .sidebar-content-wrapper {
-  /* margin-top: 0.5rem; */
   display: flex;
   flex-direction: column;
   gap: 3rem;
@@ -1163,25 +1160,24 @@ swiper-slide img {
 .watchlist-card-container {
   width: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   gap: 2rem;
 }
 
 .watchlist-movie-card {
   display: flex;
-  padding: .5rem;
-border-radius: 1rem;
-/* align-items: center; */
+  padding: 0.5rem;
+  border-radius: 1rem;
 }
 
 .watchlist-movie-card:hover {
-  /* background-color: rgba(0, 0, 0, 0.384); */
   box-shadow: 1px 1px 10px var(--secondary-transparent);
 }
 
 .watchlist-movie-card img {
   width: 9rem;
-  border-radius: .7rem;
+  border-radius: 0.7rem;
 }
 
 .watchlist-image-placeholder {
@@ -1448,8 +1444,6 @@ border-radius: 1rem;
 
   .watchlist-card-container {
     gap: 1rem 5%;
-    flex-direction: row;
-    flex-wrap: wrap;
   }
 
   .watchlist-movie-card {
